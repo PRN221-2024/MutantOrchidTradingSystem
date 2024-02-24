@@ -1,0 +1,69 @@
+﻿@page
+@model PhanSyTrongRazorPage.Pages.Admin.ManageBooking.BookingCreateModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Create a new Booking</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            @{
+                if (ViewData["Message"] != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @ViewData["Message"]
+                    </div>
+                }
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger fw-bold"></div>
+            <div class="form-group">
+                <label asp-for="booking.BookingReservationId" class="control-label"></label>
+                <span asp-validation-for="booking.BookingReservationId" class="text-danger fw-bold"></span>
+                <input asp-for="booking.BookingReservationId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="booking.CustomerId" class="control-label"></label>
+                <span asp-validation-for="booking.CustomerId" class="text-danger fw-bold"></span>
+                <input asp-for="booking.CustomerId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="booking.RoomId" class="control-label"></label>
+                <span asp-validation-for="booking.RoomId" class="text-danger fw-bold"></span>
+                <input asp-for="booking.RoomId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="booking.StartDate" class="control-label"></label>
+                <span asp-validation-for="booking.StartDate" class="text-danger fw-bold"></span>
+                <input asp-for="booking.StartDate" class="form-control" type="date" />
+            </div>
+            <div class="form-group">
+                <label asp-for="booking.EndDate" class="control-label"></label>
+                <span asp-validation-for="booking.EndDate" class="text-danger fw-bold"></span>
+                <input asp-for="booking.EndDate" class="form-control" type="date" />
+            </div>
+            <div class="form-group">
+                <label asp-for="booking.TotalPrice" class="control-label"></label>
+                <span asp-validation-for="booking.TotalPrice" class="text-danger fw-bold"></span>
+                <input asp-for="booking.TotalPrice" class="form-control" />
+            </div
+            <div class="form-group">
+                <label asp-for="booking.ActualPrice" class="control-label"></label>
+                <span asp-validation-for="booking.ActualPrice" class="text-danger fw-bold"></span>
+                <input asp-for="booking.ActualPrice" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary mt-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

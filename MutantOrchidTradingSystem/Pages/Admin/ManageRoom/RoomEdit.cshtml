@@ -1,0 +1,59 @@
+﻿@page
+@model PhanSyTrongRazorPage.Pages.Admin.ManageRoom.RoomEditModel
+@{
+	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Update Room</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            @{
+                if (ViewData["Message"] != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @ViewData["Message"]
+                    </div>
+                }
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger fw-bold"></div>
+            <div class="form-group">
+                <label asp-for="room.RoomNumber" class="control-label"></label>
+                <span asp-validation-for="room.RoomNumber" class="text-danger fw-bold"></span>
+                <input asp-for="room.RoomNumber" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="room.RoomDetailDescription" class="control-label"></label>
+                <span asp-validation-for="room.RoomDetailDescription" class="text-danger fw-bold"></span>
+                <input asp-for="room.RoomDetailDescription" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="room.RoomMaxCapacity" class="control-label"></label>
+                <span asp-validation-for="room.RoomMaxCapacity" class="text-danger fw-bold"></span>
+                <input asp-for="room.RoomMaxCapacity" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="room.RoomTypeId" class="control-label"></label>
+                <span asp-validation-for="room.RoomTypeId" class="text-danger fw-bold"></span>
+                <input asp-for="room.RoomTypeId" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="room.RoomPricePerDay" class="control-label"></label>
+                <span asp-validation-for="room.RoomPricePerDay" class="text-danger fw-bold"></span>
+                <input asp-for="room.RoomPricePerDay" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary mt-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

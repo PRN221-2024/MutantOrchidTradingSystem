@@ -1,0 +1,98 @@
+﻿@page
+@model PhanSyTrongRazorPage.Pages.Admin.ManageCustomer.ListCustomerModel
+@{
+	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="row justify-content-lg-start">
+				<div class="col-4 justify-content-around d-md-inline-flex">
+					<h3>Booking list</h3>
+					<a asp-page="./RoomCreate" class="btn btn-outline-success "><i class="fa-solid fa-plus"></i></a>
+				</div>
+				<div class="col-8">
+					<form class="d-md-inline-flex" role="search" method="post">
+						<input style="margin-left: 6px" class="form-control me-2" type="search" placeholder="Enter customer name..." aria-label="Search" asp-for="Keyword">
+						<button class="btn btn-primary" style="color: #fff" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br />
+@if (Model.Customer == null || !Model.Customer.Any())
+{
+	if (Model.isSearch)
+	{
+		<p>No customer list found!</p>
+	}
+	else
+	{
+		<p>List customer is empty!</p>
+	}
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Customer[0].CustomerId)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Customer[0].CustomerFullName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Customer[0].Telephone)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Customer[0].EmailAddress)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Customer[0].CustomerBirthday)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Customer[0].CustomerStatus)
+				</th>
+
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Customer)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerId)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerFullName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Telephone)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.EmailAddress)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerBirthday)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerStatus)
+					</td>
+
+					<td>
+						<a asp-page="./CustomerEdit" asp-route-id="@item.CustomerId" class="btn btn-outline-success"><i class="fa-sharp fa-solid fa-pen-to-square"></i></a>
+						<a asp-page="./CustomerDelete" asp-route-id="@item.CustomerId" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
