@@ -5,10 +5,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<AuthenticationObject>();
-builder.Services.AddScoped<CustomerObject>();
-builder.Services.AddScoped<RoomObject>();
-builder.Services.AddScoped<BookingObject>();
 
 builder.Services.AddSession(options =>
 {
@@ -41,7 +37,7 @@ app.UseAuthorization();
 
 app.MapGet("/", context =>
 {
-    context.Response.Redirect("/Login");
+    context.Response.Redirect("/Index");
     return Task.CompletedTask;
 });
 
