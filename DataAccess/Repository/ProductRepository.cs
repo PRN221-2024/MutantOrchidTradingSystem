@@ -13,16 +13,21 @@ namespace DataAccess.Repository
 
         public ProductRepository()
         {
-        }
-
-        public ProductRepository(AuctionItemDBContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = new AuctionItemDBContext();
         }
 
         public List<Product> GetAll()
         {
-            return _context.Products.ToList();
+            try
+            {
+                var ProductList = _context.Products.ToList();
+                return ProductList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAll - ProductRepository: {ex.Message}");
+                throw;
+            }
         }
 
     }
