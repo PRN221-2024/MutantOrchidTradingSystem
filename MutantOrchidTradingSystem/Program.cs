@@ -1,10 +1,13 @@
 ﻿using BusinessObject;
 using DataAccess.Models;
+using DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<AuctionItemDBContext>();
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<ProductObject>();
+builder.Services.AddScoped<ProductRepository>();
 
 builder.Services.AddSession(options =>
 {
@@ -13,27 +16,25 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 app.UseRouting();
 app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapRazorPages();
 });
-
-app.UseRouting();
-
-app.UseAuthorization();
 
 app.MapGet("/", context =>
 {
@@ -41,6 +42,5 @@ app.MapGet("/", context =>
     return Task.CompletedTask;
 });
 
-app.MapRazorPages();
-
 app.Run();
+
