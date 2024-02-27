@@ -19,6 +19,7 @@ public class Startup
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionStr")));
         services.AddScoped<ProductObject>();
         services.AddScoped<ProductRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
