@@ -1,46 +1,14 @@
-﻿using BusinessObject;
-using DataAccess.Models;
-using DataAccess.Repository;
-
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<AuctionItemDBContext>();
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddScoped<ProductObject>();
-builder.Services.AddScoped<ProductRepository>();
-
-builder.Services.AddSession(options =>
+﻿public class Program
 {
-    // configure session options here if needed
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }
-
-app.UseRouting();
-app.UseSession();
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapRazorPages();
-});
-
-app.MapGet("/", context =>
-{
-    context.Response.Redirect("/Index");
-    return Task.CompletedTask;
-});
-
-app.Run();
-

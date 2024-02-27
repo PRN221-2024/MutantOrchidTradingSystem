@@ -30,5 +30,9 @@ namespace DataAccess.Repository
             }
         }
 
+        public Product GetById(int productId)
+        {
+            return _context.Products.FirstOrDefault(p => p.Id == productId);
+        }
     }
 }

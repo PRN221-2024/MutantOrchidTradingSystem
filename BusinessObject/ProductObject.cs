@@ -13,13 +13,13 @@ namespace BusinessObject
     {
         private readonly ProductRepository _productRepository;
 
-        private IMapper _mapper;
-
         public ProductObject()
         {
             _productRepository = new ProductRepository();
         }
 
         public List<Product> GetAllProducts() => _productRepository.GetAll();
+
+        public Product GetById(int productId) => _productRepository.GetById(productId);
     }
 }

@@ -10,6 +10,7 @@ namespace DataAccess.Repository
     public interface IProductRepository
     {
         List<Product> GetAll();
+        Product GetById(int productId);
 
     }
 }
