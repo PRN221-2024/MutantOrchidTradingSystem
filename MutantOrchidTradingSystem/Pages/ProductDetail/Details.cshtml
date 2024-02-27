@@ -187,18 +187,18 @@
                 <h3 class="font-weight-semi-bold mb-4">@Model.Product.Price</h3>
                 <p class="mb-4">@Model.Product.Description</p>
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
+                    <div class="input-group col-md-5" style="float: left;">
+                        <span class="input-group-addon">
+                            <a id="minQuantity" href="javascript:void(0)" class="btn btn-primary btn-minus">
                                 <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
+                            </a>
+                        </span>
+                        <input asp-for="Quantity" type="text" value="1" min="1" max="@Model.Product.Quantity" class="form-control col-xs-2 text-center" maxlength="3">
+                        <span class="input-group-addon">
+                            <a id="maxQuantity" href="javascript:void(0)" class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
+                            </a>
+                        </span>
                     </div>
                     <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Thêm Vào Giỏ Hàng</button>
                 </div>
@@ -398,5 +398,31 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Increase Quantity
+            $("#maxQuantity").click(function () {
+                var quantityInput = $("input[name='Quantity']");
+                var quantity = parseInt(quantityInput.val());
+                var maxQuantity = parseInt(quantityInput.attr("max"));
+
+                if (quantity < maxQuantity) {
+                    quantityInput.val(quantity + 1);
+                }
+            });
+
+            // Decrease Quantity
+            $("#minQuantity").click(function () {
+                var quantityInput = $("input[name='Quantity']");
+                var quantity = parseInt(quantityInput.val());
+
+                if (quantity > 1) {
+                    quantityInput.val(quantity - 1);
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
