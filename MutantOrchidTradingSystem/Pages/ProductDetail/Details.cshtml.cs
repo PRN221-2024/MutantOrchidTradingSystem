@@ -18,7 +18,6 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
         public IActionResult OnGet(int productId)
         {
             Product = _productRepository.GetById(productId);
-            Console.WriteLine("aaa");
             if (Product == null)
             {
                 return NotFound();
