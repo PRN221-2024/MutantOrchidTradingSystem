@@ -12,11 +12,15 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IProductRepository _productRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderDetailRepository _orderDetailRepository;
         public List<Item> cartItems;
-        public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository)
+        public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _productRepository = productRepository;
+            _orderRepository = orderRepository;
+            _orderDetailRepository = orderDetailRepository;
         }
         public void OnGet()
         {
@@ -33,6 +37,44 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                 SaveCartItems(cart);
             }
             return RedirectToPage("/Product/Cart");
+        }
+
+        public IActionResult OnGetCheckOut()
+        {
+            string username = _httpContextAccessor.HttpContext.Session.GetString("username");
+            if (username == null)
+            {
+                return RedirectToPage("/Login");
+            }
+            else
+            {
+                var Order = new Order
+                {
+                    Created = DateTime.Now,
+                    Name = "Order",
+                    Status = true,
+                    AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id")
+
+                };
+                var order =_orderRepository.Add(Order);
+
+                var cart = GetCartItems();
+                if(cart != null)
+                {
+                    foreach (var item in cart)
+                    {
+                        var orderDetail = new OrderDetail
+                        {
+                            OrderId = order.Id,
+                            ProductId = item.Product.Id,
+                            Quantity = item.Quantity,
+                            Price = item.Product.Price
+                        };
+                        _orderDetailRepository.AddOrderDetail(orderDetail);
+                    }
+                }
+                return RedirectToPage("/Index");
+            }
         }
 
         public IActionResult OnGetBuy(int id)

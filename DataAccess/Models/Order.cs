@@ -5,13 +5,17 @@ namespace DataAccess.Models;
 
 public partial class Order
 {
+    public Order()
+    {
+        OrderDetails = new HashSet<OrderDetail>();
+    }
     public int Id { get; set; }
 
     public int? AccountId { get; set; }
 
-    public decimal? TotalPrice { get; set; }
+    public string? Name { get; set; }
 
-    public bool? Payed { get; set; }
+    public DateTime? Created { get; set; }
 
     public bool? Status { get; set; }
 

@@ -27,6 +27,10 @@ public class Startup
         services.AddScoped<AccountObject>();
         services.AddScoped<IRoleAccountRepository, RoleAccountRepository>();
         services.AddScoped<RoleAccountRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<OrderRepository>();
+        services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+        services.AddScoped<OrderDetailRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
