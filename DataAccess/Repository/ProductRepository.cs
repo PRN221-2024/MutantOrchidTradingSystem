@@ -9,11 +9,11 @@ namespace DataAccess.Repository
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly AuctionItemDBContext _context;
+        private readonly AuctionItemDbContext _context;
 
         public ProductRepository()
         {
-            _context = new AuctionItemDBContext();
+            _context = new AuctionItemDbContext();
         }
 
         public List<Product> GetAll()

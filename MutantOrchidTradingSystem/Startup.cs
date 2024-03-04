@@ -14,12 +14,17 @@ public class Startup
     }
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddSession();
         services.AddRazorPages();
-        services.AddDbContext<AuctionItemDBContext>(options =>
+        services.AddHttpContextAccessor();
+        services.AddDbContext<AuctionItemDbContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionStr")));
         services.AddScoped<ProductObject>();
         services.AddScoped<ProductRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<AccountRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<AccountObject>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,6 +45,7 @@ public class Startup
         app.UseRouting();
 
         app.UseAuthorization();
+        app.UseSession();
 
         app.UseEndpoints(endpoints =>
         {
