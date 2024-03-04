@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
 @model MutantOrchidTradingSysRazorPage.Pages.IndexModel
 @{
     ViewData["Title"] = "Home";
@@ -141,10 +143,23 @@
                             <a href="contact.html" class="nav-item nav-link">BLOG</a>
                             <a href="contact.html" class="nav-item nav-link">LIÊN HỆ</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="/Account/Login" class="nav-item nav-link">ĐĂNG NHẬP</a>
-                            <a href="" class="nav-item nav-link">ĐĂNG KÍ</a>
-                        </div>
+                        @{
+                            if (Accessor.HttpContext.Session.GetString("username") == null)
+                            {
+                                <div class="navbar-nav ml-auto py-0">
+                                    <a href="/Login" class="nav-item nav-link">ĐĂNG NHẬP</a>
+                                    <a href="/Register" class="nav-item nav-link">ĐĂNG KÍ</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="navbar-nav ml-auto py-0">
+
+                                    <a href="" class="nav-item nav-link">Xin Chào,@Accessor.HttpContext.Session.GetString("username")</a>
+                                    <a href="/Logout" class="nav-item nav-link">Đăng Xuất</a>
+                                </div>
+                            }
+                        }
                     </div>
                 </nav>
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">

@@ -1,5 +1,7 @@
 ﻿@page
 @model MutantOrchidTradingSysRazorPage.Pages.ProductDetail.CartModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
 @{
     ViewData["Title"] = "Cart";
     decimal total = 0;
@@ -148,10 +150,23 @@
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
-                        </div>
+                        @{
+                            if (Accessor.HttpContext.Session.GetString("username") == null)
+                            {
+                                <div class="navbar-nav ml-auto py-0">
+                                    <a href="/Login" class="nav-item nav-link">ĐĂNG NHẬP</a>
+                                    <a href="/Register" class="nav-item nav-link">ĐĂNG KÍ</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="navbar-nav ml-auto py-0">
+
+                                    <a href="" class="nav-item nav-link">Xin Chào,@Accessor.HttpContext.Session.GetString("username")</a>
+                                    <a href="/Logout" class="nav-item nav-link">Đăng Xuất</a>
+                                </div>
+                            }
+                        }
                     </div>
                 </nav>
             </div>

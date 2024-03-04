@@ -144,6 +144,10 @@ public partial class AuctionItemDbContext : DbContext
             entity.HasOne(d => d.Account).WithMany(p => p.RoleAccounts)
                 .HasForeignKey(d => d.AccountId)
                 .HasConstraintName("FK_RoleAccount_AccountId");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.RoleAccounts)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("FK_AccountRole_RoleId");
         });
 
         OnModelCreatingPartial(modelBuilder);

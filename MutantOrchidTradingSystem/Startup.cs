@@ -25,6 +25,8 @@ public class Startup
         services.AddScoped<AccountRepository>();
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<AccountObject>();
+        services.AddScoped<IRoleAccountRepository, RoleAccountRepository>();
+        services.AddScoped<RoleAccountRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
