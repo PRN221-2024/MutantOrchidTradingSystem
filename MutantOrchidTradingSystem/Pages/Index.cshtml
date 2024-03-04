@@ -90,9 +90,15 @@
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
+                <a href="/Product/Cart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge">
+                        @{
+                          var cartCount =  Accessor.HttpContext.Session.GetInt32("CartCount") ?? 0;
+
+                        }
+                        @cartCount
+                    </span>
                 </a>
             </div>
         </div>
@@ -116,14 +122,10 @@
                                 <a href="" class="dropdown-item">Sinh nhật đối tác</a>
                             </div>
                         </div>
-                        <a href="" class="nav-item nav-link">Lan Hồ Điệp sự kiện</a>
-                        <a href="" class="nav-item nav-link">Phong cách truyền thống</a>
-                        <a href="" class="nav-item nav-link">Phong cách Nhật Bản</a>
-                        <a href="" class="nav-item nav-link">Lan Hồ Điệp Phong cách Châu Âu</a>
-                        <a href="" class="nav-item nav-link">Lan Hồ Điệp mini</a>
-                        <a href="" class="nav-item nav-link">Hoa tươi</a>
-                        <a href="" class="nav-item nav-link">Lan Hồ Điệp văn phòng</a>
-                        <a href="" class="nav-item nav-link">Sản phẩm khác</a>
+                        @foreach (var category in Model.categories)
+                        {
+                            <a href="/Index?categoryId=@category.Id&handler=bycategory" class="nav-item nav-link">@category.Name</a>
+                        }
                     </div>
                 </nav>
             </div>
@@ -153,11 +155,15 @@
                             }
                             else
                             {
-                                <div class="navbar-nav ml-auto py-0">
-
-                                    <a href="" class="nav-item nav-link">Xin Chào,@Accessor.HttpContext.Session.GetString("username")</a>
-                                    <a href="/Logout" class="nav-item nav-link">Đăng Xuất</a>
+                                
+                                    <a href="#" class="nav-link" data-toggle="dropdown">Xin Chào,@Accessor.HttpContext.Session.GetString("username")<i class="fa fa-angle-down float-right mt-1"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right position-absolute bg-secondary border-0 rounded-0 w-auto m-0">
+                                    <a href="" class="dropdown-item">Thông Tin Tài Khoản</a>
+                                    <a href="/User/OrderHistory" class="dropdown-item">Lịch Sử Giao Dịch</a>
+                                    <a href="/Logout" class="dropdown-item">Đăng Xuất</a>
                                 </div>
+                                
+                               
                             }
                         }
                     </div>
@@ -233,61 +239,23 @@
     <!-- Categories Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5 pb-3">
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">17 Sản phẩm</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="~/user/img/ca-1.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">LAN HỒ ĐIỆP PHONG CÁCH CHÂU ÂU</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">125 Sản phẩm</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+            
+            @foreach (var category in Model.productCategoryDTOs)
+            {
+
+               
+                    <div class="col-lg-4 col-md-6 pb-1">
+                        <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">@category.ProductCount Sản Phẩm</p>
+                        <a href="/Index?categoryId=@category.Category.Id&handler=bycategory" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="~/user/img/ca-2.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">LAN HỒ ĐIỆP SINH NHẬT</h5>
+                    <h5 class="font-weight-semi-bold m-0">@category.Category.Name</h5>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">86 Sản phẩm</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="~/user/img/ca-3.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">LAN HỒ ĐIỆP SỰ KIỆN</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">126 Sản phẩm</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="~/user/img/ca-4.png" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">PHONG CÁCH TRUYỀN THỐNG</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">85 Sản phẩm</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="~/user/img/ca-5.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">PHONG CÁCH NHẬT BẢN</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">72 Sản phẩm </p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="~/user/img/ca-6.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">LAN HỒ ĐIỆP VĂN PHÒNG</h5>
-                </div>
-            </div>
-        </div>
+            
+            }
+        </>
     </div>
     <!-- Categories End -->
     <!-- Offer Start -->

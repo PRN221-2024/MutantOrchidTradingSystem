@@ -31,6 +31,10 @@ public class Startup
         services.AddScoped<OrderRepository>();
         services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
         services.AddScoped<OrderDetailRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<CategoryRepository>();
+        services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+        services.AddScoped<ProductCategoryRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

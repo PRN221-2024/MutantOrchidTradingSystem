@@ -15,6 +15,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
         public List<Item> cartItems;
+        int totalCount = 0;
         public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -25,6 +26,13 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
         public void OnGet()
         {
             cartItems = GetCartItems();
+            
+            foreach (var item in cartItems)
+            {
+                totalCount += item.Quantity; 
+            }
+            _httpContextAccessor.HttpContext.Session.SetInt32("CartCount", totalCount);
+            
            
         }
         public IActionResult OnGetDelete(int id)
@@ -35,7 +43,18 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
             {
                 cart.Remove(item);
                 SaveCartItems(cart);
+                
+                
+
             }
+            foreach (var p in cart)
+            {
+                totalCount += p.Quantity;
+            }
+            _httpContextAccessor.HttpContext.Session.SetInt32("CartCount", totalCount);
+
+
+
             return RedirectToPage("/Product/Cart");
         }
 
@@ -72,6 +91,8 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                         };
                         _orderDetailRepository.AddOrderDetail(orderDetail);
                     }
+                    _httpContextAccessor.HttpContext.Session.Remove("Cart");
+                    _httpContextAccessor.HttpContext.Session.SetInt32("CartCount", 0);
                 }
                 return RedirectToPage("/Index");
             }
@@ -100,7 +121,12 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                 }
                 
                 SaveCartItems(cart);
-            
+            foreach (var item in cart)
+            {
+                totalCount += item.Quantity;
+            }
+            _httpContextAccessor.HttpContext.Session.SetInt32("CartCount", totalCount);
+
 
             return RedirectToPage("/Product/Cart");
         }

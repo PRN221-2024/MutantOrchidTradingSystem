@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace DataAccess.Repository
     public interface IOrderRepository
     {
         Order Add(Order order);
+        List<Order> GetAllByAccountID(int accountId);
+        Order GetById(int orderId);
     }
 
     public class OrderRepository : IOrderRepository
@@ -42,6 +45,18 @@ namespace DataAccess.Repository
                 Console.WriteLine($"Error in Add - OrderRepository: {ex.Message}");
                 throw;
             }
+        }
+
+        public List<Order> GetAllByAccountID(int accountId)
+        {
+            List<Order> orderList = _context.Orders.Where(o => o.AccountId == accountId).ToList();
+            return orderList;
+        }
+
+        public Order GetById(int orderId)
+        {
+            Order order = _context.Orders.Include(a => a.Account).Include(o => o.OrderDetails).ThenInclude(p => p.Product).FirstOrDefault(o => o.Id == orderId);
+            return order;
         }
     }
 }

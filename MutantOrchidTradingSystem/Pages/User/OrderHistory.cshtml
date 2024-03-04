@@ -1,12 +1,10 @@
 ﻿@page
-@model MutantOrchidTradingSysRazorPage.Pages.ProductDetail.CartModel
+@model MutantOrchidTradingSysRazorPage.Pages.User.OrderHistoryModel
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
 @{
-    ViewData["Title"] = "Cart";
-    decimal total = 0;
-}
 
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,11 +91,13 @@
                 <a href="/Product/Cart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge">
-                        @{
-                            var cartCount = Accessor.HttpContext.Session.GetInt32("CartCount") ?? 0;
+                        <span class="badge">
+                            @{
+                                var cartCount = Accessor.HttpContext.Session.GetInt32("CartCount") ?? 0;
 
-                        }
-                        @cartCount
+                            }
+                            @cartCount
+                        </span>
                     </span>
                 </a>
             </div>
@@ -186,9 +186,9 @@
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="/Index">Home</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Shopping Cart</p>
+                <p class="m-0">View History</p>
             </div>
         </div>
     </div>
@@ -200,68 +200,34 @@
                 <table class="table table-bordered text-center mb-0">
                     <thead class="bg-secondary text-dark">
                         <tr>
-                            <th>Products</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Remove</th>
+                            <th>Name</th>
+                            <th>Created</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @foreach (var item in Model.cartItems)
+                        @foreach (var item in Model.orders)
                         {
                             <tr>
                                 <td class="align-middle">
                                     <img src=" ~ /user/img/ca-1.jpg" alt="" style="width: 50px;">
-                                    @item.Product.Name
+                                    @item.Name
                                 </td>
-                                <td class="align-middle">$@item.Product.Price</td>
+                                <td class="align-middle">@item.Created.ToString("dd/MM/YYYY")</td>
                                 <td class="align-middle">
-                                    @item.Quantity
+                                    @(item.Status == true ? "Pending" : "Done")
                                 </td>
-                                <td class="align-middle">$@(item.Quantity * item.Product.Price)</td>
                                 <td class="align-middle">
-                                    <a href="/Product/Cart?id=@item.Product.Id&handler=delete" class="btn btn-sm btn-primary">
-                                        <i class="fa fa-times"></i>
+                                    <a href="/User/OrderDetail?id=@item.Id" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-eye"></i>
                                     </a>
                                 </td>
                             </tr>
-                            total += (decimal)(item.Quantity * item.Product.Price);
+                            //total += (decimal)(item.Quantity * item.Product.Price);
                         }
                     </tbody>
                 </table>
-            </div>
-            <div class="col-lg-4">
-                <form class="mb-5" action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control p-4" placeholder="Coupon Code">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon</button>
-                        </div>
-                    </div>
-                </form>
-                <div class="card border-secondary mb-5">
-                    <div class="card-header bg-secondary border-0">
-                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between mb-3 pt-1">
-                            <h6 class="font-weight-medium">Subtotal</h6>
-                            <h6 class="font-weight-medium">$@(total)</h6>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">$10</h6>
-                        </div>
-                    </div>
-                    <div class="card-footer border-secondary bg-transparent">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5 class="font-weight-bold">Total</h5>
-                            <h5 class="font-weight-bold">$@(total + 10)</h5>
-                        </div>
-                        <a href="/Product/Cart?handler=checkout" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

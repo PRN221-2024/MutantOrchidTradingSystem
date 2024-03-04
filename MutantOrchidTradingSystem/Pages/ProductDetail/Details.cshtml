@@ -88,9 +88,15 @@
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
+                <a href="/Product/Cart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge">
+                        @{
+                            var cartCount = Accessor.HttpContext.Session.GetInt32("CartCount") ?? 0;
+
+                        }
+                        @cartCount
+                    </span>
                 </a>
             </div>
         </div>
@@ -152,10 +158,12 @@
                             }
                             else
                             {
-                                <div class="navbar-nav ml-auto py-0">
 
-                                    <a href="" class="nav-item nav-link">Xin Chào,@Accessor.HttpContext.Session.GetString("username")</a>
-                                    <a href="/Logout" class="nav-item nav-link">Đăng Xuất</a>
+                                <a href="#" class="nav-link" data-toggle="dropdown">Xin Chào,@Accessor.HttpContext.Session.GetString("username")<i class="fa fa-angle-down float-right mt-1"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right position-absolute bg-secondary border-0 rounded-0 w-auto m-0">
+                                    <a href="" class="dropdown-item">Thông Tin Tài Khoản</a>
+                                    <a href="/User/OrderHistory" class="dropdown-item">Lịch Sử Giao Dịch</a>
+                                    <a href="/Logout" class="dropdown-item">Đăng Xuất</a>
                                 </div>
                             }
                         }

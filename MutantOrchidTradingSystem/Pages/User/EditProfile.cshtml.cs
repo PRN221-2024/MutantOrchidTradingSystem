@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MutantOrchidTradingSysRazorPage.Pages.Payment
+namespace MutantOrchidTradingSysRazorPage.Pages.User
 {
-    public class CheckoutModel : PageModel
+    public class EditProfileModel : PageModel
     {
         public void OnGet()
         {

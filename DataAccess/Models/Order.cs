@@ -15,9 +15,9 @@ public partial class Order
 
     public string? Name { get; set; }
 
-    public DateTime? Created { get; set; }
+    public DateTime Created { get; set; }
 
-    public bool? Status { get; set; }
+    public bool Status { get; set; }
 
     public virtual Account? Account { get; set; }
 
