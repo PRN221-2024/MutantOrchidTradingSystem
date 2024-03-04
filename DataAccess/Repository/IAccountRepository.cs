@@ -12,6 +12,8 @@ namespace DataAccess.Repository
     {
         Account Login(string username, string password);
         Account Register(Account account);
+        Account GetById(int accountId);
+        void Update(Account account);
     }
     public class AccountRepository : IAccountRepository
     {
@@ -20,6 +22,25 @@ namespace DataAccess.Repository
         {
             _context = new AuctionItemDbContext();
         }
+
+        public Account GetById(int accountId)
+        {
+            try
+            {
+                Account account = _context.Accounts.FirstOrDefault(a => a.Id == accountId);
+                if(account == null)
+                {
+                    return null;
+                }
+                return account;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetById - AccountRepository: {ex.Message}");
+                throw;
+            }
+        }
+
         public Account Login(string username, string password)
         {
             try
@@ -61,6 +82,35 @@ namespace DataAccess.Repository
             }catch(Exception ex)
             {
                 Console.WriteLine($"Error in Register - AccountRepository: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void Update(Account account)
+        {
+            try
+            {
+                Account updateAccount = _context.Accounts.FirstOrDefault(a => a.Id == account.Id);
+                if(updateAccount != null)
+                {
+                    updateAccount.Username = account.Username;
+                    updateAccount.Password = account.Password;
+                    updateAccount.FullName = account.FullName;
+                    updateAccount.Email = account.Email; 
+                    updateAccount.Status = account.Status;
+                    updateAccount.Address = account.Address;
+                    updateAccount.Phone = account.Phone;
+                    _context.Accounts.Update(updateAccount);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Customer not exists!");
+                }
+
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"Error in Update - AccountRepository: {ex.Message}");
                 throw;
             }
         }
