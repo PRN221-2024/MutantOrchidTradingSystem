@@ -59,10 +59,17 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllerRoute(
+            name: "manageProductEdit",
+            pattern: "/Admin/ManageProduct/Edit/{productId?}",
+            defaults: new { controller = "ManageProduct", action = "Edit" });
+
             endpoints.MapRazorPages();
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
         });
+
+
     }
 }

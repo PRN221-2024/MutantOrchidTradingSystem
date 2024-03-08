@@ -54,5 +54,6 @@ namespace BusinessObject
                 throw new Exception(ex.Message);
             }
         }
+        public List<Account> GetAllAccounts() => _accountRepository.GetAll();
     }
 }

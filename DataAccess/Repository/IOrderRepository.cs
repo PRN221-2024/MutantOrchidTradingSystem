@@ -13,6 +13,8 @@ namespace DataAccess.Repository
         Order Add(Order order);
         List<Order> GetAllByAccountID(int accountId);
         Order GetById(int orderId);
+
+        List<Order> GetAll();
     }
 
     public class OrderRepository : IOrderRepository
@@ -43,6 +45,19 @@ namespace DataAccess.Repository
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in Add - OrderRepository: {ex.Message}");
+                throw;
+            }
+        }
+
+        public List<Order> GetAll()
+        {
+            try
+            {
+                return _context.Orders.ToList();
+
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"Error in GetAll - OrderRepository: {ex.Message}");
                 throw;
             }
         }

@@ -11,6 +11,9 @@ namespace DataAccess.Repository
     {
         List<Product> GetAll();
         Product GetById(int productId);
+        public Product UpdateProduct (Product product);
+
+        public Product CreateProduct (Product product);
 
     }
 }

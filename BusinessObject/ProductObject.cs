@@ -21,5 +21,8 @@ namespace BusinessObject
         public List<Product> GetAllProducts() => _productRepository.GetAll();
 
         public Product GetById(int productId) => _productRepository.GetById(productId);
+
+        public Product UpdateProduct(Product product) => _productRepository.UpdateProduct(product);
+        public Product CreateProduct(Product product) => _productRepository.CreateProduct(product);
     }
 }

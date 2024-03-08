@@ -14,6 +14,7 @@ namespace DataAccess.Repository
         Account Register(Account account);
         Account GetById(int accountId);
         void Update(Account account);
+        List<Account> GetAll();
     }
     public class AccountRepository : IAccountRepository
     {
@@ -21,6 +22,19 @@ namespace DataAccess.Repository
         public AccountRepository()
         {
             _context = new AuctionItemDbContext();
+        }
+
+        public List<Account> GetAll()
+        {
+            try
+            {
+                return _context.Accounts.ToList();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error in GetAll - AccountRepository: {ex.Message}");
+                throw;
+            }
         }
 
         public Account GetById(int accountId)
