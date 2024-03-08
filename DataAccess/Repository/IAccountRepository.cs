@@ -14,6 +14,8 @@ namespace DataAccess.Repository
         Account Register(Account account);
         Account GetById(int accountId);
         void Update(Account account);
+
+        void Delete(int accountId);
         List<Account> GetAll();
     }
     public class AccountRepository : IAccountRepository
@@ -22,6 +24,28 @@ namespace DataAccess.Repository
         public AccountRepository()
         {
             _context = new AuctionItemDbContext();
+        }
+
+        public void Delete(int accountId)
+        {
+            try
+            {
+                Account existingAccount = _context.Accounts.FirstOrDefault(p => p.Id == accountId);
+                if (existingAccount != null)
+                {
+                    existingAccount.Status = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine($"The product with {accountId} doest not exist!");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error in Delete - AccountRepository: {ex.Message}");
+                throw;
+            }
         }
 
         public List<Account> GetAll()

@@ -46,15 +46,14 @@ font-size: 16px;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
+                        <a asp-page="/Admin/ManageProduct/ManageProduct"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
                     </li>
                     <li>
-                        <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
+                        <a asp-page="/Admin/ManageCustomer/ManageCustomer"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
                     </li>
                     <li>
-                        <a href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
+                        <a asp-page="/Admin/ManageOrder/ManageOrder"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
                     </li>
-
                 </ul>
 
             </div>
@@ -108,10 +107,11 @@ font-size: 16px;">
                                                     <td>@account.Phone</td>
                                                     <td>
                                                         <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;"
-                                                       asp-page="./Edit" asp-route-productId="@account.Id">Edit</a>
+                                                       asp-page="./Edit" asp-route-accountId="@account.Id">Edit</a>
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;">Delete</a>
+                                                        <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;"
+                                                       asp-page="./Delete" asp-route-accountId="@account.Id">Delete</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -148,9 +148,5 @@ font-size: 16px;">
             $('#dataTables-example').dataTable();
         });
     </script>
-    <!-- CUSTOM SCRIPTS -->
-    <script src="~user/js/custom.js"></script>
-
-
 </body>
 </html>

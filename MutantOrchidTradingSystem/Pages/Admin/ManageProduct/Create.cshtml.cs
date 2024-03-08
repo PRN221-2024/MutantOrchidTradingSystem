@@ -28,7 +28,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
             try
             {
                 _productRepository.CreateProduct(NewProduct);
-                return RedirectToPage("ManageProduct");
+                return RedirectToPage("./ManageProduct");
             }catch(Exception ex)
             {
                 Console.WriteLine($"Error in OnPost - CreateModel: {ex.Message}");

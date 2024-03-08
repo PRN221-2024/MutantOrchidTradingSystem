@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,6 +86,30 @@ namespace DataAccess.Repository
             }catch(Exception ex)
             {
                 Console.WriteLine($"Error in CreateProduct - ProductRepository: {ex.Message}");
+                throw;
+            }
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            try
+            {
+                Product existingProduct = _context.Products.FirstOrDefault(p => p.Id == productId);
+                if (existingProduct != null)
+                {
+                    existingProduct.Status = false ;
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"The product with {productId} doest not exist!");
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error in DeleteProduct - ProductRepository: {ex.Message}");
                 throw;
             }
         }
