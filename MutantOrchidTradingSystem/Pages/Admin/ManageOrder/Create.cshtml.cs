@@ -12,19 +12,26 @@ public class CreateModel : PageModel
 {
     private readonly OrderRepository _orderRepository;
 
-    public SelectList AccountIdList { get; set; }
 
+    public List<SelectListItem> Options { get; set; }
 
-    [BindProperty]
+        [BindProperty]
     public Order NewOrder { get; set; }
+
     public CreateModel(OrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }
     public void OnGet()
     {
-
-    }
+            Options = _orderRepository.GetAccounts()
+                    .Select(account => new SelectListItem
+                    {
+                        Value = account.Id.ToString(),
+                        Text = account.FullName
+                    })
+                    .ToList();
+        }
 
     public IActionResult OnPost()
     {
@@ -34,7 +41,6 @@ public class CreateModel : PageModel
         }
         try
         {
-                NewOrder.AccountId = int.Parse(Request.Form["NewOrder.AccountId"]);
                 var order = new Order()
                 {
                     Created = DateTime.Now,
@@ -43,7 +49,7 @@ public class CreateModel : PageModel
                     AccountId = NewOrder.AccountId,
 
                 };
-                _orderRepository.Add(NewOrder);
+                _orderRepository.Add(order);
                 return RedirectToPage("ManageOrder");
         }
         catch (Exception ex)
@@ -52,5 +58,5 @@ public class CreateModel : PageModel
             return Page();
         }
     }
-}
+    }
 }

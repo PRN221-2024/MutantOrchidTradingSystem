@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>Eflower Admin</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="~/user/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -32,7 +32,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Binary admin</a>
+                <a href="/" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold" style="color: #D19C97;"><span class="text-primary font-weight-bold border px-3 mr-1" style="color: #D19C97;">E|</span>Flower</h1>
+                </a>
             </div>
             <div style="color: white;
 padding: 15px 50px 5px 50px;
@@ -77,27 +79,22 @@ font-size: 16px;">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="UpdatedProduct.Id" />
                                 <div>
-                                    <form method = "post">
-                                        <label for="Name">Product Name:</label>
+                                    <form method="post" asp-page-handler="OnPost">
+                                        <input type="hidden" asp-for="UpdatedProduct.Id" />
+                                        <label asp-for="UpdatedProduct.Name">Product Name:</label>
                                         <input type="text" class="form-control" asp-for="UpdatedProduct.Name">
 
-                                        <label for="Description">Description:</label>
+                                        <label asp-for="UpdatedProduct.Description">Description:</label>
                                         <textarea class="form-control" asp-for="UpdatedProduct.Description"></textarea>
 
-                                        <label for="productPrice">Price:</label>
+                                        <label asp-for="UpdatedProduct.Price">Price:</label>
                                         <input type="number" class="form-control" asp-for="UpdatedProduct.Price">
 
-                                        <label for="productQuantity">Quantity:</label>
+                                        <label asp-for="UpdatedProduct.Quantity">Quantity:</label>
                                         <input type="number" class="form-control" asp-for="UpdatedProduct.Quantity">
 
-                                        <label for="Path">Path:</label>
-                                        <input type="text" class="form-control" asp-for="UpdatedProduct.Path" style="margin-bottom: 10px;">
-
-                                        <label for="Status">Status:</label>
-                                        <select name="UpdatedProduct.Status" asp-for="UpdatedProduct.Status">
-                                            <option value="1">True</option>
-                                            <option value="0">False</option>
-                                        </select>
+                                        <label asp-for="UpdatedProduct.Path">Path:</label>
+                                        <input type="text" class="form-control" asp-for="UpdatedProduct.Path" style="margin-bottom: 10px;" />
 
                                         <div class="text-right">
                                             <input type="submit" value="Save Changes" class="btn btn-primary">

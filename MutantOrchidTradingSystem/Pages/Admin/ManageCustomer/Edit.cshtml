@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>Eflower Admin</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="~/user/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -32,7 +32,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Binary admin</a>
+                <a href="/" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold" style="color: #D19C97;"><span class="text-primary font-weight-bold border px-3 mr-1" style="color: #D19C97;">E|</span>Flower</h1>
+                </a>
             </div>
             <div style="color: white;
 padding: 15px 50px 5px 50px;
@@ -75,9 +77,10 @@ font-size: 16px;">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="UpdatedAccount.Id" />
                                 <div>
-                                    <form method="post">
+                                    <form method="post" asp-page-handler="OnPost">
+                                        <input type="hidden" asp-for="UpdatedAccount.Id" />
+
                                         <label for="Username">Username:</label>
                                         <input type="text" class="form-control" asp-for="UpdatedAccount.Username">
 
@@ -94,7 +97,7 @@ font-size: 16px;">
                                         <input type="text" class="form-control" asp-for="UpdatedAccount.Address" style="margin-bottom: 10px;">
 
                                         <label for="Phone">Phone:</label>
-                                        <input type="Number" class="form-control" asp-for="UpdatedAccount.Phone" style="margin-bottom: 10px;">
+                                        <input type="text" class="form-control" asp-for="UpdatedAccount.Phone" style="margin-bottom: 10px;">
 
                                         <div class="text-right">
                                             <input type="submit" value="Save Changes" class="btn btn-primary">

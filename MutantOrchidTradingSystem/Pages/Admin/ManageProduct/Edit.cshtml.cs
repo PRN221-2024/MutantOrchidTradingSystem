@@ -11,6 +11,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
 
         [BindProperty]
         public Product UpdatedProduct { get; set; }
+
         public EditModel(ProductRepository productRepository)
         {
             _productRepository = productRepository;
@@ -31,17 +32,20 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
 
         public IActionResult OnPost()
         {
-            Console.WriteLine("OnPost method reached"); 
 
-            if (!ModelState.IsValid)
+            var updatedProduct = _productRepository.UpdateProduct(UpdatedProduct); 
+
+            if(updatedProduct != null)
             {
-                Console.WriteLine("ModelState is not valid"); 
+                Console.WriteLine("Product updated successfully");
+                return RedirectToPage("ManageProduct");
+            }
+            else
+            {
+                Console.WriteLine("Product not found or update fail!");
                 return Page();
             }
-
-            _productRepository.UpdateProduct(UpdatedProduct);
-            Console.WriteLine("Product updated successfully"); 
-            return RedirectToPage("ManageProduct");
+            
         }
     }
 }

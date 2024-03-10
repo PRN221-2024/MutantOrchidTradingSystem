@@ -134,8 +134,8 @@ namespace DataAccess.Repository
                     updateAccount.Username = account.Username;
                     updateAccount.Password = account.Password;
                     updateAccount.FullName = account.FullName;
-                    updateAccount.Email = account.Email; 
-                    updateAccount.Status = account.Status;
+                    updateAccount.Email = account.Email;
+                    updateAccount.Status = true;
                     updateAccount.Address = account.Address;
                     updateAccount.Phone = account.Phone;
                     _context.Accounts.Update(updateAccount);

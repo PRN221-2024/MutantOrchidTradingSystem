@@ -64,7 +64,7 @@ font-size: 16px;">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Create Product</h2>
+                        <h2>Create Order</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -81,8 +81,9 @@ font-size: 16px;">
                                         <label for="Name">Order Name:</label>
                                         <input type="text" class="form-control" asp-for="NewOrder.Name">
 
-                                        <label for="CustomerId">CustomerId:</label>
-                                        <select name="NewOrder.CustomerId" asp-for="NewOrder.AccountId" asp-items="@(ViewData["AccountId"] as SelectList)"></select>
+                                        <label for="AccountId">CustomerId:</label>
+                                        <select asp-for="NewOrder.AccountId" asp-items="@Model.Options"></select>
+
                                         <div class="text-right">
                                             <input type="submit" value="Save Changes" class="btn btn-primary">
                                         </div>

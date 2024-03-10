@@ -31,17 +31,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
 
         public IActionResult OnPost()
         {
-            Console.WriteLine("OnPost method reached");
-
-            if (!ModelState.IsValid)
-            {
-                Console.WriteLine("ModelState is not valid");
-                return Page();
-            }
-
             _accountRepository.Update(UpdatedAccount);
-            Console.WriteLine("Product updated successfully");
-            return RedirectToPage("ManageProduct");
+
+            Console.WriteLine("Account updated successfully");
+            return RedirectToPage("ManageCustomer");
         }
     }
 }

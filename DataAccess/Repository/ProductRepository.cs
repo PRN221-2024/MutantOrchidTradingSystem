@@ -48,7 +48,7 @@ namespace DataAccess.Repository
                     existingProduct.Price = updatedProduct.Price;
                     existingProduct.Quantity = updatedProduct.Quantity;
                     existingProduct.Path = updatedProduct.Path;
-                    existingProduct.Status = updatedProduct.Status;
+                    existingProduct.Status = true;
                     _context.Products.Update(existingProduct);
                     _context.SaveChanges();
                     return existingProduct;
