@@ -20,6 +20,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
         }
         public IActionResult OnGet()
         {
+            if(string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             var products = _productRepository.GetAll();
             ProductOptions = new List<SelectListItem>();
             Auction = new Auction(); 
@@ -37,6 +41,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
 
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             if (!ModelState.IsValid)
             {
                 return Page();
