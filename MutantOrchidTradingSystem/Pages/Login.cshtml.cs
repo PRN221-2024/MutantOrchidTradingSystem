@@ -50,6 +50,11 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Login
                             _httpContextAccessor.HttpContext.Session.SetString("username", account.FullName);
                             _httpContextAccessor.HttpContext.Session.SetInt32("Id", account.Id);
                             return Redirect("/");
+                        }else if(role.RoleId == 3)
+                        {
+                            _httpContextAccessor.HttpContext.Session.SetString("username", account.FullName);
+                            _httpContextAccessor.HttpContext.Session.SetInt32("Id", account.Id);
+                            return Redirect("/Staff/Auction");
                         }
                     }
                    return Redirect("/");

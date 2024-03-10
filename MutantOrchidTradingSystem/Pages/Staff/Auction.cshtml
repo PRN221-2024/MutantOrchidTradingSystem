@@ -1,0 +1,82 @@
+﻿@page
+@model MutantOrchidTradingSysRazorPage.Pages.Staff.AuctionModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Auctions</title>
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/user/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/user/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Manage Auctions</h1>
+
+    <p>
+        <a asp-page="/Staff/CreateAuction">Create New Auction</a>
+    </p>
+
+    <table class="table table-bordered text-center mb-0">
+        <thead class="bg-secondary text-dark">
+            <tr>
+                <th>Id</th>
+                <th>Product</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Starting Price</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            @foreach (var auction in Model.Auctions)
+            {
+                <tr>
+                    <td class="align-middle">@auction.Id</td>
+                    <td class="align-middle">@auction.Product.Name</td>
+                    <td class="align-middle">@auction.StartTime</td>
+                    <td class="align-middle">@auction.EndTime</td>
+                    <td class="align-middle">@auction.StartingPrice</td>
+                    <td class="align-middle">@(auction.Status.HasValue == true ? "Active" : "Inactive")</td>
+                    <td class="align-middle">
+                        <a asp-page="./Edit" asp-route-id="@auction.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@auction.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@auction.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

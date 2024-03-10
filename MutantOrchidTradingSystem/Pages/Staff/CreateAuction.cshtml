@@ -1,0 +1,33 @@
+﻿@page
+@model MutantOrchidTradingSysRazorPage.Pages.Staff.CreateAuctionModel
+@{
+}
+<h1>Create New Auction</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="productId">Product:</label>
+        <select class="form-control" id="productId" asp-items="Model.ProductOptions"></select>
+    </div>
+    <div class="form-group">
+        <label for="startTime">Start Time:</label>
+        <input type="datetime-local" class="form-control" id="startTime" asp-for="@Model.Auction.StartTime">
+    </div>
+    <div class="form-group">
+        <label for="endTime">End Time:</label>
+        <input type="datetime-local" class="form-control" id="endTime" asp-for="@Model.Auction.EndTime">
+    </div>
+    <div class="form-group">
+        <label for="startingPrice">Starting Price:</label>
+        <input type="number" class="form-control" id="startingPrice" asp-for="@Model.Auction.StartingPrice">
+    </div>
+    <button type="submit" class="btn btn-primary">Create Auction</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</html>
