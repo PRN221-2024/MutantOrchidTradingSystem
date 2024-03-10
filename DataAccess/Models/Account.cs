@@ -21,6 +21,8 @@ public partial class Account
 
     public string? Phone { get; set; }
 
+    public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<RoleAccount> RoleAccounts { get; set; } = new List<RoleAccount>();

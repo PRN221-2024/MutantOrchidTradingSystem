@@ -21,5 +21,7 @@ public partial class Product
 
     public string? FileName { get; set; }
 
+    public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
+
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 }

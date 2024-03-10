@@ -5,19 +5,15 @@ namespace DataAccess.Models;
 
 public partial class Order
 {
-    public Order()
-    {
-        OrderDetails = new HashSet<OrderDetail>();
-    }
     public int Id { get; set; }
 
     public int? AccountId { get; set; }
 
     public string? Name { get; set; }
 
-    public DateTime Created { get; set; }
+    public DateTime? Created { get; set; }
 
-    public bool Status { get; set; }
+    public bool? Status { get; set; }
 
     public virtual Account? Account { get; set; }
 

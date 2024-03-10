@@ -11,8 +11,6 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
 public class CreateModel : PageModel
 {
     private readonly OrderRepository _orderRepository;
-
-
     public List<SelectListItem> Options { get; set; }
 
         [BindProperty]
@@ -50,8 +48,10 @@ public class CreateModel : PageModel
 
                 };
                 _orderRepository.Add(order);
+
+                int orderId = order.Id;
                 return RedirectToPage("ManageOrder");
-        }
+            }
         catch (Exception ex)
         {
             Console.WriteLine($"Error in OnPost - CreateModel: {ex.Message}");

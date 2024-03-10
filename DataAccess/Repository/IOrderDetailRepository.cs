@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace DataAccess.Repository
     public interface IOrderDetailRepository
     {
         OrderDetail AddOrderDetail(OrderDetail orderDetail);
+        List<Product> GetProducts();
 
     }
     public class OrderDetailRepository : IOrderDetailRepository
@@ -19,6 +21,8 @@ namespace DataAccess.Repository
         {
             _context = new AuctionItemDbContext();
         }
+
+
         public OrderDetail AddOrderDetail(OrderDetail orderDetail)
         {
             try
@@ -38,6 +42,19 @@ namespace DataAccess.Repository
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in AddOrderDetail - OrderDetailRepository: {ex.Message}");
+                throw;
+            }
+        }
+
+        public List<Product> GetProducts()
+        {
+            try
+            {
+                return _context.Products.ToList();
+
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"Error in Products - OrderDetailRepository: {ex.Message}");
                 throw;
             }
         }

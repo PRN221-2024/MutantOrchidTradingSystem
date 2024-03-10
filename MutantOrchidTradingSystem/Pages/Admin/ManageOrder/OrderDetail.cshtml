@@ -1,7 +1,7 @@
 ﻿@page
-@model MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder.CreateModel
+@model MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder.OrderDetailModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "OrderDetail";
 }
 
 <!DOCTYPE html>
@@ -66,7 +66,7 @@ font-size: 16px;">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Create Order</h2>
+                        <h2>Create OrderDetail</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -77,14 +77,22 @@ font-size: 16px;">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="NewOrder.Id" />
+                                <input type="hidden" asp-for="NewOrderDetail.Id" />
                                 <div>
                                     <form method="post">
-                                        <label for="Name">Order Name:</label>
-                                        <input type="text" class="form-control" asp-for="NewOrder.Name">
 
-                                        <label for="AccountId">CustomerId:</label>
-                                        <select asp-for="NewOrder.AccountId" asp-items="@Model.Options"></select>
+                                        <div>
+                                            <label for="ProductId">ProductId:</label>
+                                            <select asp-for="NewOrderDetail.ProductId" asp-items="@Model.Options"></select>
+                                        </div>
+
+                                        <input type="hidden" asp-for="NewOrderDetail.OrderId"/>
+
+                                        <label for="Quantity">Quantity:</label>
+                                        <input type="number" class="form-control" asp-for="NewOrderDetail.Quantity">
+
+                                        <label for="Price">Price:</label>
+                                        <input type="number" class="form-control" asp-for="NewOrderDetail.Price">
 
                                         <div class="text-right">
                                             <input type="submit" value="Save Changes" class="btn btn-primary">

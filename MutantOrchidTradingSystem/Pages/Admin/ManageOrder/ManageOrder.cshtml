@@ -48,13 +48,13 @@ font-size: 16px;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a asp-page="/Admin/ManageProduct/ManageProduct"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
+                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageCustomer/ManageCustomer"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
+                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageOrder/ManageOrder"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
+                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
                     </li>
                 </ul>
 
@@ -103,10 +103,7 @@ font-size: 16px;">
                                                     <td>@order.Status</td>
                                                     <td>
                                                         <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;"
-                                                       asp-page="./Edit" asp-route-productId="@order.Id">Edit</a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;">Delete</a>
+                                                       asp-page="./OrderDetail" asp-route-orderId="@order.Id">Create OrderDetails</a>
                                                     </td>
                                                 </tr>
                                             }
