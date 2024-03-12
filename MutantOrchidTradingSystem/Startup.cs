@@ -36,6 +36,8 @@ public class Startup
         services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
         services.AddScoped<ProductCategoryRepository>();
         services.AddScoped<IAuctionRepository, AuctionRepository>();
+        services.AddScoped<IBidRepository, BidRepository>();
+        services.AddScoped<BidRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

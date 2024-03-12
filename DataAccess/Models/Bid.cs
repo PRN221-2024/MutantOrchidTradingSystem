@@ -7,11 +7,11 @@ public partial class Bid
 {
     public int Id { get; set; }
 
-    public int? AuctionId { get; set; }
+    public int AuctionId { get; set; }
 
-    public int? AccountId { get; set; }
+    public int AccountId { get; set; }
 
-    public decimal? Amount { get; set; }
+    public decimal Amount { get; set; }
 
     public DateTime? BidTime { get; set; }
 

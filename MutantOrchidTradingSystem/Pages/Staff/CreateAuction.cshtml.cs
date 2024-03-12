@@ -29,6 +29,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
             Auction = new Auction(); 
             Auction.StartTime = DateTime.Now;
            
+           
             
             foreach (var product in products)
             {
@@ -49,11 +50,12 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
             {
                 return Page();
             }
-
+            Auction.Status = true;
+            var selectedProductId = Auction.ProductId;
             _acutionRepository.Create(Auction);
 
 
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

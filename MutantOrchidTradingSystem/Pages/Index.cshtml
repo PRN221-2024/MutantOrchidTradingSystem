@@ -139,11 +139,10 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="Index" class="nav-item nav-link active">GIỚI THIỆU</a>
+                            <a href="/" class="nav-item nav-link active">GIỚI THIỆU</a>
                             <a href="/" class="nav-item nav-link">SHOP</a>
-                            <a href="detail.html" class="nav-item nav-link">GÓC KỸ THUẬT</a>
-                            <a href="contact.html" class="nav-item nav-link">BLOG</a>
-                            <a href="contact.html" class="nav-item nav-link">LIÊN HỆ</a>
+                            <a href="/User/Auction" class="nav-item nav-link">ĐẤU GIÁ LAN</a>
+                           
                         </div>
                         @{
                             if (Accessor.HttpContext.Session.GetString("username") == null)
@@ -333,22 +332,13 @@
                         <h5 class="font-weight-bold text-dark mb-4">Thông Tin</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Giới Thiệu</a>
-                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Shop</a>
+                            <a class="text-dark mb-2" href="/User/Auction"><i class="fa fa-angle-right mr-2"></i>Đấu Giá Lan</a>
                             <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Góc Kỹ Thuật</a>
                             <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Blog</a>
                             <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Liên Hệ</a>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Thông Tin</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Giới Thiệu</a>
-                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Shop</a>
-                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Góc Kỹ Thuật</a>
-                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Blog</a>
-                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Liên Hệ</a>
-                        </div>
-                    </div>
+      
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Thông Tin Liên Hệ</h5>
                         <form action="">

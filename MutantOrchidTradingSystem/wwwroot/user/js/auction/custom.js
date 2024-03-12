@@ -89,15 +89,15 @@ $(document).on('change', ".changeTheme", function () {
     localStorage.setItem('storedValue', userColor);
     themeWrapper.attr('class', userColor);
     if (userColor == 'dark') {
-        document.getElementById('headerLogo').src = 'assets/images/logo-white.svg';
-        document.getElementById('footerLogo').src = 'assets/images/logo.svg';
-        document.getElementById('win-wrapper').style.backgroundImage = "url('assets/images/model-bg-dark.svg')";
-        document.getElementById('login-wrapper').style.backgroundImage = "url('assets/images/login-bg-dark.svg')";
+        document.getElementById('headerLogo').src = '../user/img/auction/images/logo-white.svg';
+        document.getElementById('footerLogo').src = '../user/img/auction/images/logo.svg';
+        document.getElementById('win-wrapper').style.backgroundImage = "url('../user/img/auction/images/model-bg-dark.svg')";
+        document.getElementById('login-wrapper').style.backgroundImage = "url('../user/img/auction/images/login-bg-dark.svg')";
     } else {
-        document.getElementById('headerLogo').src = 'assets/images/logo.svg';
-        document.getElementById('footerLogo').src = 'assets/images/logo-white.svg';
-        document.getElementById('win-wrapper').style.backgroundImage = "url('assets/images/model-bg.svg')";
-        document.getElementById('login-wrapper').style.backgroundImage = "url('assets/images/login-bg.svg')";
+        document.getElementById('headerLogo').src = '../user/img/auction/images/logo.svg';
+        document.getElementById('footerLogo').src = '../user/img/auction/images/logo-white.svg';
+        document.getElementById('win-wrapper').style.backgroundImage = "url('../user/img/auction/images/model-bg.svg')";
+        document.getElementById('login-wrapper').style.backgroundImage = "url('../user/img/auction/images/login-bg.svg')";
     }
 
 });
@@ -110,49 +110,49 @@ $(document).ready(function () {
             $('#changeTheme').prop('checked', true);
             $('#changeTheme1').prop('checked', true);
             document.getElementById("theme").className = "dark";
-            document.getElementById('headerLogo').src = 'assets/images/logo-white.svg';
-            document.getElementById('footerLogo').src = 'assets/images/logo.svg';
+            document.getElementById('headerLogo').src = '../user/img/auction/images/logo-white.svg';
+            document.getElementById('footerLogo').src = '../user/img/auction/images/logo.svg';
         }
         else {
             $('#changeTheme').prop('checked', false);
             $('#changeTheme1').prop('checked', false);
             document.getElementById("theme").className = "light";
-            document.getElementById('headerLogo').src = 'assets/images/logo.svg';
-            document.getElementById('footerLogo').src = 'assets/images/logo-white.svg';
+            document.getElementById('headerLogo').src = '../user/img/auction/images/logo.svg';
+            document.getElementById('footerLogo').src = '../user/img/auction/images/logo-white.svg';
         }
     });
 });
 
 // Auction Timer Start
 // Set the date we're counting down to
-var countDownDate = new Date("august 30, 2023 12:22:25").getTime();
-// Update the count down every 1 second
-var x = setInterval(function () {
+/*var countDownDate = new Date("august 30, 2023 12:22:25").getTime();*/
+//// Update the count down every 1 second
+//var x = setInterval(function () {
 
-    // Get today's date and time
-    var now = new Date().getTime();
+//    // Get today's date and time
+//    var now = new Date().getTime();
 
-    // Find the distance between now and the count down date
-    var distance = countDownDate - now;
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+//    // Find the distance between now and the count down date
+//    var distance = countDownDate - now;
+//    // Time calculations for days, hours, minutes and seconds
+//    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Output the result in an element with id="timer-inner"
-    var timer = document.querySelectorAll('.timer-inner');
-    timer.forEach((times) => {
-        times.innerHTML = `<span> ${days}D </span>:<span> ${hours}H </span>:<span>${minutes}M </span>:<span>${seconds} S</span>`;
-    })
+//    // Output the result in an element with id="timer-inner"
+//    var timer = document.querySelectorAll('.timer-inner');
+//    timer.forEach((times) => {
+//        times.innerHTML = `<span> ${days}D </span>:<span> ${hours}H </span>:<span>${minutes}M </span>:<span>${seconds} S</span>`;
+//    })
 
-    // If the count down is over, write some text 
-    if (distance < 0) {
-        clearInterval(x);
-        document.querySelector(".timer-inner").innerHTML = "EXPIRED";
-    }
-}, 1000);
-// Auction Timer End
+//    // If the count down is over, write some text 
+//    if (distance < 0) {
+//        clearInterval(x);
+//        document.querySelector(".timer-inner").innerHTML = "EXPIRED";
+//    }
+//}, 1000);
+ //Auction Timer End
 
 // custom select
 let index = 1;

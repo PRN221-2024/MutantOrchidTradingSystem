@@ -2,21 +2,21 @@
 @using Newtonsoft.Json
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
-@model MutantOrchidTradingSysRazorPage.Pages.User.AuctionModel
+@model MutantOrchidTradingSysRazorPage.Pages.User.BidHistoryModel
 @{
 }
 <!DOCTYPE html>
 <html lang="en" id="theme" class="light">
 
 
-<!-- Mirrored from theme.bitrixinfotech.com/bidzone/browse-bid.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 19:15:56 GMT -->
+<!-- Mirrored from theme.bitrixinfotech.com/bidzone/bid-history.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 19:16:00 GMT -->
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="../cdn-cgi/apps/head/hwGM7B4uQy9K8KyLEDAfJqNEXmU.js"></script>
     <link rel="shortcut icon" href="~/user/img/auction/images/auction-fevicon.png">
-    <title>Browse Bid</title>
+    <title>Bid History</title>
     <!-- Bootstrap CSS v5.2.1 -->
     <link rel="stylesheet" href="~/user/css/auction/all.min.css" type="text/css">
     <link rel="stylesheet" href="~/user/css/auction/swiper.min.css" type="text/css">
@@ -44,9 +44,9 @@
                         <div class="country">
                             <select name="country" class="form-control" id="country">
                                 <option value="VN">
-                                   VN
+                                    VN
                                 </option>
-                                
+                               
                             </select>
                         </div>
                         <div class="currency">
@@ -54,7 +54,6 @@
                                 <option value="VND">
                                     VND
                                 </option>
-                                
                                 
                             </select>
                         </div>
@@ -70,7 +69,7 @@
                         <label for="changeTheme1" class="m-auto"></label>
                     </div>
                 </div>
-                
+               
             </div>
         </div>
     </div>
@@ -78,12 +77,12 @@
         <nav class="navbar navbar-expand-lg py-3">
             <div class="container">
                 <a class="navbar-brand p-0" href="index.html">
-                    <img src="~/user/img/auction/images/logo.svg" id="headerLogo" class="themeLogo img-fluid w-100" alt="logo">
+                    <img src="assets/images/logo.svg" id="headerLogo" class="themeLogo img-fluid w-100" alt="logo">
                 </a>
                 <div class="nav-right justify-content-center" id="navbar">
                     <ul class="navbar-nav position-relative d-none d-lg-flex">
                         <li class="nav-item">
-                            <a class="nav-link text-dark active" href="/Index">Home</a>
+                            <a class="nav-link text-dark active" href="/">Shop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark active" href="/User/Auction">Trang Chủ Đấu Giá</a>
@@ -94,11 +93,11 @@
                                 <li><a href="/User/BidHistory">bid history</a></li>
                             </ul>
                         </li>
-                       
+                        
                     </ul>
                     <ul class="navbar-nav d-block d-lg-none">
                         <li class="nav-item">
-                            <a class="nav-link text-dark active" href="/">Home</a>
+                            <a class="nav-link text-dark active" href="/">Shop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark active" href="/User/Auction">Trang Chủ Đấu Giá</a>
@@ -107,28 +106,26 @@
                             <a class="nav-link text-dark" href="javascript:void(0)" data-bs-toggle="dropdown"
                                aria-expanded="false">Auction</a>
                             <ul class="sub-menu dropdown-menu">
-                                <
+                               
                                 <li><a href="/User/BidHistory">bid history</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <hr>
-                        </li>
+                      
+                        <hr>
                         <li class="nav-item">
                             <div class="d-flex justify-content-center gap-2">
                                 <div class="select">
                                     <button class="selectBtn" data-type="country">country</button>
                                     <div class="selectDropdown">
+                                        <div class="option" data-type="VN">Vn</div>
                                         
-                                        <div class="option" data-type="VN">VN</div>
-                                       
                                     </div>
                                 </div>
                                 <div class="select">
                                     <button class="selectBtn" data-type="currency">currency</button>
                                     <div class="selectDropdown">
                                         <div class="option" data-type="VND">VND</div>
-                                       
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +133,7 @@
                         <li>
                             <hr>
                         </li>
-                     
+                       
                         <li>
                             <hr>
                         </li>
@@ -149,16 +146,15 @@
                     </ul>
                 </div>
                 <div class="d-flex gap-1 nav-btn-group align-items-center">
-                    
-                        <ul class="navbar-nav position-relative d-none d-lg-flex">
-                            @if (Accessor.HttpContext.Session.GetString("username") == null)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark active" href="/Login">Login</a>
-                                </li>
-                            }
-                            else
-                            {
+                    <ul class="navbar-nav position-relative d-none d-lg-flex">
+                        @if (Accessor.HttpContext.Session.GetString("username") == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark active" href="/Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
                             <li class="nav-item dropdown-tgl">
                                 <a class="nav-link text-dark" href="javascript:void(0)">@Accessor.HttpContext.Session.GetString("username")</a>
                                 <ul class="sub-menu">
@@ -168,11 +164,10 @@
                                     <li><a href="/Logout">Log Out</a></li>
                                 </ul>
                             </li>
-                            }
-                            
+                        }
 
-                        </ul>
-                   
+
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -180,67 +175,71 @@
     <!-- Header End !-->
     <!-- Main Content Start !-->
     <main id="main-content" class="position-relative">
-        
-        <section class="outer-gap">
+        <div class="breadcrumb-main">
+            <div class="container">
+                <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Bid History</li>
+                    </ol>
+                    <h1 class="breadcrumb-title">Product Details & more</h1>
+                </div>
+            </div>
+        </div>
+        <div class="inner-gap">
             <div class="container">
                 <div class="row gy-4">
-                    <div class="col-xl-9">
-                        <div class="auction-card-small">
-                            <div class="row gy-6 justify-content-center">
-                                @foreach (var auction in Model.Auctions)
-                                {
-                                    
-                                        <div class="col-sm-6 col-lg-4">
-                                            <div class="auction-card">
-                                                <div class="card-image">
-                                                    <img src="~/user/img/auction/images/auction-product-20.png" alt="auction-card-img">
-                                                    <div class="timer-wrapper">
-                                                    <div class="timer-inner" id="timer-@auction.Auction.Id">
-                                                       
+                    <div class="col-lg-12">
+                        <div class="bidding-history">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Auction</th>
+                                            <th>Your Bid</th>
+                                            <th>Opening Bid</th>
+                                            <th>Time</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach(var item in Model.Bids)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <img src="@item.Auction.Product.Path"
+                                                             class="dashboard-avatar" alt="bider-avatar">
+                                                        <div>
+                                                            <h6>@item.Auction.Product.Name</h6>
+                                                            <span class="fs-14"></span>
+                                                        </div>
                                                     </div>
+                                                </td>
+                                                <td>@item.Amount</td>
+                                                <td>@item.Auction.StartingPrice</td>
+                                                <td>
+                                                    <div class="timer-inner" id="timer-@item.Id"></div>
+                                                </td>
+                                                <td>
+                                                    <a href="/User/Bid?id=@item.Auction.Id" class="primary-btn small-btn">View More</a>
+                                                </td>
 
-                                                    </div>
-                                                </div>
-                                                <div class="card-content">
-                                                <a href="/User/Bid?id=@auction.Auction.Id" class="card-title">@auction.Product.Name</a>
-                                                    <p class="p-0">Current bid <span>@auction.CurrentBid</span></p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-
-
-                                                        <a href="/User/Bid?id=@auction.Auction.Id" class="primary-btn">Bid Now</a>
-                                                        <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                <div class="col-12">
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" aria-label="Previous">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
+                                            </tr>
+                                        }
+                                       
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center mt-4 mt-md-5">
+                                <button class="primary-btn">Load More</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
     <!-- Main Content End !-->
     <!-- Footer Start !-->
@@ -251,7 +250,7 @@
                     <div class="col-md-12 col-lg-4">
                         <div class="footer-disc">
                             <a href="index.html" class="footer-logo">
-                                <img src="~/user/img/auction/images/logo-white.svg" id="footerLogo" class="fThemeLogo img-fluid"
+                                <img src="assets/images/logo-white.svg" id="footerLogo" class="fThemeLogo img-fluid"
                                      alt="logo">
                             </a>
                             <p>
@@ -385,30 +384,30 @@
     <script src="~/user/js/auction/jquery.min.js"></script>
     <script src="~/user/js/auction/bootstrap.bundle.min.js"></script>
     <script src="~/user/js/auction/swiper.min.js"></script>
-     <script src="~/user/js/auction/custom.js"></script> 
+    <script src="~/user/js/auction/custom.js"></script>
     @{
         var settings = new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
 
-        string json = JsonConvert.SerializeObject(Model.Auctions, settings);
-     
+        string json = JsonConvert.SerializeObject(Model.Bids, settings);
+
     }
     <script>
-        var auctions = @Html.Raw(json);
+        var bids = @Html.Raw(json);
 
-        auctions.forEach(function (auction) 
-        {
-            var endTime = new Date(auction.Auction.EndTime).getTime();
-            var startTime = new Date(auction.Auction.StartTime).getTime();
+        bids.forEach(function (bid) {
+            var auction = bid.Auction;
+            var endTime = new Date(auction.EndTime).getTime();
+            var startTime = new Date(auction.StartTime).getTime();
             console.log(endTime);
 
             var x = setInterval(function () {
                 var now = new Date().getTime();
                 var distance = endTime - now;
-                var timerId = 'timer-' + auction.Auction.Id;
-                console.log(auction.Auction.Id);
+                var timerId = 'timer-' + bid.Id;
+                console.log(auction.Id);
                 var timerElement = document.getElementById(timerId);
 
                 var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -421,14 +420,13 @@
                 if (distance < 0) {
                     clearInterval(x);
                     timerElement.innerHTML = "EXPIRED";
-                    updateAuctionStatus(auction.Auction.Id);
+                    updateAuctionStatus(auction.Id);
                 }
             }, 1000);
         });
 
-        function updateAuctionStatus(auctionId) 
-        {
-            fetch('/User/Auction?id=' + auctionId +'&handlder=update', {
+        function updateAuctionStatus(auctionId) {
+            fetch('/User/Auction?id=' + auctionId + '&handlder=update', {
                 method: 'Get'
             })
                 .then(response => {
@@ -443,67 +441,9 @@
                 });
         }
     </script>
-
-
-    <script>
-        var swiper = new Swiper(".product-swiper", {
-            spaceBetween: 32,
-            autoplay: {
-                delay: 1500,
-                disableOnInteraction: false,
-            },
-            breakpoints: {
-                450: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 3,
-                },
-                1400: {
-                    slidesPerView: 4,
-                },
-            }
-        });
-        // price Range
-        var lowerSlider = document.querySelector('#lower');
-        var upperSlider = document.querySelector('#upper');
-
-        document.querySelector('#two').value = upperSlider.value;
-        document.querySelector('#one').value = lowerSlider.value;
-
-        var lowerVal = parseInt(lowerSlider.value);
-        var upperVal = parseInt(upperSlider.value);
-
-        upperSlider.oninput = function () {
-            lowerVal = parseInt(lowerSlider.value);
-            upperVal = parseInt(upperSlider.value);
-
-            if (upperVal < lowerVal + 4) {
-                lowerSlider.value = upperVal - 4;
-                if (lowerVal == lowerSlider.min) {
-                    upperSlider.value = 4;
-                }
-            }
-            document.querySelector('#two').value = this.value
-        };
-        lowerSlider.oninput = function () {
-            lowerVal = parseInt(lowerSlider.value);
-            upperVal = parseInt(upperSlider.value);
-            if (lowerVal > upperVal - 4) {
-                upperSlider.value = lowerVal + 4;
-                if (upperVal == upperSlider.max) {
-                    lowerSlider.value = parseInt(upperSlider.max) - 4;
-                }
-            }
-            document.querySelector('#one').value = this.value
-        };
-    </script>
-    <script>(function () { var js = "window['__CF$cv$params']={r:'8625a27eeee0e65a',t:'MTcxMDA5ODE0MC4wODQwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../cdn-cgi/challenge-platform/h/b/scripts/jsd/aeb70db32f0f/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);"; var _0xh = document.createElement('iframe'); _0xh.height = 1; _0xh.width = 1; _0xh.style.position = 'absolute'; _0xh.style.top = 0; _0xh.style.left = 0; _0xh.style.border = 'none'; _0xh.style.visibility = 'hidden'; document.body.appendChild(_0xh); function handler() { var _0xi = _0xh.contentDocument || _0xh.contentWindow.document; if (_0xi) { var _0xj = _0xi.createElement('script'); _0xj.innerHTML = js; _0xi.getElementsByTagName('head')[0].appendChild(_0xj); } } if (document.readyState !== 'loading') { handler(); } else if (window.addEventListener) { document.addEventListener('DOMContentLoaded', handler); } else { var prev = document.onreadystatechange || function () { }; document.onreadystatechange = function (e) { prev(e); if (document.readyState !== 'loading') { document.onreadystatechange = prev; handler(); } }; } })();</script>
+    <script>(function () { var js = "window['__CF$cv$params']={r:'8625a2844cfb04ea',t:'MTcxMDA5ODE0MC45MzYwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../cdn-cgi/challenge-platform/h/b/scripts/jsd/aeb70db32f0f/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);"; var _0xh = document.createElement('iframe'); _0xh.height = 1; _0xh.width = 1; _0xh.style.position = 'absolute'; _0xh.style.top = 0; _0xh.style.left = 0; _0xh.style.border = 'none'; _0xh.style.visibility = 'hidden'; document.body.appendChild(_0xh); function handler() { var _0xi = _0xh.contentDocument || _0xh.contentWindow.document; if (_0xi) { var _0xj = _0xi.createElement('script'); _0xj.innerHTML = js; _0xi.getElementsByTagName('head')[0].appendChild(_0xj); } } if (document.readyState !== 'loading') { handler(); } else if (window.addEventListener) { document.addEventListener('DOMContentLoaded', handler); } else { var prev = document.onreadystatechange || function () { }; document.onreadystatechange = function (e) { prev(e); if (document.readyState !== 'loading') { document.onreadystatechange = prev; handler(); } }; } })();</script>
 </body>
 
 
-<!-- Mirrored from theme.bitrixinfotech.com/bidzone/browse-bid.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 19:15:58 GMT -->
+<!-- Mirrored from theme.bitrixinfotech.com/bidzone/bid-history.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 19:16:00 GMT -->
 </html>
