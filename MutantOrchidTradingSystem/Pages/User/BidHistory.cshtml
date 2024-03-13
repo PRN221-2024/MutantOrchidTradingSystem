@@ -179,10 +179,10 @@
             <div class="container">
                 <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/User/Auction">Trang chủ Đấu Giá</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Bid History</li>
                     </ol>
-                    <h1 class="breadcrumb-title">Product Details & more</h1>
+                    <h1 class="breadcrumb-title">Bid History & more</h1>
                 </div>
             </div>
         </div>
@@ -198,7 +198,7 @@
                                             <th>Product Auction</th>
                                             <th>Your Bid</th>
                                             <th>Opening Bid</th>
-                                            <th>Time</th>
+                                            <th>Left Time</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -208,8 +208,9 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
-                                                        <img src="@item.Auction.Product.Path"
-                                                             class="dashboard-avatar" alt="bider-avatar">
+
+                                                        <img src="@Url.Content(item.Auction.Product.Path)" class="dashboard-avatar" alt="bider-avatar" />
+
                                                         <div>
                                                             <h6>@item.Auction.Product.Name</h6>
                                                             <span class="fs-14"></span>

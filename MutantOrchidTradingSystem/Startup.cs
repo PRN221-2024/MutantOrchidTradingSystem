@@ -3,6 +3,7 @@ using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MutantOrchidTradingSysRazorPage;
 
 public class Startup
 {
@@ -15,6 +16,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSession();
+        services.AddSignalR();
         services.AddRazorPages();
         services.AddHttpContextAccessor();
         services.AddDbContext<AuctionItemDbContext>(options =>
@@ -57,8 +59,10 @@ public class Startup
 
         app.UseRouting();
 
+        
         app.UseAuthorization();
         app.UseSession();
+        
 
         app.UseEndpoints(endpoints =>
         {
@@ -71,6 +75,7 @@ public class Startup
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapHub<SignalServer>("/signalrServer");
         });
 
 
