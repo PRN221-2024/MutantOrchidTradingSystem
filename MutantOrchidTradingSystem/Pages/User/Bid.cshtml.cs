@@ -3,6 +3,11 @@ using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace MutantOrchidTradingSysRazorPage.Pages.User
 {
@@ -13,19 +18,21 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
         private readonly IProductRepository _productRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHubContext<SignalServer> _bidHub;
         
-        public BidModel(IAuctionRepository acutionRepository, IBidRepository bidRepository, IProductRepository productRepository, IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor)
+        public BidModel(IAuctionRepository acutionRepository, IBidRepository bidRepository, IProductRepository productRepository, IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor, IHubContext<SignalServer> hubContext)
         {
             _acutionRepository = acutionRepository;
             _bidRepository = bidRepository;
             _productRepository = productRepository;
             _accountRepository = accountRepository;
             _httpContextAccessor = httpContextAccessor;
+            _bidHub = hubContext;
         }
         public int BidCount { get; set; }
         public AuctionDTO AuctionDetail { get; set; }
-        public List<Account> accounts { get; set; }
-        public List<Bid> listBid { get; set; }
+        
+       
        
         [BindProperty]
         public decimal amount { get; set; }
@@ -36,10 +43,9 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             {
                 return NotFound();
             }
-            Account accountBid = new Account();
+            
             var product = _productRepository.GetById(auction.ProductId.Value);
             var bids = _bidRepository.GetBidsForAuction(id);
-            listBid = bids; 
             BidCount = bids.Count;
             decimal maxBid = bids.Any() ? bids.Max(b => b.Amount) : auction.StartingPrice.Value;
             decimal currentBid = maxBid >= auction.StartingPrice.Value ? maxBid : auction.StartingPrice.Value;
@@ -58,7 +64,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             return Page();
         }
 
-        public IActionResult OnPostBid(int id)
+        public async Task<IActionResult> OnPostBidAsync(int id)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
             {
@@ -70,7 +76,20 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             Bid.BidTime = DateTime.Now;
             Bid.Amount = amount;
             var bid = _bidRepository.AddBid(Bid);
+
+
+
+            
+
+
+
+            // Send the updated auction details to all connected clients
+            await _bidHub.Clients.All.SendAsync("ReceiveBid", id);
+
+
             return RedirectToPage("/User/Bid", new { id = Bid.AuctionId });
         }
+
+       
     }
 }

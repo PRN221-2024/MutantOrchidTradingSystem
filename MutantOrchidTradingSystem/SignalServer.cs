@@ -1,16 +1,20 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using DataAccess.DTO;
+using DataAccess.Models;
+using DataAccess.Repository;
+using Microsoft.AspNetCore.SignalR;
+using NuGet.Packaging.Signing;
 
 namespace MutantOrchidTradingSysRazorPage
 {
     public class SignalServer : Hub
     {
-        public async Task Send(string message)
+       
+       
+        public async Task SendBid(int auctionId)
         {
-            await Clients.All.SendAsync("ReceiveMessage", message);
-        }
-        public async Task SendBid(int auctionId, decimal bidAmount)
-        {
-            await Clients.All.SendAsync("ReceiveBid", auctionId, bidAmount);
+            
+            
+            await Clients.All.SendAsync("ReceiveBid", auctionId);
         }
     }
 }

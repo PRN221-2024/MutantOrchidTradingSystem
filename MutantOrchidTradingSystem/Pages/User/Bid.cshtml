@@ -211,17 +211,24 @@
                                 @Model.AuctionDetail.Product.Name
                             </h3>
                             <ul>
-                                <li><span>Country</span><span>UK</span></li>
-                                <li><span>Start Bid</span><span>@Model.AuctionDetail.Auction.StartingPrice</span></li>
-                                <li><span>Latest Bid</span><span>@Model.AuctionDetail.CurrentBid</span></li>
-                                <li><span>Total Bids</span><span>@Model.BidCount</span></li>
+                                <li><span>Country</span><span id="country">VN</span></li>
+                                <li><span>Start Bid</span><span id="startBid">@Model.AuctionDetail.Auction.StartingPrice</span></li>
+                                <li><span>Latest Bid</span><span id="latestBid">@Model.AuctionDetail.CurrentBid</span></li>
+                                <li><span>Total Bids</span><span id="totalBids">@Model.BidCount</span></li>
                             </ul>
                             <div class="d-flex flex-wrap justify-content-between gap-2">
 
                                 <div class="item-quantity">
                                     <form method="post" asp-page-handler="Bid" asp-route-id="@Model.AuctionDetail.Auction.Id">
                                         <input type="number" class="form-control" id="Amount" asp-for="@Model.amount">
-                                        <button type="submit" class="primary-btn d-flex align-items-center">bid now</button>
+                                        @if (Model.AuctionDetail.Auction.Status == false)
+                                        {
+                                            <p>Đã Kết Thúc</p>
+                                        }else
+                                        {
+                                            <button type="submit" class="primary-btn d-flex align-items-center">bid now</button>
+                                        }
+                                   
                                     </form>
                                 </div>
                                
@@ -296,8 +303,8 @@
                                                             <th scope="col">Time</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        @foreach (var bid in Model.listBid)
+                                                    <tbody id="bidTableBody">
+                                                        @foreach (var bid in Model.AuctionDetail.Bids)
                                                         {
                                                         <tr>
                                                             <td>
@@ -594,7 +601,9 @@
     <script src="~/user/js/auction/bootstrap.bundle.min.js"></script>
     <script src="~/user/js/auction/swiper.min.js"></script>
     <script src="~/user/js/auction/custom.js"></script>
-
+    <script src="~/user/js/dist/browser/signalr.js"></script>
+    
+    <script src="~/user/js/dist/auctionServer.js"></script>
     @{
         var settings = new JsonSerializerSettings
             {
