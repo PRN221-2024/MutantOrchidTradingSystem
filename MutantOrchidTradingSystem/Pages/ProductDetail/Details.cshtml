@@ -112,24 +112,14 @@
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                     <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                        <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link" data-toggle="dropdown">Lan Hồ Điệp sinh nhật<i class="fa fa-angle-down float-right mt-1"></i></a>
-                                <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                    <a href="" class="dropdown-item">Sinh nhật ba mẹ</a>
-                                    <a href="" class="dropdown-item">Sinh nhật bạn bè</a>
-                                    <a href="" class="dropdown-item">Sinh nhật đối tác</a>
-                                </div>
-                            </div>
-                            <a href="" class="nav-item nav-link">Lan Hồ Điệp sự kiện</a>
-                            <a href="" class="nav-item nav-link">Phong cách truyền thống</a>
-                            <a href="" class="nav-item nav-link">Phong cách Nhật Bản</a>
-                            <a href="" class="nav-item nav-link">Lan Hồ Điệp Phong cách Châu Âu</a>
-                            <a href="" class="nav-item nav-link">Lan Hồ Điệp mini</a>
-                            <a href="" class="nav-item nav-link">Hoa tươi</a>
-                            <a href="" class="nav-item nav-link">Lan Hồ Điệp văn phòng</a>
-                            <a href="" class="nav-item nav-link">Sản phẩm khác</a>
-                        </div>
+                        <a href="" class="nav-item nav-link">Lan Hồ Điệp sinh nhật</a>
+                        <a href="" class="nav-item nav-link">Lan Hồ Điệp sự kiện</a>
+                        <a href="" class="nav-item nav-link">Phong cách truyền thống</a>
+                        <a href="" class="nav-item nav-link">Lan Hồ Điệp phong cách Châu Âu</a>
+                        <a href="" class="nav-item nav-link">Lan Hồ Điệp mini</a>
+                        <a href="" class="nav-item nav-link">Lan Hồ Điệp văn phòng</a>
+                        <a href="" class="nav-item nav-link">Sản phẩm khác</a>
+                    </div>
                 </nav>
             </div>
             <div class="col-lg-9">
@@ -142,11 +132,9 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="../Pages/Index.cshtml" class="nav-item nav-link active">GIỚI THIỆU</a>
-                            <a href="../../" class="nav-item nav-link">SHOP</a>
-                            <a href="detail.html" class="nav-item nav-link">GÓC KỸ THUẬT</a>
-                            <a href="contact.html" class="nav-item nav-link">BLOG</a>
-                            <a href="contact.html" class="nav-item nav-link">LIÊN HỆ</a>
+                            <a href="/" class="nav-item nav-link active">GIỚI THIỆU</a>
+                            <a href="/ProductDetail/ShopList" class="nav-item nav-link">SHOP</a>
+                            <a href="/User/Auction" class="nav-item nav-link">ĐẤU GIÁ LAN</a>
                         </div>
                         @{
                             if (Accessor.HttpContext.Session.GetString("username") == null)
@@ -177,7 +165,7 @@
     <!-- Shop Detail Start -->
     <div class="container-fluid py-5">
         <div class="row px-xl-5">
-            <div class="col-lg-6 pb-5">
+            <div class="col-lg-4 pb-5">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner border">
                         <div class="carousel-item active">

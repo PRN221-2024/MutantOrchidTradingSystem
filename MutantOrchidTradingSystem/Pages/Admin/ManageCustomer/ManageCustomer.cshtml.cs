@@ -14,10 +14,14 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
         }
 
         public List<Account> listAccounts { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             listAccounts = _accountRepository.GetAll();
-
+            return Page();
         }
     }
 }

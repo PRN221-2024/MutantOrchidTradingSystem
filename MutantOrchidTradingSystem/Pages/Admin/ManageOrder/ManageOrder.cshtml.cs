@@ -14,10 +14,15 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
         }
 
         public List<Order> listOrders { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            listOrders = _orderRepository.GetAll();
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
 
+            listOrders = _orderRepository.GetAll();
+            return Page();
         }
     }
 }

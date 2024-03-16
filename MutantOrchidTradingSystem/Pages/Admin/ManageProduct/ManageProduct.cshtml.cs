@@ -16,9 +16,14 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin
         }
 
         public List<Product> listProducts { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             listProducts = _productRepository.GetAll();
+            return Page();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
     public class OrderDetailModel : PageModel
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public Order order { get; set; }
         public OrderDetailModel(IHttpContextAccessor httpContextAccessor, IOrderRepository orderRepository)
@@ -15,6 +16,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             _httpContextAccessor = httpContextAccessor;
             _orderRepository = orderRepository;
         }
+        public List<CategoryRepository> categories { get; set; }
         public IActionResult OnGet(int id)
         {
             string username = _httpContextAccessor.HttpContext.Session.GetString("username");

@@ -42,8 +42,9 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Login
                    foreach(var role in account.RoleAccounts) {                        
                         if(role.RoleId == 1)
                         {
-                            
-                            return Redirect("/Admin/Index");
+                            _httpContextAccessor.HttpContext.Session.SetString("username", account.FullName);
+                            _httpContextAccessor.HttpContext.Session.SetInt32("Id", account.Id);
+                            return Redirect("/Admin/ManageCustomer/ManageCustomer");
                         }
                         else if(role.RoleId == 2)
                         {
