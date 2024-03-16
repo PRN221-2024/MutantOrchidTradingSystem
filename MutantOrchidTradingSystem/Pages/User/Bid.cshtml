@@ -624,6 +624,7 @@
         var x = setInterval(function () {
             var now = new Date().getTime();
             var distance = endTime - now;
+            var StartTime = startTime - now;
             var timerId = 'time-' + auction.Auction.Id;
             console.log(auction.Auction.Id);
             var timerElement = document.getElementById(timerId);
@@ -639,7 +640,17 @@
                 clearInterval(x);
                 timerElement.innerHTML = "EXPIRED";
                 updateAuctionStatus(auction.Auction.Id);
+                findWinner(auction.Auction.Id);
             }
+
+            if(StartTime > 0){
+                clearInterval(x);
+                timerElement.innerHTML = "NOT STARTED";
+            }
+
+            
+
+
         }, 1000);
 
         function updateAuctionStatus(auctionId) {
@@ -657,6 +668,22 @@
                     console.error('Error updating auction status:', error);
                 });
         }
+
+        function findWinner(auctionId) {
+        fetch('/User/Bid?id=' + auctionId +'&handler=findWinner', {
+            method: 'Get'
+        })
+        .then(response => {
+                    if (response.ok) {
+                        console.log('Find Winner successfully');
+                    } else {
+                        console.error('Failed to Find Winner');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error Failed to Find Winner: ', error);
+                });
+    }
     </script>
     <script>
         var swiper = new Swiper(".product-swiper", {

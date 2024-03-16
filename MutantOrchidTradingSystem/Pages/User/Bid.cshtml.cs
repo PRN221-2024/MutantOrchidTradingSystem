@@ -90,6 +90,30 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             return RedirectToPage("/User/Bid", new { id = Bid.AuctionId });
         }
 
-       
+       public IActionResult OnGetFindWinner(int id)
+        {
+            var auction = _acutionRepository.GetById(id);
+            if (auction == null)
+            {
+                return Page();
+            }
+            var bids = _bidRepository.GetBidsForAuction(id);
+            if (bids == null || bids.Count == 0)
+            {
+                // No bids were made on this auction
+                return Page();
+            }
+
+            var highestBid = bids.OrderByDescending(b => b.Amount).FirstOrDefault();
+            var winner = _accountRepository.GetById(highestBid.AccountId);
+
+            // Return the winner's id
+            if(winner.Id == _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value)
+            {
+                return RedirectToPage("/User/WinningBid", new { id = auction.Id });
+            }
+            return Page();
+            
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace DataAccess.Repository
       List<Bid>  GetBidsForAuction(int auctionId);
         Bid AddBid(Bid bid);
         List<Bid> GetListByaccountId (int accountId);
+        Bid GetById(int id);
     }
     public class BidRepository : IBidRepository
     {
@@ -30,6 +31,11 @@ namespace DataAccess.Repository
             _context.Bids.Add(bid);
             _context.SaveChanges();
             return bid;
+        }
+        public Bid GetById(int id)
+        {
+            return _context.Bids.Include(b => b.Auction).ThenInclude(p => p.Product).
+                Include(b => b.Account).FirstOrDefault(b => b.Id == id);
         }
 
         public List<Bid> GetListByaccountId(int accountId)

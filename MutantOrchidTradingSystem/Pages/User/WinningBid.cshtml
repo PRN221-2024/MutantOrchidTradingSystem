@@ -1,0 +1,76 @@
+﻿@page
+@model MutantOrchidTradingSysRazorPage.Pages.User.WinningBidModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en" id="theme" class="light">
+
+
+<!-- Mirrored from theme.bitrixinfotech.com/bidzone/winner.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 19:16:02 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="../cdn-cgi/apps/head/hwGM7B4uQy9K8KyLEDAfJqNEXmU.js"></script>
+    <link rel="shortcut icon" href="~/user/img/auction/images/auction-fevicon.png">
+    <title>Winner</title>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link rel="stylesheet" href="~/user/css/auction/all.min.css" type="text/css">
+    <link rel="stylesheet" href="~/user/css/auction/swiper.min.css" type="text/css">
+    <link rel="stylesheet" href="~/user/css/auction/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/user/css/auction/style.css" type="text/css">
+    <link rel="stylesheet" href="~/user/css/auction/responsive.css" type="text/css">
+
+</head>
+
+<body>
+    <!-- start preloader -->
+    <div class="preloader bg-light" id="preloader">
+        <span class="preloader-inner"></span>
+    </div>
+    <div class="toggle-theme d-none">
+        <input type="checkbox" class="changeTheme" id="changeTheme">
+        <label for="changeTheme" class="m-auto"></label>
+    </div>
+    <div class="win-wrapper text-center" id="win-wrapper"
+         style="background-image: url('../user/img/auction/images/model-bg.svg')">
+        <div class="px-3">
+            <div class="winner-block">
+                <img src="assets/images/winner.svg" alt="winner">
+                <h2>Congratulations</h2>
+                <p>With a winning bid of @Model.highestBid.Amount, you've triumphed successfully.
+                    Please make payment for the confirmation.</p>
+                <a href="/User/PaymentBid?id=@Model.highestBid.Id" class="primary-btn d-inline-block mb-3">Process Payment</a>
+                <p class="text-danger">Please pay the amount in 72 hours to avoid losing the product.</p>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript Libraries -->
+    <script src="~/user/js/auction/jquery.min.js"></script>
+    <script src="~/user/js/auction/bootstrap.bundle.min.js"></script>
+    <script src="~/user/js/auction/swiper.min.js"></script>
+    <script src="~/user/js/auction/custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).ready(function () {
+                if (localStorage.storedValue == 'dark') {
+                    $('#changeTheme').prop('checked', true);
+                    $('#changeTheme1').prop('checked', true);
+                    document.getElementById("theme").className = "dark";
+                    document.getElementById('win-wrapper').style.backgroundImage = "url('assets/images/model-bg-dark.svg')";
+                }
+                else {
+                    $('#changeTheme').prop('checked', false);
+                    $('#changeTheme1').prop('checked', false);
+                    document.getElementById("theme").className = "light";
+                    document.getElementsByClassName('win-wrapper').style.backgroundImage = "url('assets/images/modal-bg.html')";
+                }
+
+            });
+        });
+    </script>
+<script>(function(){var js = "window['__CF$cv$params']={r:'8625a2881f9c04ea',t:'MTcxMDA5ODE0MS41NDgwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../cdn-cgi/challenge-platform/h/b/scripts/jsd/aeb70db32f0f/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+
+
+<!-- Mirrored from theme.bitrixinfotech.com/bidzone/winner.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 19:16:03 GMT -->
+</html>
