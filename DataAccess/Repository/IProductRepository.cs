@@ -15,7 +15,9 @@ namespace DataAccess.Repository
 
         public Product CreateProduct (Product product);
 
-        public bool DeleteProduct(int productId); 
+        public bool DeleteProduct(int productId);
+
+        List<string> GetProductName();
 
     }
 }

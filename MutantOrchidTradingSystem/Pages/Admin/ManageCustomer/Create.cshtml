@@ -40,7 +40,7 @@
 padding: 15px 50px 5px 50px;
 float: right;
 font-size: 16px;">
-                <a href="/Logout" class="btn btn-danger square-btn-adjust">Logout</a>
+                <a href="/Logout" class="btn btn-danger square-btn-adjust">Đăng Xuất</a>
             </div>
         </nav>
         <!-- /. NAV TOP  -->
@@ -48,13 +48,13 @@ font-size: 16px;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
+                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Quản Lý Sản Phẩm</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
+                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Quản Lý Tài Khoản</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
+                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Quản Lý Đơn Hàng</a>
                     </li>
                 </ul>
 
@@ -66,7 +66,7 @@ font-size: 16px;">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Create Account</h2>
+                        <h2>Tạo Tài Khoản Mới</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -80,28 +80,51 @@ font-size: 16px;">
                                 <input type="hidden" asp-for="Account.Id" />
                                 <div>
                                     <form method="post">
-                                        <label for="Username">Username:</label>
-                                        <input type="text" class="form-control" asp-for="Account.Username">
+                                        <div>
+                                            <label for="Username">Tài Khoản:</label>
+                                            <input type="text" class="form-control" asp-for="Account.Username">
+                                            <span asp-validation-for="Account.Username" style="color: red;"></span>
+                                            @if (TempData["UsernameError"] != null)
+                                            {
+                                                <span class="text-danger" style="color: red;">@TempData["UsernameError"]</span>
+                                            }
+                                        </div>
 
-                                        <label for="Password">Password:</label>
-                                        <input type="text" class="form-control" asp-for="Account.Password">
+                                        <div>
+                                            <label for="Password">Mật Khẩu:</label>
+                                            <input type="text" class="form-control" asp-for="Account.Password">
+                                            <span asp-validation-for="Account.Password" style="color: red;"></span>
+                                        </div>
 
-                                        <label for="FullName">FullName:</label>
-                                        <input type="text" class="form-control" asp-for="Account.FullName">
+                                        <div>
+                                            <label for="FullName">Họ Và Tên:</label>
+                                            <input type="text" class="form-control" asp-for="Account.FullName">
+                                            <span asp-validation-for="Account.FullName" style="color: red;"></span>
+                                        </div>
 
-                                        <label for="Email">Email:</label>
-                                        <input type="text" class="form-control" asp-for="Account.Email">
+                                        <div>
+                                            <label for="Email">Email:</label>
+                                            <input type="text" class="form-control" asp-for="Account.Email">
+                                            <span asp-validation-for="Account.Email" style="color: red;"></span>
+                                        </div>
 
-                                        <label for="Address">Address:</label>
-                                        <input type="text" class="form-control" asp-for="Account.Address" style="margin-bottom: 10px;">
+                                        <div>
+                                            <label for="Address">Địa Chỉ:</label>
+                                            <input type="text" class="form-control" asp-for="Account.Address" style="margin-bottom: 10px;">
+                                            <span asp-validation-for="Account.Address" style="color: red;"></span>
+                                        </div>
 
-                                        <label for="Phone">Phone:</label>
-                                        <input type="Number" class="form-control" asp-for="Account.Phone" style="margin-bottom: 10px;">
+                                        <div>
+                                            <label for="Phone">Số Điện Thoại:</label>
+                                            <input type="Number" class="form-control" asp-for="Account.Phone" style="margin-bottom: 10px;">
+                                            <span asp-validation-for="Account.Phone" style="color: red;"></span>
+                                        </div>
 
                                         <div class="text-right">
-                                            <input type="submit" value="Save Changes" class="btn btn-primary">
+                                            <input type="submit" value="Tạo Tài Khoản Mới" class="btn btn-danger">
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
@@ -109,7 +132,7 @@ font-size: 16px;">
                 </div>
 
                 <div>
-                    <a asp-page="./ManageProduct">Back to List</a>
+                    <a asp-page="./ManageCustomer" style="color: #D19C97;">Quay Lại Danh Sách Tài Khoản</a>
                 </div>
 
                 <!--End Advanced Tables -->

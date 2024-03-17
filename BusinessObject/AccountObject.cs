@@ -18,7 +18,7 @@ namespace BusinessObject
             _accountRepository = new AccountRepository();
             _roleAccountRepository = new RoleAccountRepository();
         }
-        public Account Login(string username, string password)
+        public Account Login(string username, string password, bool status)
         {
             try
             {

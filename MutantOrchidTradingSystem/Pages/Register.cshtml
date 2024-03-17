@@ -41,83 +41,75 @@
                         <a class="d-inline-block mb-2" href="index.html">
                             <img src="../user/img/auction/images/auction-fevicon.png" class="themeLogo img-fluid" alt="logo">
                         </a>
-                        <h2 class="display-6 fw-bold mb-3">Sign Up</h2>
-                        <p class="mb-4">Fill in required details to create a BidZone account</p>
+                        <h2 class="display-6 fw-bold mb-3">Đăng Kí</h2>
+                        <p class="mb-4">Điền thông tin chi tiết được yêu cầu để tạo tài khoản BidZone</p>
                         <form method="post" asp-page="/Register">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>UserName*</label>
-                                        <input type="text" id="UserName" asp-for="@Model.Account.Username" placeholder="Cao Thi" class="form-control" required />
+                                        <label>Tài khoản*</label>
+                                        <input type="text" id="UserName" asp-for="@Model.Account.Username" placeholder="Cao Thi" class="form-control" />
+                                        <span asp-validation-for="Account.Username" style="color: red;"></span>
+                                        @if (TempData["UsernameError"] != null)
+                                        {
+                                            <span class="text-danger" style="color: red;">@TempData["UsernameError"]</span>
+                                        }
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group formPassword">
-                                        <label>Password*</label>
-                                        <input type="password" id="Password" asp-for="@Model.Account.Password" placeholder="****" class="form-control" required />
-                                        <span class="input-checker password-show-hide">
-                                            <i class="fa-regular fa-eye-slash"></i>
-                                        </span>
+                                        <label>Mật khẩu*</label>
+                                        <input type="password" id="Password" asp-for="@Model.Account.Password" placeholder="****" class="form-control" />
+                                        <span asp-validation-for="Account.Password" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group formPassword">
-                                        <label>Confirm Password*</label>
-                                        <input type="password" id="Password" asp-for="@Model.Account.Password" placeholder="****" class="form-control" required />
-                                        <span class="input-checker"><i class="fa-regular fa-eye-slash"></i></span>
+                                        <label>Xác nhận mật khẩu*</label>
+                                        <input type="password" id="Password" asp-for="@Model.Account.Password" placeholder="****" class="form-control" />
+                                        <span asp-validation-for="Account.Password" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>FullName*</label>
-                                        <input type="text" id="FullName" asp-for="@Model.Account.FullName" class="form-control" required />
-                                       
+                                        <label>Họ và tên*</label>
+                                        <input type="text" id="FullName" asp-for="@Model.Account.FullName" class="form-control" />
+                                        <span asp-validation-for="Account.FullName" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Email*</label>
-                                        <input type="text" id="Email" asp-for="@Model.Account.Email" class="form-control" required />
-                                       
+                                        <input type="text" id="Email" asp-for="@Model.Account.Email" class="form-control" />
+                                        <span asp-validation-for="Account.Email" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Address*</label>
-                                        <input type="text" id="Address" asp-for="@Model.Account.Address" class="form-control" required />
-                                        
+                                        <label>Địa chỉ*</label>
+                                        <input type="text" id="Address" asp-for="@Model.Account.Address" class="form-control" />
+                                        <span asp-validation-for="Account.Address" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Phone*</label>
-                                        <input type="text" id="Phone" asp-for="@Model.Account.Phone" class="form-control" required />
-                                        
+                                        <label>Số điện thoại*</label>
+                                        <input type="text" id="Phone" asp-for="@Model.Account.Phone" class="form-control" />
+                                        <span asp-validation-for="Account.Phone" style="color: red; text-align: none;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check text-start">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
-                                            I accept the <b>terms</b> and <b>privacy policy</b>
+                                            Tôi chấp nhận các <b>điều khoản</b> and <b>chính sách bảo mật</b>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-12 mb-4">
-                                    <button class="primary-btn w-100" type="submit">Submit</button>
+                                    <button class="primary-btn w-100" type="submit">Đăng Kí</button>
                                 </div>
-                                <div class="col-12">
-                                    <p class="border-bottom border-dark mb-4" style="height: 1px;">
-                                        <span class="position-relative px-2 text-dark"
-                                              style="top: -13px; background: var(--bg-wrapper)">OR</span>
-                                    </p>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <button class="primary-btn bg-light text-black border-dark w-100 text-capitalize">
-                                        <i class="fa-brands fa-google"></i><span class="ms-2">Continue with google</span>
-                                    </button>
-                                </div>
-                                <p>Already have an account? <a href="/Login">Log In</a> </p>
+                                <p>Đã có tài khoản? <a href="/Login">Đăng Nhập</a> </p>
                             </div>
                         </form>
                     </div>

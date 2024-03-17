@@ -40,7 +40,7 @@
 padding: 15px 50px 5px 50px;
 float: right;
 font-size: 16px;">
-                <a href="/Logout" class="btn btn-danger square-btn-adjust">Logout</a>
+                <a href="/Logout" class="btn btn-danger square-btn-adjust">Đăng Xuất</a>
             </div>
         </nav>
         <!-- /. NAV TOP  -->
@@ -48,13 +48,13 @@ font-size: 16px;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
+                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Quản Lý Sản Phẩm</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
+                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Quản Lý Tài Khoản</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
+                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Quản Lý Đơn Hàng</a>
                     </li>
                 </ul>
 
@@ -66,7 +66,7 @@ font-size: 16px;">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Manage Customer</h2>
+                        <h2>Quản Lý Tài Khoản</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -77,7 +77,7 @@ font-size: 16px;">
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <a asp-page="Create" class="btn btn-primary" style="float: right; margin: 10px; background-color: white; border-color: #D19C97; color: #D19C97; height: 40px;">
-                                Create Customer
+                                Tạo Tài Khoản Mới
                             </a>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -85,13 +85,13 @@ font-size: 16px;">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Username</th>
-                                                <th>Password</th>
-                                                <th>FullName</th>
+                                                <th>Tài Khoản</th>
+                                                <th>Mật Khẩu</th>
+                                                <th>Họ Và Tên</th>
                                                 <th>Email</th>
-                                                <th>Status</th>
-                                                <th>Address</th>
-                                                <th>Phone</th>
+                                                <th>Trạng Thái</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Số Điện Thoại</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -109,11 +109,11 @@ font-size: 16px;">
                                                     <td>@account.Phone</td>
                                                     <td>
                                                         <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;"
-                                                       asp-page="./Edit" asp-route-accountId="@account.Id">Edit</a>
+                                                       asp-page="./Edit" asp-route-accountId="@account.Id">Chỉnh Sửa</a>
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;"
-                                                       asp-page="./Delete" asp-route-accountId="@account.Id">Delete</a>
+                                                       asp-page="./Delete" asp-route-accountId="@account.Id">Xóa</a>
                                                     </td>
                                                 </tr>
                                             }

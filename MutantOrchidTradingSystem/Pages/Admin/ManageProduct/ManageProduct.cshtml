@@ -37,7 +37,7 @@
                 </a>
             </div>
             <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
-                <a href="/Logout" class="btn btn-danger square-btn-adjust">Logout</a>
+                <a href="/Logout" class="btn btn-danger square-btn-adjust">Đăng Xuất</a>
             </div>
         </nav>
         <!-- /. NAV TOP  -->
@@ -45,13 +45,13 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
+                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Quản Lý Sản Phẩm</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
+                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Quản Lý Tài Khoản</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
+                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Quản Lý Đơn Hàng</a>
                     </li>
                 </ul>
 
@@ -63,7 +63,7 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Manage Product</h2>
+                        <h2>Quản Lý Sản Phẩm</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -74,7 +74,7 @@
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <a asp-page="Create" class="btn btn-primary" style="float: right; margin: 10px; background-color: white; border-color: #D19C97; color: #D19C97; height: 40px;">
-                                Create Product
+                                Tạo Sản Phẩm Mới
                             </a>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -82,12 +82,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>FileName</th>
+                                                <th>Tên Sản Phẩm</th>
+                                                <th>Mô Tả</th>
+                                                <th>Trạng Thái</th>
+                                                <th>Giá</th>
+                                                <th>Số Lượng</th>
+                                                <th>Đường Dẫn File</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -104,11 +104,11 @@
                                                     <td>@product.Path</td>
                                                     <td>
                                                         <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;"
-                                                       asp-page="./Edit" asp-route-productId="@product.Id">Edit</a>
+                                                       asp-page="./Edit" asp-route-productId="@product.Id">Chỉnh Sửa</a>
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-primary" style="margin-bottom: 5px; background-color: white; border-color: #D19C97; color: #D19C97;"
-                                                       asp-page="./Delete" asp-route-productId="@product.Id">Delete</a>
+                                                       asp-page="./Delete" asp-route-productId="@product.Id">Xóa</a>
                                                     </td>
                                                 </tr>
                                             }

@@ -17,6 +17,8 @@ namespace DataAccess.Repository
 
         void Delete(int accountId);
         List<Account> GetAll();
+
+        List<string> GetAllUsername();
     }
     public class AccountRepository : IAccountRepository
     {
@@ -61,6 +63,11 @@ namespace DataAccess.Repository
             }
         }
 
+        public List<string> GetAllUsername()
+        {
+            return _context.Accounts.Select(u => u.Username).ToList();
+        }
+
         public Account GetById(int accountId)
         {
             try
@@ -83,15 +90,19 @@ namespace DataAccess.Repository
         {
             try
             {
-                Account account = _context.Accounts.Include(a => a.RoleAccounts).FirstOrDefault(a => a.Username.Equals(username) && a.Password.Equals(password)); // Kết hợp thông tin từ bảng RoleAccount
+                Account account = _context.Accounts
+                    .Include(a => a.RoleAccounts)
+                    .FirstOrDefault(a => a.Username.Equals(username) &&
+                                         a.Password.Equals(password) &&
+                                         a.Status == true);
 
-                //Include(a => a.RoleAccounts).ThenInclude(ra => ra.RoleId).
                 if (account == null)
-            {
-                   return null;
+                {
+                    return null;
+                }
+
+                return account;
             }
-            return account;
-               }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in Login - AccountRepository: {ex.Message}");

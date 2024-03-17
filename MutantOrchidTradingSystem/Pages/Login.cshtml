@@ -43,19 +43,19 @@
                         <a class="d-inline-block mb-2" href="index.html">
                             <img src="../user/img/auction/images/auction-fevicon.png" class="themeLogo img-fluid" alt="logo">
                         </a>
-                        <h2 class="display-6 fw-bold mb-3">Log In</h2>
-                        <p class="mb-4">Add your credentials below to login</p>
+                        <h2 class="display-6 fw-bold mb-3">Đăng nhập</h2>
+                        <p class="mb-4">Thêm thông tin đăng nhập của bạn ở bên dưới</p>
                         <form method="post" asp-page="/Login">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>UserName*</label>
+                                        <label>Tài khoản*</label>
                                         <input type="text" id="UserName" asp-for="username" class="form-control" required />
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="form-group formPassword">
-                                        <label>Password*</label>
+                                        <label>Mật khẩu*</label>
                                         <input type="password" id="Password" asp-for="password" class="form-control" required />
                                         <span class="input-checker password-show-hide">
                                             <i class="fa-regular fa-eye-slash"></i>
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 mb-4">
-                                    <button class="primary-btn w-100" type="submit">Login</button>
+                                    <button class="primary-btn w-100" type="submit">Đăng Nhập</button>
                                 </div>
                             </div>
                            
@@ -74,7 +74,7 @@
                             <p class="alert alert-danger" role="alert">@ViewData["Message"]</p>
                         }
                         <div class="row">
-                            <p>Don't have an account? <a href="/Register">Create an account</a> </p>
+                            <p>Bạn mới biết đến E-Flower? <a href="/Register">Đăng ký</a> </p>
                         </div>
                     </div>
                 </div>

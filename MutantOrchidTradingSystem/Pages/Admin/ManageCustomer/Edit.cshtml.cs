@@ -31,10 +31,28 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            var originalAccount = _accountRepository.GetById(UpdatedAccount.Id);
+
+            if (UpdatedAccount.Username != originalAccount.Username)
+            {
+                List<string> existingUsernames = _accountRepository.GetAllUsername();
+                if (existingUsernames.Contains(UpdatedAccount.Username))
+                {
+                    TempData["UsernameError"] = "The username is already in use. Please choose a different username.";
+                    return Page();
+                }
+            }
+
             _accountRepository.Update(UpdatedAccount);
 
             Console.WriteLine("Account updated successfully");
             return RedirectToPage("ManageCustomer");
         }
     }
+
 }
+

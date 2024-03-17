@@ -67,7 +67,7 @@ namespace DataAccess.Repository
         }
 
         public Product CreateProduct(Product newProduct)
-        {          
+        {
             try
             {
                 Product existingProduct = _context.Products.FirstOrDefault(p => p.Id == newProduct.Id);
@@ -83,7 +83,8 @@ namespace DataAccess.Repository
                     Console.WriteLine($"The product already existed!");
                     return null;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error in CreateProduct - ProductRepository: {ex.Message}");
                 throw;
@@ -97,7 +98,7 @@ namespace DataAccess.Repository
                 Product existingProduct = _context.Products.FirstOrDefault(p => p.Id == productId);
                 if (existingProduct != null)
                 {
-                    existingProduct.Status = false ;
+                    existingProduct.Status = false;
                     _context.SaveChanges();
                     return true;
                 }
@@ -107,11 +108,16 @@ namespace DataAccess.Repository
                     return false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error in DeleteProduct - ProductRepository: {ex.Message}");
                 throw;
             }
+        }
+
+        public List<string> GetProductName()
+        {
+            return _context.Products.Select(c => c.Name).ToList();
         }
     }
 }

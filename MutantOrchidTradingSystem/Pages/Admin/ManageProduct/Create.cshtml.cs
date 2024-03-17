@@ -2,6 +2,7 @@ using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
 {
@@ -27,13 +28,22 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
             }
             try
             {
+                List<string> existedProductName = _productRepository.GetProductName();
+                var validationResult = NewProduct.ProductNameNotIdentical(existedProductName);
+                if (validationResult != ValidationResult.Success)
+                {
+                    TempData["ProductnameError"] = validationResult.ErrorMessage;
+                    return Page();
+                }
                 _productRepository.CreateProduct(NewProduct);
                 return RedirectToPage("./ManageProduct");
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error in OnPost - CreateModel: {ex.Message}");
                 return Page();
             }
         }
+
     }
 }

@@ -2,6 +2,7 @@ using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace MutantOrchidTradingSysRazorPage.Pages
 {
@@ -22,6 +23,13 @@ namespace MutantOrchidTradingSysRazorPage.Pages
         }
         public IActionResult OnPost()
         {
+            List<string> existingUsernames = _accountRepository.GetAllUsername();
+            var validationResult = Account.UsernameNotIdentical(existingUsernames);
+            if (validationResult != ValidationResult.Success)
+            {
+                TempData["UsernameError"] = validationResult.ErrorMessage;
+                return Page();
+            }
             Account.Status = true;
             var account = _accountRepository.Register(Account);
             RoleAccount roleAccount = new RoleAccount

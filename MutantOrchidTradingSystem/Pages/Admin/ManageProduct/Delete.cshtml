@@ -40,7 +40,7 @@
 padding: 15px 50px 5px 50px;
 float: right;
 font-size: 16px;">
-                <a href="/Logout" class="btn btn-danger square-btn-adjust">Logout</a>
+                <a href="/Logout" class="btn btn-danger square-btn-adjust">Đăng Xuất</a>
             </div>
         </nav>
         <!-- /. NAV TOP  -->
@@ -48,13 +48,13 @@ font-size: 16px;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a asp-page="/Admin/ManageProduct/ManageProduct"><i class="fa fa-dashboard fa-3x"></i> Manage Product</a>
+                        <a asp-page="/Admin/ManageProduct/ManageProduct" style="color: #D19C97;"><i class="fa fa-dashboard fa-3x"></i> Quản Lý Sản Phẩm</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageCustomer/ManageCustomer"><i class="fa fa-desktop fa-3x"></i> Manage Customer</a>
+                        <a asp-page="/Admin/ManageCustomer/ManageCustomer" style="color: #D19C97;"><i class="fa fa-desktop fa-3x"></i> Quản Lý Tài Khoản</a>
                     </li>
                     <li>
-                        <a asp-page="/Admin/ManageOrder/ManageOrder"><i class="fa fa-qrcode fa-3x"></i> Manage Order</a>
+                        <a asp-page="/Admin/ManageOrder/ManageOrder" style="color: #D19C97;"><i class="fa fa-qrcode fa-3x"></i> Quản Lý Đơn Hàng</a>
                     </li>
                 </ul>
 
@@ -66,7 +66,7 @@ font-size: 16px;">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Delete Account</h2>
+                        <h2>Xóa Sản Phẩm</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -77,12 +77,12 @@ font-size: 16px;">
                         <div class="panel panel-default">
                             <div class="panel-body" style="text-align: center;">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <h4>Are you sure you want to delete this product?</h4>
+                                <h4>Bạn có chắc chắn xóa sản phẩm này không??</h4>
 
                                 <form method="post">
                                     <input type="hidden" asp-for="Product.Id" />
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                    <a asp-page="/Admin/ManageProduct/ManageProduct" class="btn btn-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-danger">Xóa</button>
+                                    <a asp-page="/Admin/ManageProduct/ManageProduct" class="btn btn-secondary" style="color:#d9534f;">Hủy</a>
                                 </form>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ font-size: 16px;">
                 </div>
 
                 <div>
-                    <a asp-page="./ManageProduct">Back to List</a>
+                    <a asp-page="./ManageProduct" style="color: #D19C97;">Quay Lại Danh Sách Sản Phẩm</a>
                 </div>
 
                 <!--End Advanced Tables -->
