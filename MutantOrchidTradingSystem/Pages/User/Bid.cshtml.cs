@@ -8,6 +8,7 @@ using System;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace MutantOrchidTradingSysRazorPage.Pages.User
 {
@@ -43,19 +44,31 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             {
                 return NotFound();
             }
-            
+            Bid highestBid = new Bid();
+            Account winner = new Account();
+            List<Bid> bids = new List<Bid>();
             var product = _productRepository.GetById(auction.ProductId.Value);
-            var bids = _bidRepository.GetBidsForAuction(id);
+            bids = _bidRepository.GetBidsForAuction(id);
             BidCount = bids.Count;
             decimal maxBid = bids.Any() ? bids.Max(b => b.Amount) : auction.StartingPrice.Value;
             decimal currentBid = maxBid >= auction.StartingPrice.Value ? maxBid : auction.StartingPrice.Value;
+            if (bids != null)
+            {
+                highestBid = bids.OrderByDescending(b => b.Amount).FirstOrDefault();
+            }
 
+
+            if (highestBid != null)
+            {
+                winner = _accountRepository.GetById(highestBid.AccountId);
+            }
             AuctionDTO auctionDto = new AuctionDTO
             {
                 Auction = auction,
                 Bids = bids,
                 Product = product,
-                CurrentBid = currentBid
+                CurrentBid = currentBid,
+                Winner = winner,
             };
            AuctionDetail = auctionDto;
 
@@ -90,30 +103,26 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             return RedirectToPage("/User/Bid", new { id = Bid.AuctionId });
         }
 
-       public IActionResult OnGetFindWinner(int id)
-        {
-            var auction = _acutionRepository.GetById(id);
-            if (auction == null)
-            {
-                return Page();
-            }
-            var bids = _bidRepository.GetBidsForAuction(id);
-            if (bids == null || bids.Count == 0)
-            {
-                // No bids were made on this auction
-                return Page();
-            }
+           //public IActionResult OnGetFindWinner(int id)
+           // {
+          
+           //     var bids = _bidRepository.GetBidsForAuction(id);
+           //     if (bids == null || bids.Count == 0)
+           //     {
+           //         // No bids were made on this auction
+           //         return Page();
+           //     }
 
-            var highestBid = bids.OrderByDescending(b => b.Amount).FirstOrDefault();
-            var winner = _accountRepository.GetById(highestBid.AccountId);
+           //     var highestBid = bids.OrderByDescending(b => b.Amount).FirstOrDefault();
+           //     var winner = _accountRepository.GetById(highestBid.AccountId);
 
-            // Return the winner's id
-            if(winner.Id == _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value)
-            {
-                return RedirectToPage("/User/WinningBid", new { id = auction.Id });
-            }
-            return Page();
+           //     // Return the winner's id
+           //     if(winner.Id == _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value)
+           //     {
+           //         return RedirectToPage("/User/WinningBid", new { id = highestBid.Auction.Id });
+           //     }
+           //     return Page();
             
-        }
+           // }
     }
 }

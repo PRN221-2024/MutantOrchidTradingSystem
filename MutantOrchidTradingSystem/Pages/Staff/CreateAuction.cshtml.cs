@@ -3,6 +3,7 @@ using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 
 namespace MutantOrchidTradingSysRazorPage.Pages.Staff
 {
@@ -10,13 +11,15 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
     {
         private readonly IAuctionRepository _acutionRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IHubContext<SignalServer> _bidHub;
         [BindProperty]
         public Auction Auction { get; set; }
         public List<SelectListItem> ProductOptions { get; set; }
-        public CreateAuctionModel(IAuctionRepository acutionRepository, IProductRepository productRepository)
+        public CreateAuctionModel(IAuctionRepository acutionRepository, IProductRepository productRepository, IHubContext<SignalServer> bidHub)
         {
             _acutionRepository = acutionRepository;
             _productRepository = productRepository;
+            _bidHub = bidHub;
         }
         public IActionResult OnGet()
         {
@@ -40,7 +43,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
 
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
             {
@@ -52,10 +55,14 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
             }
             Auction.Status = true;
             var selectedProductId = Auction.ProductId;
-            _acutionRepository.Create(Auction);
-
-
+            var auction = _acutionRepository.Create(Auction);
+            if(auction != null)
+            {
+                await _bidHub.Clients.All.SendAsync("UpdateAuctionList");
+                return RedirectToPage("/Staff/Auction");
+            }
             return Page();
+            
         }
     }
 }

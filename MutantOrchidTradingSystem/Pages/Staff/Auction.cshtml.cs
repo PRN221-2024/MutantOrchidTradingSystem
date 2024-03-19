@@ -9,13 +9,20 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
     {
         private readonly IAuctionRepository _acutionRepository;
         public List<Auction> Auctions { get; set; }
-        public AuctionModel(IAuctionRepository acutionRepository)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public AuctionModel(IAuctionRepository acutionRepository, IHttpContextAccessor httpContextAccessor)
         {
             _acutionRepository = acutionRepository;
+            _contextAccessor = httpContextAccessor;
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if(_contextAccessor.HttpContext.Session.GetString("username") == null)
+            {
+                return Redirect("/Login");
+            }
             Auctions = _acutionRepository.GetAll();
+            return Page();
         }
     }
 }

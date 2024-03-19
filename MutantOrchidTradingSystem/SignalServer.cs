@@ -8,8 +8,11 @@ namespace MutantOrchidTradingSysRazorPage
 {
     public class SignalServer : Hub
     {
-       
-       
+        public async Task UpdateAuctionList()
+        {
+            await Clients.All.SendAsync("UpdateAuctionList");
+        }
+
         public async Task SendBid(int auctionId)
         {
             

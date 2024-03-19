@@ -12,7 +12,7 @@ namespace DataAccess.DTO
         public Auction Auction { get; set; }
         public Product Product { get; set; }
         public List<Bid> Bids { get; set; }
-
+        public Account Winner { get; set; }
         public decimal CurrentBid { get; set; } = 0;
     }
 }

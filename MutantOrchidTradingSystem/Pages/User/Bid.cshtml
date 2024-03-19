@@ -196,10 +196,10 @@
         </div>
         <section class="single-bid-product outer-gap">
             <div class="container">
-                <div class="row gy-4 gy-md-5">
-                    <div class="col-lg-8">
+                <div class="row gy-4 gy-md-5" >
+                    <div class="col-lg-8" id="AuctionId">
                         <div class="card-image">
-                            <img src="~/user/img/auction/images/auction-card-1.png" alt="auction-card-img">
+                            <img src="@Url.Content(Model.AuctionDetail.Auction.Product.Path)" alt="auction-card-img">
                             <div class="timer-wrapper">
                                 <div class="timer-inner" id="time-@Model.AuctionDetail.Auction.Id"></div>
                             </div>
@@ -219,25 +219,38 @@
                             <div class="d-flex flex-wrap justify-content-between gap-2">
 
                                 <div class="item-quantity">
-                                    <form method="post" asp-page-handler="Bid" asp-route-id="@Model.AuctionDetail.Auction.Id">
-                                        <input type="number" class="form-control" id="Amount" asp-for="@Model.amount">
-                                        @if (Model.AuctionDetail.Auction.Status == false)
+                                    @if (Model.AuctionDetail.Auction.Status == false)
+                                    {
+
+                                        <p>Đã Kết Thúc</p>
+                                        
+                                        
+                                            
+                                            <p class="p-0">Winner: @(Model.AuctionDetail.Winner != null ? @Model.AuctionDetail.Winner.FullName : "N/A")</p>
+
+                                        
+                                     
+                                        if(Accessor.HttpContext.Session.GetInt32("Id") == Model.AuctionDetail.Winner.Id)
                                         {
-                                            <p>Đã Kết Thúc</p>
-                                        }else
-                                        {
-                                            <button type="submit" class="primary-btn d-flex align-items-center">bid now</button>
+                                            <a href="/User/WinningBid?id=@Model.AuctionDetail.Auction.Id" class="primary-btn">Click here to PayMent</a>
                                         }
+                                    }
+                                    else
+                                    {
+                                    <form method="post" asp-page-handler="Bid" asp-route-id="@Model.AuctionDetail.Auction.Id">
+                                        
+                                      
+                                            <input type="number" class="form-control" id="Amount" asp-for="@Model.amount">
+                                            <button type="submit" class="primary-btn d-flex align-items-center">bid now</button>
+                                        
                                    
                                     </form>
+                                    }
                                 </div>
                                
                                                             
                             </div>
-                            <div class="d-flex align-items-center gap-3">
-                                <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-                                <p class="p-0">Add to wishlist</p>
-                            </div>
+            
                         </div>
                     </div>
                     <div class="col-12">
@@ -324,134 +337,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                
+                                </div>         
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="outer-gap auction-card-small">
-            <div class="container">
-                <h2 class="section-title">Related products</h2>
-                <div class="swiper product-swiper px-0">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="auction-card">
-                                <div class="card-image">
-                                    <img src="~/user/img/auction/images/recent-auction-1.png" alt="auction-card-img">
-                                    <div class="timer-wrapper">
-                                        <div class="timer-inner"></div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <a href="bid-detail.html" class="card-title">
-                                        Mendinib top violin from best
-                                        artist
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="p-0">Current bid <span>589.00$</span></p>
-                                        <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="auction-card">
-                                <div class="card-image">
-                                    <img src="~/user/img/auction/images/recent-auction-2.png" alt="auction-card-img">
-                                    <div class="timer-wrapper">
-                                        <div class="timer-inner"></div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <a href="bid-detail.html" class="card-title">
-                                        An antique vintage landline
-                                        telephone
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="p-0">Current bid <span>589.00$</span></p>
-                                        <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="auction-card">
-                                <div class="card-image">
-                                    <img src="~/user/img/auction/images/recent-auction-3.png" alt="auction-card-img">
-                                    <div class="timer-wrapper">
-                                        <div class="timer-inner"></div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <a href="bid-detail.html" class="card-title">
-                                        Old baseball bat with ball and
-                                        weathered glove
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="p-0">Current bid <span>589.00$</span></p>
-                                        <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="auction-card">
-                                <div class="card-image">
-                                    <img src="~/user/img/auction/images/recent-auction-4.png" alt="auction-card-img">
-                                    <div class="timer-wrapper">
-                                        <div class="timer-inner"></div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <a href="bid-detail.html" class="card-title">Heritage french style home</a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="p-0">Current bid <span>589.00$</span></p>
-                                        <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="auction-card">
-                                <div class="card-image">
-                                    <img src="~/user/img/auction/images/recent-auction-5.png" alt="auction-card-img">
-
-                                    <div class="timer-wrapper">
-                                        <div class="timer-inner"></div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <a href="bid-detail.html" class="card-title">Arabic old style patterned teapot</a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="p-0">Current bid <span>589.00$</span></p>
-                                        <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="auction-card">
-                                <div class="card-image">
-                                    <img src="~/user/img/auction/images/recent-auction-6.png" alt="auction-card-img">
-
-                                    <div class="timer-wrapper">
-                                        <div class="timer-inner"></div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <a href="bid-detail.html" class="card-title">Vintage wall clock</a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="p-0">Current bid <span>589.00$</span></p>
-                                        <button class="like-btn"><i class="fa-regular fa-heart"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -640,7 +528,7 @@
                 clearInterval(x);
                 timerElement.innerHTML = "EXPIRED";
                 updateAuctionStatus(auction.Auction.Id);
-                findWinner(auction.Auction.Id);
+                //findWinner(auction.Auction.Id);
             }
 
             if(StartTime > 0){
@@ -669,21 +557,7 @@
                 });
         }
 
-        function findWinner(auctionId) {
-        fetch('/User/Bid?id=' + auctionId +'&handler=findWinner', {
-            method: 'Get'
-        })
-        .then(response => {
-                    if (response.ok) {
-                        console.log('Find Winner successfully');
-                    } else {
-                        console.error('Failed to Find Winner');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error Failed to Find Winner: ', error);
-                });
-    }
+        
     </script>
     <script>
         var swiper = new Swiper(".product-swiper", {
