@@ -1,5 +1,5 @@
 ﻿@page
-@model MutantOrchidTradingSysRazorPage.Pages.Staff.CreateAuctionModel
+@model MutantOrchidTradingSysRazorPage.Pages.Staff.EditModel
 @{
 }
 <!DOCTYPE html>
@@ -42,7 +42,6 @@ font-size: 16px;">
             </div>
         </nav>
         <!-- /. NAV TOP  -->
-        
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
             <div id="page-inner">
@@ -60,6 +59,8 @@ font-size: 16px;">
                             <div class="panel-body">
                                 <div>
                                     <form method="post">
+                                        <input type="hidden" asp-for="@Model.Auction.Id" />
+                                        <input type="hidden" asp-for="@Model.Auction.Status" />
                                         <div class="form-group">
                                             <label for="productId">Product:</label>
                                             <select class="form-control" id="productId" asp-for="@Model.Auction.ProductId" asp-items="Model.ProductOptions"></select>
@@ -77,7 +78,7 @@ font-size: 16px;">
                                             <label for="startingPrice">Starting Price:</label>
                                             <input type="number" class="form-control" id="startingPrice" asp-for="@Model.Auction.StartingPrice">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Create Auction</button>
+                                        <button type="submit" class="btn btn-primary">Edit Auction</button>
                                         <a href="Auction" class="btn btn-secondary">Back</a>
                                     </form>
 
@@ -87,7 +88,7 @@ font-size: 16px;">
                     </div>
                 </div>
 
-                
+
 
                 <!--End Advanced Tables -->
             </div>

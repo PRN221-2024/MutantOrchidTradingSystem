@@ -8,9 +8,11 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
     public class ManageOrderModel : PageModel
     {
         private readonly OrderRepository _orderRepository;
-        public ManageOrderModel(OrderRepository orderRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ManageOrderModel(OrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
         {
             _orderRepository = orderRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<Order> listOrders { get; set; }

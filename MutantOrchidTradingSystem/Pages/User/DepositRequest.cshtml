@@ -1,7 +1,8 @@
 ﻿@page
-@model MutantOrchidTradingSysRazorPage.Pages.Staff.CreateAuctionModel
+@model MutantOrchidTradingSysRazorPage.Pages.User.DepositRequestModel
 @{
 }
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,9 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/Staff/Auction" class="text-decoration-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold" style="color: #D19C97;"><span class="text-primary font-weight-bold border px-3 mr-1" style="color: #D19C97;">E|</span>Flower</h1>
-                </a>
+                
             </div>
             <div style="color: white;
 padding: 15px 50px 5px 50px;
@@ -42,13 +41,12 @@ font-size: 16px;">
             </div>
         </nav>
         <!-- /. NAV TOP  -->
-        
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Tạo Đấu Giá Mới</h2>
+                        <h2>Nạp Tiền</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -60,25 +58,14 @@ font-size: 16px;">
                             <div class="panel-body">
                                 <div>
                                     <form method="post">
+                                       
                                         <div class="form-group">
-                                            <label for="productId">Product:</label>
-                                            <select class="form-control" id="productId" asp-for="@Model.Auction.ProductId" asp-items="Model.ProductOptions"></select>
+                                            <label for="Amount">Số Tiền Muốn Nạp:</label>
+                                            <input type="number" class="form-control" id="Amount" asp-for="@Model.depositRequest.Amount">
+                                            <span asp-validation-for="@Model.depositRequest.Amount" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="startTime">Start Time:</label>
-                                            <input type="datetime-local" class="form-control" id="startTime" asp-for="@Model.Auction.StartTime">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="endTime">End Time:</label>
-                                            <input type="datetime-local" class="form-control" id="endTime" asp-for="@Model.Auction.EndTime">
-                                            <span asp-validation-for="@Model.Auction.EndTime" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="startingPrice">Starting Price:</label>
-                                            <input type="number" class="form-control" id="startingPrice" asp-for="@Model.Auction.StartingPrice">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Create Auction</button>
-                                        <a href="Auction" class="btn btn-secondary">Back</a>
+                                        <button type="submit" class="btn btn-primary">Nạp Tiền</button>
+                                        <a href="/User/Profile" class="btn btn-secondary">Back</a>
                                     </form>
 
                                 </div>
@@ -87,7 +74,7 @@ font-size: 16px;">
                     </div>
                 </div>
 
-                
+
 
                 <!--End Advanced Tables -->
             </div>

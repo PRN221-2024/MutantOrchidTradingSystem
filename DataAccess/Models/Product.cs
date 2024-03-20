@@ -10,9 +10,8 @@ public partial class Product
     [Required(ErrorMessage = "Tên sản phẩm không được rỗng!")]
     public string? Name { get; set; }
     [Required(ErrorMessage = "Mô tả không được rỗng!")]
-    [StringLength(500, MinimumLength= 30, ErrorMessage ="Mô tả phải có ít nhất 30 kí tự")]
+    [StringLength(500, MinimumLength = 30, ErrorMessage = "Mô tả phải có ít nhất 30 kí tự")]
     public string? Description { get; set; }
-
     public bool? Status { get; set; }
     [Required(ErrorMessage = "Giá không được rỗng!")]
     public decimal? Price { get; set; }
@@ -35,6 +34,4 @@ public partial class Product
         }
         return ValidationResult.Success;
     }
-
-
 }

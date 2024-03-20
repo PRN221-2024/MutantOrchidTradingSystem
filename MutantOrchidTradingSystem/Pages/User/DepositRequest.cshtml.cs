@@ -1,0 +1,51 @@
+using DataAccess.Models;
+using DataAccess.Repository;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
+
+namespace MutantOrchidTradingSysRazorPage.Pages.User
+{
+    public class DepositRequestModel : PageModel
+    {
+        private readonly IDepositRequestRepository _depositRequestRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHubContext<SignalServer> _bidHub;
+        public DepositRequestModel(IDepositRequestRepository depositRequestRepository, IHttpContextAccessor httpContextAccessor, IHubContext<SignalServer> hubContext)
+        {
+            _depositRequestRepository = depositRequestRepository;
+            _httpContextAccessor = httpContextAccessor;
+            _bidHub = hubContext;
+        }
+        [BindProperty]
+        public DepositRequest depositRequest { get; set; }
+        public IActionResult OnGet()
+        {
+            if (string.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
+            depositRequest = new DepositRequest();
+            return Page();
+        }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if(string.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
+             if(depositRequest.Amount < 50000 || depositRequest.Amount > 100000000)
+            {
+                ModelState.AddModelError("depositRequest.Amount", "Must be greater than 0 and less 100000000");
+                return Page();
+            }
+                depositRequest.AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value;
+                depositRequest.Status = "Pending";
+                _depositRequestRepository.Create(depositRequest);
+                await _bidHub.Clients.All.SendAsync("UpdateDepositList");
+                return RedirectToPage("/User/Profile");
+            
+            
+        }
+    }
+}

@@ -13,6 +13,16 @@ namespace MutantOrchidTradingSysRazorPage
             await Clients.All.SendAsync("UpdateAuctionList");
         }
 
+        public async Task UpdateDepositList()
+        {
+            await Clients.All.SendAsync("UpdateDepositList");
+        }
+
+        public async Task UpdateProfile()
+        {
+            await Clients.All.SendAsync("UpdateProfile");
+        }
+
         public async Task SendBid(int auctionId)
         {
             

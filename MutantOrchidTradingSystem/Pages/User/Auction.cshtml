@@ -162,10 +162,10 @@
                             <li class="nav-item dropdown-tgl">
                                 <a class="nav-link text-dark" href="javascript:void(0)">@Accessor.HttpContext.Session.GetString("username")</a>
                                 <ul class="sub-menu">
-                                    <li><a href="/User/Profile">Profile</a></li>
-                                    <li><a href="/User/OrderHistory">Order history</a></li>
-                                    <li><a href="/User/BidHistory">bid history</a></li>
-                                    <li><a href="/Logout">Log Out</a></li>
+                                    <li><a href="/User/Profile">Thông Tin Tài Khoản</a></li>
+                                    <li><a href="/User/OrderHistory">Lịch Sử Giao Dịch</a></li>
+                                    <li><a href="/User/BidHistory">Lịch sử Đấu Giá</a></li>
+                                    <li><a href="/Logout">Đăng Xuất</a></li>
                                 </ul>
                             </li>
                             }
@@ -442,7 +442,10 @@
                 if (distance < 0) {
                     clearInterval(x);
                     timerElement.innerHTML = "EXPIRED";
-                    updateAuctionStatus(auction.Auction.Id);
+                    if (auction.Auction.Status == true) {
+                        updateAuctionStatus(auction.Auction.Id);
+                    }
+                   
                 }
                 if(StartTime > 0) {
                     clearInterval(x);

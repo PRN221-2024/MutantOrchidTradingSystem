@@ -23,6 +23,8 @@ public partial class AuctionItemDbContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<DepositRequest> DepositRequests { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
@@ -43,11 +45,14 @@ public partial class AuctionItemDbContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC0739685ECA");
+            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC07D2796916");
 
             entity.ToTable("Account");
 
             entity.Property(e => e.Address).HasMaxLength(200);
+            entity.Property(e => e.Balance)
+                .HasDefaultValueSql("((0))")
+                .HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -65,7 +70,7 @@ public partial class AuctionItemDbContext : DbContext
 
         modelBuilder.Entity<Auction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC07B14EFBE4");
+            entity.HasKey(e => e.Id).HasName("PK__Auction__3214EC0736F3B423");
 
             entity.ToTable("Auction");
 
@@ -75,12 +80,12 @@ public partial class AuctionItemDbContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Auction__Product__46E78A0C");
+                .HasConstraintName("FK__Auction__Product__4AB81AF0");
         });
 
         modelBuilder.Entity<Bid>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bid__3214EC07C26BA65F");
+            entity.HasKey(e => e.Id).HasName("PK__Bid__3214EC07B265DDF6");
 
             entity.ToTable("Bid");
 
@@ -89,25 +94,38 @@ public partial class AuctionItemDbContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__Bid__AccountId__47DBAE45");
+                .HasConstraintName("FK__Bid__AccountId__4E88ABD4");
 
             entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
                 .HasForeignKey(d => d.AuctionId)
-                .HasConstraintName("FK__Bid__AuctionId__48CFD27E");
+                .HasConstraintName("FK__Bid__AuctionId__4D94879B");
         });
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC071A8E831B");
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC079F5EEB9F");
 
             entity.ToTable("Category");
 
             entity.Property(e => e.Name).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<DepositRequest>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__DepositR__3214EC0777BAB49E");
+
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Status).HasMaxLength(50);
+
+            entity.HasOne(d => d.Account).WithMany(p => p.DepositRequests)
+                .HasForeignKey(d => d.AccountId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DepositRequests_Account");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC071B65C0E7");
+            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC077D905F4F");
 
             entity.ToTable("Order");
 
@@ -123,7 +141,7 @@ public partial class AuctionItemDbContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OrderDet__3214EC07C183971A");
+            entity.HasKey(e => e.Id).HasName("PK__OrderDet__3214EC070A255BDB");
 
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
@@ -138,7 +156,7 @@ public partial class AuctionItemDbContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07311BE031");
+            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07BCE63469");
 
             entity.ToTable("Product");
 
@@ -165,7 +183,7 @@ public partial class AuctionItemDbContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC07D575B9A2");
+            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC075868C9D5");
 
             entity.ToTable("Role");
 
@@ -176,7 +194,7 @@ public partial class AuctionItemDbContext : DbContext
 
         modelBuilder.Entity<RoleAccount>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__RoleAcco__3214EC07FBE1C24E");
+            entity.HasKey(e => e.Id).HasName("PK__RoleAcco__3214EC0757C14F95");
 
             entity.ToTable("RoleAccount");
 

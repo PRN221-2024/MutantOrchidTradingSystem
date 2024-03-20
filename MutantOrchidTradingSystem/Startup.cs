@@ -40,6 +40,7 @@ public class Startup
         services.AddScoped<IAuctionRepository, AuctionRepository>();
         services.AddScoped<IBidRepository, BidRepository>();
         services.AddScoped<BidRepository>();
+        services.AddScoped<IDepositRequestRepository, DepositRequestRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -76,6 +77,7 @@ public class Startup
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             endpoints.MapHub<SignalServer>("/signalrServer");
+          
         });
 
 

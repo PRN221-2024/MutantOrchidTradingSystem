@@ -84,13 +84,30 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
                 return Redirect("/Login");
             }
             Bid Bid = new Bid();
-            Bid.AuctionId = id;
-            Bid.AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value;
-            Bid.BidTime = DateTime.Now;
-            Bid.Amount = amount;
-            var bid = _bidRepository.AddBid(Bid);
+            Bid bidAuction = new Bid();
+            var existingBid = _bidRepository.GetBidByAuctionAndAccount(id, _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
+            if (existingBid != null)
+            {
+                if (amount > existingBid.Amount)
+                {
+                    existingBid.Amount = amount;
+                    bidAuction = _bidRepository.UpdateBid(existingBid);
+                }
+                else
+                {
+                    bidAuction = existingBid;
+                }
+            }
+            else
+            {
 
+                Bid.AuctionId = id;
+                Bid.AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value;
+                Bid.BidTime = DateTime.Now;
+                Bid.Amount = amount;
+                bidAuction = _bidRepository.AddBid(Bid);
 
+            }
 
             
 
@@ -100,7 +117,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             await _bidHub.Clients.All.SendAsync("ReceiveBid", id);
 
 
-            return RedirectToPage("/User/Bid", new { id = Bid.AuctionId });
+            return RedirectToPage("/User/Bid", new { id = bidAuction.AuctionId });
         }
 
            //public IActionResult OnGetFindWinner(int id)

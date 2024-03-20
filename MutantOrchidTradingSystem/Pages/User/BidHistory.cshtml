@@ -90,7 +90,7 @@
                         <li class="nav-item dropdown-tgl">
                             <a class="nav-link text-dark" href="javascript:void(0)">Auction</a>
                             <ul class="sub-menu">
-                                <li><a href="/User/BidHistory">bid history</a></li>
+                                <li><a href="/User/BidHistory">Lịch sử Đấu Giá</a></li>
                             </ul>
                         </li>
                         
@@ -107,7 +107,7 @@
                                aria-expanded="false">Auction</a>
                             <ul class="sub-menu dropdown-menu">
                                
-                                <li><a href="/User/BidHistory">bid history</a></li>
+                                <li><a href="/User/BidHistory">Lịch sử Đấu Giá</a></li>
                             </ul>
                         </li>
                       
@@ -150,7 +150,7 @@
                         @if (Accessor.HttpContext.Session.GetString("username") == null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark active" href="/Login">Login</a>
+                                <a class="nav-link text-dark active" href="/Login">Đăng Nhập</a>
                             </li>
                         }
                         else
@@ -158,10 +158,10 @@
                             <li class="nav-item dropdown-tgl">
                                 <a class="nav-link text-dark" href="javascript:void(0)">@Accessor.HttpContext.Session.GetString("username")</a>
                                 <ul class="sub-menu">
-                                    <li><a href="/User/Profile">Profile</a></li>
-                                    <li><a href="/User/OrderHistory">Order history</a></li>
-                                    <li><a href="/User/BidHistory">bid history</a></li>
-                                    <li><a href="/Logout">Log Out</a></li>
+                                    <li><a href="/User/Profile">Thông Tin Tài Khoản</a></li>
+                                    <li><a href="/User/OrderHistory">Lịch Sử Giao Dịch</a></li>
+                                    <li><a href="/User/BidHistory">Lịch sử Đấu Giá</a></li>
+                                    <li><a href="/Logout">Đăng Xuất</a></li>
                                 </ul>
                             </li>
                         }
@@ -403,7 +403,7 @@
             var endTime = new Date(auction.EndTime).getTime();
             var startTime = new Date(auction.StartTime).getTime();
             console.log(endTime);
-
+            
             var x = setInterval(function () {
                 var now = new Date().getTime();
                 var distance = endTime - now;
@@ -421,7 +421,10 @@
                 if (distance < 0) {
                     clearInterval(x);
                     timerElement.innerHTML = "EXPIRED";
-                    updateAuctionStatus(auction.Id);
+                    if (auction.Status == true) {
+                        updateAuctionStatus(auction.Id);
+                    }
+                    
                 }
             }, 1000);
         });

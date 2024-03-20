@@ -10,6 +10,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
         private readonly IAccountRepository _accountRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+
         public ProfileModel(IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor)
         {
             _accountRepository = accountRepository;
@@ -35,6 +36,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
         }
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             account.Status = true;
             _accountRepository.Update(account);
             _httpContextAccessor.HttpContext.Session.SetString("username", account.FullName);   

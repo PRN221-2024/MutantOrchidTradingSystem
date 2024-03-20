@@ -12,6 +12,12 @@ connection.on("ReceiveBid", (auctionId) => {
     //location.href = "/User/Bid?id=" + auctionId;
 });
 
+connection.on("UpdateDepositList", function () {
+    // Refresh room list
+    location.href = "/Admin/ManageDeposit/ManageDeposit";
+});
+
+
 connection.on("UpdateAuctionList", function () {
     // Refresh room list
     location.href = "/User/Auction";

@@ -30,6 +30,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages
                 TempData["UsernameError"] = validationResult.ErrorMessage;
                 return Page();
             }
+            Account.Balance = 0;
             Account.Status = true;
             var account = _accountRepository.Register(Account);
             RoleAccount roleAccount = new RoleAccount

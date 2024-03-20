@@ -8,16 +8,22 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
     public class EditModel : PageModel
     {
         private readonly ProductRepository _productRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         [BindProperty]
         public Product UpdatedProduct { get; set; }
 
-        public EditModel(ProductRepository productRepository)
+        public EditModel(ProductRepository productRepository, IHttpContextAccessor httpContextAccessor)
         {
             _productRepository = productRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
         public IActionResult OnGet(int productId)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             UpdatedProduct = _productRepository.GetById(productId);
             
             if (UpdatedProduct != null)
@@ -32,7 +38,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
 
         public IActionResult OnPost()
         {
-
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             var updatedProduct = _productRepository.UpdateProduct(UpdatedProduct); 
 
             if(updatedProduct != null)

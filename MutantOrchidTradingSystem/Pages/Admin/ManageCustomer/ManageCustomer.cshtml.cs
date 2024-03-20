@@ -8,14 +8,16 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
     public class ManageCustomerModel : PageModel
     {
         private readonly AccountRepository _accountRepository;
-        public ManageCustomerModel(AccountRepository accountRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ManageCustomerModel(AccountRepository accountRepository, IHttpContextAccessor httpContextAccessor)
         {
             _accountRepository = accountRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<Account> listAccounts { get; set; }
         public IActionResult OnGet()
-        {
+        {   
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
             {
                 return Redirect("/Login");

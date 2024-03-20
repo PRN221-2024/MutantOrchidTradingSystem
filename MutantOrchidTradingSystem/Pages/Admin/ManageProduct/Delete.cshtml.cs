@@ -9,16 +9,22 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
     public class DeleteModel : PageModel
     {
         private readonly ProductRepository _productRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DeleteModel(ProductRepository productRepository)
+        public DeleteModel(ProductRepository productRepository, IHttpContextAccessor httpContextAccessor)
         {
             _productRepository = productRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
         [BindProperty]
         public Product Product { get; set; }    
 
         public IActionResult OnGet(int productId)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             Product = _productRepository.GetById(productId);
 
             if(Product == null)
@@ -34,6 +40,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
 
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             var productId = Product.Id;
             var existingProduct = _productRepository.GetById(productId);
 

@@ -14,6 +14,7 @@ namespace DataAccess.Repository
         Account Register(Account account);
         Account GetById(int accountId);
         void Update(Account account);
+        
 
         void Delete(int accountId);
         List<Account> GetAll();

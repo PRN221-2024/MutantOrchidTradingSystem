@@ -44,17 +44,20 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Login
                         {
                             _httpContextAccessor.HttpContext.Session.SetString("username", account.FullName);
                             _httpContextAccessor.HttpContext.Session.SetInt32("Id", account.Id);
+                            _httpContextAccessor.HttpContext.Session.SetString("Role", "Admin");
                             return Redirect("/Admin/ManageCustomer/ManageCustomer");
                         }
                         else if(role.RoleId == 2)
                         {
                             _httpContextAccessor.HttpContext.Session.SetString("username", account.FullName);
                             _httpContextAccessor.HttpContext.Session.SetInt32("Id", account.Id);
+                            _httpContextAccessor.HttpContext.Session.SetString("Role", "Customer");
                             return Redirect("/");
                         }else if(role.RoleId == 3)
                         {
                             _httpContextAccessor.HttpContext.Session.SetString("username", account.FullName);
                             _httpContextAccessor.HttpContext.Session.SetInt32("Id", account.Id);
+                            _httpContextAccessor.HttpContext.Session.SetString("Role", "Staff");
                             return Redirect("/Staff/Auction");
                         }
                     }

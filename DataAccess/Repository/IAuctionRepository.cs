@@ -14,6 +14,9 @@ namespace DataAccess.Repository
         Auction Create(Auction auction);
         Auction GetById(int auctionId);
         Auction UpdateStatusAuction(int auctionId);
+        Auction GetAuctionById(int auctionId);
+        Auction UpdateAuction(Auction auction);
+        void DeleteAuction(int auctionId);
     }
     public class AuctionRepository : IAuctionRepository
     {
@@ -45,6 +48,10 @@ namespace DataAccess.Repository
         {
            return _context.Auctions.Include(a => a.Product).Include(b => b.Bids).FirstOrDefault(a => a.Id == auctionId);
         }
+        public Auction GetAuctionById(int auctionId)
+        {
+            return _context.Auctions.FirstOrDefault(a => a.Id == auctionId);
+        }
 
         public Auction UpdateStatusAuction(int auctionId)
         {
@@ -69,6 +76,57 @@ namespace DataAccess.Repository
                 Console.WriteLine($"Error in Update - AuctionRepository: {ex.Message}");
                 throw;
             }
-        }   
+        }
+
+        public Auction UpdateAuction(Auction auction)
+        {
+            try
+            {
+                Auction existingAuction = GetAuctionById(auction.Id);
+                if (existingAuction != null)
+                {
+                    existingAuction.ProductId = auction.ProductId;
+                    existingAuction.StartTime = auction.StartTime;
+                    existingAuction.EndTime = auction.EndTime;
+                    existingAuction.StartingPrice = auction.StartingPrice;
+                    existingAuction.Status = auction.Status;
+                     _context.Auctions.Update(existingAuction);
+                    _context.SaveChanges();
+                    return existingAuction;
+                }
+                else
+                {
+                    Console.WriteLine($"The auction was not found!");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in Update - AuctionRepository: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void DeleteAuction(int auctionId)
+        {
+           try
+            {
+                Auction existingAuction = GetAuctionById(auctionId);
+                if (existingAuction != null)
+                {
+                    _context.Auctions.Remove(existingAuction);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine($"The auction was not found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in Delete - AuctionRepository: {ex.Message}");
+                throw;
+            }
+        }
     }
 }

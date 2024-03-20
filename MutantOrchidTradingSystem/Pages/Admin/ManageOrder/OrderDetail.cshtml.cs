@@ -10,6 +10,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
     {
         private readonly IOrderDetailRepository _orderDetailRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         [BindProperty]
         public OrderDetail NewOrderDetail { get; set; }
@@ -17,13 +18,18 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
 
         public List<SelectListItem> Options { get; set; }
 
-        public OrderDetailModel(OrderDetailRepository orderDetailRepository, OrderRepository orderRepository)
+        public OrderDetailModel(OrderDetailRepository orderDetailRepository, OrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
         {
             _orderDetailRepository = orderDetailRepository;
             _orderRepository = orderRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
         public IActionResult OnGet(int orderId)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             Options = _orderDetailRepository.GetProducts().Select(p => new SelectListItem
             {
                 Value = p.Id.ToString(),
@@ -48,6 +54,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
 
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             if (!ModelState.IsValid)
             {
                 return Page();

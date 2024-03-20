@@ -9,19 +9,30 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageProduct
     public class CreateModel : PageModel
     {
         private readonly ProductRepository _productRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         [BindProperty]
         public Product NewProduct { get; set; }
-        public CreateModel(ProductRepository productRepository)
+        public CreateModel(ProductRepository productRepository, IHttpContextAccessor httpContextAccessor)
         {
             _productRepository = productRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
+            return Page();
         }
 
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             if (!ModelState.IsValid)
             {
                 return Page();

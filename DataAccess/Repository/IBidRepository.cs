@@ -14,6 +14,10 @@ namespace DataAccess.Repository
         Bid AddBid(Bid bid);
         List<Bid> GetListByaccountId (int accountId);
         Bid GetById(int id);
+        Bid UpdateBid(Bid bid);
+
+
+        Bid GetBidByAuctionAndAccount(int auctionId, int accountId);
     }
     public class BidRepository : IBidRepository
     {
@@ -45,6 +49,33 @@ namespace DataAccess.Repository
         .Include(b => b.Account)
         .Where(b => b.AccountId == accountId)
         .ToList();
+        }
+
+        public Bid GetBidByAuctionAndAccount(int auctionId, int accountId)
+        {
+            return _context.Bids.FirstOrDefault(b => b.AuctionId == auctionId && b.AccountId == accountId);
+        }
+
+        public Bid UpdateBid(Bid bid)
+        {
+            try
+            {
+                var existingBid = _context.Bids.FirstOrDefault(a => a.Id == bid.Id);
+                if (existingBid != null)
+                {
+                    
+                    existingBid.Amount = bid.Amount;
+                    _context.Bids.Update(existingBid);
+                    _context.SaveChanges();
+                    return existingBid;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in UpdateBid - Bid: {ex.Message}");
+                throw;
+            }
         }
     }
 }

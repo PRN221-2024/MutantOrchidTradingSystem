@@ -17,12 +17,21 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
         }
         [BindProperty]
         public Account Account { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             Account = new Account();
+            return Page();
         }
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -36,7 +45,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
                     TempData["UsernameError"] = validationResult.ErrorMessage;
                     return Page();
                 }
-
+                Account.Balance = 0;
                 Account.Status = true;
                 var account = _accountRepository.Register(Account);
                 RoleAccount roleAccount = new RoleAccount

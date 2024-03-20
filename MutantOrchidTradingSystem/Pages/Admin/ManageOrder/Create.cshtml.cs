@@ -11,17 +11,24 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
 public class CreateModel : PageModel
 {
     private readonly OrderRepository _orderRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
     public List<SelectListItem> Options { get; set; }
 
         [BindProperty]
     public Order NewOrder { get; set; }
 
-    public CreateModel(OrderRepository orderRepository)
+    public CreateModel(OrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
+        {
+            _orderRepository = orderRepository;
+            _httpContextAccessor = httpContextAccessor;
+        }
+        public IActionResult OnGet()
     {
-        _orderRepository = orderRepository;
-    }
-    public void OnGet()
-    {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
+
             Options = _orderRepository.GetAccounts()
                     .Select(account => new SelectListItem
                     {
@@ -29,11 +36,17 @@ public class CreateModel : PageModel
                         Text = account.FullName
                     })
                     .ToList();
+
+            return Page();
         }
 
     public IActionResult OnPost()
     {
-        if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
+            if (!ModelState.IsValid)
         {
             return Page();
         }

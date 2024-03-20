@@ -18,6 +18,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
 
         public IActionResult OnGet(int accountId)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             Account = _accountRepository.GetById(accountId);
 
             if (Account == null)
@@ -33,6 +37,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
 
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            {
+                return Redirect("/Login");
+            }
             var accountId = Account.Id;
             var existingAccount = _accountRepository.GetById(accountId);
 
