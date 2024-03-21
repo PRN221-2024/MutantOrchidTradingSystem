@@ -241,6 +241,8 @@
                                         
                                       
                                             <input type="number" class="form-control" id="Amount" asp-for="@Model.amount">
+                                            <span asp-validation-for="@Model.amount" class="text-danger"></span>
+
                                             <button type="submit" class="primary-btn d-flex align-items-center">bid now</button>
                                         
                                    
@@ -530,6 +532,7 @@
                
                 if (auction.Auction.Status == true) {
                     updateAuctionStatus(auction.Auction.Id);
+                    subtractBalance(auction.Auction.Id);
                 }
                 if (!localStorage.getItem('reloaded')) 
                 {
@@ -547,7 +550,21 @@
 
 
         }, 1000);
-
+        function subtractBalance(auctionId) {
+            fetch('/User/Bid?userId=' + auctionId + '&handler=pay', {
+                method: 'Post'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Balance subtracted successfully');
+                    } else {
+                        throw new Error('Failed to subtract balance');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error subtracting balance:', error);
+                });
+        }
         function updateAuctionStatus(auctionId) {
             fetch('/User/Auction?id=' + auctionId + '&handler=update', {
                 method: 'Get'

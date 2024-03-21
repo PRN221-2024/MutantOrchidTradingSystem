@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 
 namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
@@ -14,14 +15,16 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IAccountRepository _accountRepository;
         public List<Item> cartItems;
         int totalCount = 0;
-        public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
+        public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IAccountRepository accountRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
+            _accountRepository = accountRepository;
         }
         public void OnGet()
         {
@@ -75,21 +78,40 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                     AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id")
 
                 };
-                var order =_orderRepository.Add(Order);
+                var order = _orderRepository.Add(Order);
 
                 var cart = GetCartItems();
                 if(cart != null)
                 {
                     foreach (var item in cart)
                     {
-                        var orderDetail = new OrderDetail
+                        var product = _productRepository.GetById(item.Product.Id);
+                        if (product.Quantity < item.Quantity)
                         {
-                            OrderId = order.Id,
-                            ProductId = item.Product.Id,
-                            Quantity = item.Quantity,
-                            Price = item.Product.Price
-                        };
-                        _orderDetailRepository.AddOrderDetail(orderDetail);
+                            ModelState.AddModelError(string.Empty, $"Product {product.Name} not enough to.");
+                        }
+                        else 
+                        {
+                            
+                            
+                            product.Quantity -= item.Quantity;
+                            _productRepository.UpdateProduct(product);
+
+                            
+                            var account = _accountRepository.GetById(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
+                            account.Balance -= (item.Quantity * item.Product.Price);
+                            _accountRepository.Update(account);
+                            decimal total = (decimal)(item.Quantity * item.Product.Price);
+                            var orderDetail = new OrderDetail
+                            {
+                                OrderId = order.Id,
+                                ProductId = item.Product.Id,
+                                Quantity = item.Quantity,
+                                Price = total
+                            };
+                            _orderDetailRepository.AddOrderDetail(orderDetail);
+                        }
+                        
                     }
                     _httpContextAccessor.HttpContext.Session.Remove("Cart");
                     _httpContextAccessor.HttpContext.Session.SetInt32("CartCount", 0);
