@@ -21,9 +21,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IDeductionRequestRepository _deductionRequestRepository;
         private readonly IHubContext<SignalServer> _bidHub;
         
-        public BidModel(IAuctionRepository acutionRepository, IBidRepository bidRepository, IProductRepository productRepository, IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor, IHubContext<SignalServer> hubContext, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
+        public BidModel(IAuctionRepository acutionRepository, IBidRepository bidRepository, IProductRepository productRepository, IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor, IHubContext<SignalServer> hubContext, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IDeductionRequestRepository deductionRequestRepository)
         {
             _acutionRepository = acutionRepository;
             _bidRepository = bidRepository;
@@ -33,6 +34,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             _bidHub = hubContext;
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
+            _deductionRequestRepository = deductionRequestRepository;
         }
         public int BidCount { get; set; }
         public AuctionDTO AuctionDetail { get; set; }
@@ -210,6 +212,14 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
                 };
                 _orderDetailRepository.AddOrderDetail(orderDetail);
 
+                var deduction = new DeductionRequest
+                {
+                    AccountId = winner.Id,
+                    Amount = total,
+                    Date = DateTime.Now,
+                    Status = "Success"
+                };
+                _deductionRequestRepository.Create(deduction);
                 winner.Balance -= total;
                 _accountRepository.Update(winner);
 

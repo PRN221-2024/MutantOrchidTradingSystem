@@ -41,6 +41,7 @@ public class Startup
         services.AddScoped<IBidRepository, BidRepository>();
         services.AddScoped<BidRepository>();
         services.AddScoped<IDepositRequestRepository, DepositRequestRepository>();
+        services.AddScoped<IDeductionRequestRepository, DeductionRequestRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -16,15 +16,17 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly IDeductionRequestRepository _deductionRequestRepository;
         public List<Item> cartItems;
         int totalCount = 0;
-        public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IAccountRepository accountRepository)
+        public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IAccountRepository accountRepository, IDeductionRequestRepository deductionRequestRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
             _accountRepository = accountRepository;
+            _deductionRequestRepository = deductionRequestRepository;
         }
         public void OnGet()
         {
@@ -70,25 +72,27 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
             }
             else
             {
-                var Order = new Order
-                {
-                    Created = DateTime.Now,
-                    Name = "Order",
-                    Status = true,
-                    AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id")
-
-                };
-                var order = _orderRepository.Add(Order);
+                
 
                 var cart = GetCartItems();
                 if(cart != null)
                 {
+                    var Order = new Order
+                    {
+                        Created = DateTime.Now,
+                        Name = "Order",
+                        Status = true,
+                        AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id")
+
+                    };
+                    var order = _orderRepository.Add(Order);
                     foreach (var item in cart)
                     {
                         var product = _productRepository.GetById(item.Product.Id);
                         if (product.Quantity < item.Quantity)
                         {
                             ModelState.AddModelError(string.Empty, $"Product {product.Name} not enough to.");
+                            return RedirectToPage("/Product/Cart");
                         }
                         else 
                         {
@@ -102,6 +106,14 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                             account.Balance -= (item.Quantity * item.Product.Price);
                             _accountRepository.Update(account);
                             decimal total = (decimal)(item.Quantity * item.Product.Price);
+                            var deductionRequest = new DeductionRequest
+                            {
+                                AccountId = account.Id,
+                                Amount = total,
+                                Date = DateTime.Now,
+                                Status = "Success"
+                            };
+                            _deductionRequestRepository.Create(deductionRequest);
                             var orderDetail = new OrderDetail
                             {
                                 OrderId = order.Id,
@@ -135,10 +147,20 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                var existingItem = cart.FirstOrDefault(item => item.Product.Id == id);
                 if (existingItem != null)
                 {
+                    if (product.Quantity < existingItem.Quantity + 1)
+                    {
+                    ModelState.AddModelError(string.Empty, $"Product {product.Name} not enough in stock.");
+                    return RedirectToPage("/Product/Cart");
+                    }
                     existingItem.Quantity++;
                 }
                 else
                 {
+                    if (product.Quantity < 1)
+                    {
+                    ModelState.AddModelError(string.Empty, $"Product {product.Name} not enough in stock.");
+                    return RedirectToPage("/Product/Cart");
+                    }
                     cart.Add(new Item { Product = product, Quantity = 1 });
                 }
                 

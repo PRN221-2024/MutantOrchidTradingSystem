@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Models;
 
-public partial class DepositRequest
+public partial class DeductionRequest
 {
     public int Id { get; set; }
 

@@ -23,6 +23,8 @@ public partial class AuctionItemDbContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<DeductionRequest> DeductionRequests { get; set; }
+
     public virtual DbSet<DepositRequest> DepositRequests { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -110,11 +112,30 @@ public partial class AuctionItemDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<DeductionRequest>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Deductio__3214EC0781AA845F");
+
+            entity.ToTable("DeductionRequest");
+
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Date).HasColumnType("datetime");
+            entity.Property(e => e.Status).HasMaxLength(50);
+
+            entity.HasOne(d => d.Account).WithMany(p => p.DeductionRequests)
+                .HasForeignKey(d => d.AccountId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DeductionRequest_Account");
+        });
+
         modelBuilder.Entity<DepositRequest>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__DepositR__3214EC0777BAB49E");
 
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Date)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.Status).HasMaxLength(50);
 
             entity.HasOne(d => d.Account).WithMany(p => p.DepositRequests)

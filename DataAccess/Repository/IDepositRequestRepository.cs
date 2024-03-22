@@ -13,6 +13,7 @@ namespace DataAccess.Repository
         List<DepositRequest> GetAll();
         DepositRequest GetById(int depositRequestId);
         DepositRequest UpdateDepositRequest(DepositRequest depositRequest);
+        List<DepositRequest> GetListByAccountId(int accountId);
     }
 
     public class DepositRequestRepository : IDepositRequestRepository
@@ -51,6 +52,18 @@ namespace DataAccess.Repository
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in GetById - DepositRequestRepository: {ex.Message}");
+                throw;
+            }
+        }
+
+        public List<DepositRequest> GetListByAccountId(int accountId)
+        {
+            try {
+                    return _context.DepositRequests.Where(a => a.AccountId == accountId).ToList();
+                }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetListByAccountId - DepositRequestRepository: {ex.Message}");
                 throw;
             }
         }

@@ -1,7 +1,8 @@
 ﻿@page
-@model MutantOrchidTradingSysRazorPage.Pages.User.DepositRequestModel
+@model MutantOrchidTradingSysRazorPage.Pages.User.TransactionModel
 @{
 }
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,12 +32,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                
+                <a href="/User/Profile" class="btn btn-danger square-btn-adjust">Profile</a>
+                    <h1 class="m-0 display-5 font-weight-semi-bold" style="color: #D19C97;"><span class="text-primary font-weight-bold border px-3 mr-1" style="color: #D19C97;"></span>Profile</h1>
+                </a>
             </div>
             <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
 font-size: 16px;">
+               
                 <a href="/Logout" class="btn btn-danger square-btn-adjust">Đăng Xuất</a>
             </div>
         </nav>
@@ -46,45 +50,7 @@ font-size: 16px;">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Nạp Tiền</h2>
-                    </div>
-                </div>
-                <!-- /. ROW  -->
-                <hr />
-
-                <div class="row" id="editForm">
-                    <div class="col-md-6 col-md-offset-3">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div>
-                                    <form method="post">
-                                       
-                                        <div class="form-group">
-                                            <label for="Amount">Số Tiền Muốn Nạp:</label>
-                                            <input type="number" class="form-control" id="Amount" asp-for="@Model.depositRequest.Amount">
-                                            <span asp-validation-for="@Model.depositRequest.Amount" class="text-danger"></span>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Nạp Tiền</button>
-                                        <a href="/User/Profile" class="btn btn-secondary">Back</a>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-
-                <!--End Advanced Tables -->
-            </div>
-        </div>
-
-        <hr />
-        <div id="page-wrapper">
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Lịch Sử Nạp TIền</h2>
+                        <h2>Lịch Sử Giao Dịch</h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -101,20 +67,20 @@ font-size: 16px;">
                                         <thead>
                                             <tr>
                                                 <th>Số tiền</th>
-                                                <th>Thời Gian Nạp</th>
+                                                <th>Thời Gian Giao Dịch</th>
                                                 <th>Trạng Thái</th>
                                                 
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var deposit in Model.depositRequests)
+                                            @foreach (var deduction in Model.DeductionRequests)
                                             {
                                                 <tr>
 
-                                                    <td style="color: @(deposit.Status.Equals("Rejected") ? "red" : (deposit.Status.Equals("Accepted") ? "green" : "inherit"))">@(deposit.Status.Equals("Accepted") ? "+" : "")@deposit.Amount</td>
-                                                    <td>@deposit.Date</td>
-                                                    <td style="color: @(deposit.Status.Equals("Rejected") ? "red" : (deposit.Status.Equals("Accepted") ? "green" : "inherit"))">@deposit.Status</td>
+                                                    <td style="color: @(deduction.Status.Equals("Success") ? "red" : (deduction.Status.Equals("Fail") ? "green" : "inherit"))">@(deduction.Status.Equals("Success") ? "-" : "")@deduction.Amount</td>
+                                                    <td>@deduction.Date</td>
+                                                    <td style="color: @(deduction.Status.Equals("Success") ? "green" : (deduction.Status.Equals("Fail") ? "red" : "inherit"))">@deduction.Status</td>
                                                     
                                                    
                                                 </tr>

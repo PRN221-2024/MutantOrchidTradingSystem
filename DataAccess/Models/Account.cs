@@ -29,6 +29,8 @@ public partial class Account
 
     public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
 
+    public virtual ICollection<DeductionRequest> DeductionRequests { get; set; } = new List<DeductionRequest>();
+
     public virtual ICollection<DepositRequest> DepositRequests { get; set; } = new List<DepositRequest>();
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();

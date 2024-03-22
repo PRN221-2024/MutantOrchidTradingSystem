@@ -17,6 +17,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             _httpContextAccessor = httpContextAccessor;
             _bidHub = hubContext;
         }
+        public List<DepositRequest> depositRequests { get; set; }
         [BindProperty]
         public DepositRequest depositRequest { get; set; }
         public IActionResult OnGet()
@@ -25,6 +26,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             {
                 return Redirect("/Login");
             }
+            depositRequests = _depositRequestRepository.GetListByAccountId(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
             depositRequest = new DepositRequest();
             return Page();
         }
@@ -34,11 +36,13 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             {
                 return Redirect("/Login");
             }
-             if(depositRequest.Amount < 50000 || depositRequest.Amount > 100000000)
+            depositRequests = _depositRequestRepository.GetListByAccountId(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
+            if (depositRequest.Amount < 50000 || depositRequest.Amount > 100000000)
             {
                 ModelState.AddModelError("depositRequest.Amount", "Must be greater than 0 and less 100000000");
                 return Page();
             }
+                depositRequest.Date = DateTime.Now;
                 depositRequest.AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value;
                 depositRequest.Status = "Pending";
                 _depositRequestRepository.Create(depositRequest);
