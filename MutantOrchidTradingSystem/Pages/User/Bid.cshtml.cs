@@ -23,7 +23,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
         private readonly IOrderDetailRepository _orderDetailRepository;
         private readonly IDeductionRequestRepository _deductionRequestRepository;
         private readonly IHubContext<SignalServer> _bidHub;
-        
+
         public BidModel(IAuctionRepository acutionRepository, IBidRepository bidRepository, IProductRepository productRepository, IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor, IHubContext<SignalServer> hubContext, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IDeductionRequestRepository deductionRequestRepository)
         {
             _acutionRepository = acutionRepository;
@@ -38,9 +38,9 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
         }
         public int BidCount { get; set; }
         public AuctionDTO AuctionDetail { get; set; }
-        
-       
-       
+
+
+
         [BindProperty]
         public decimal amount { get; set; }
         public IActionResult OnGet(int id)
@@ -76,8 +76,8 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
                 CurrentBid = currentBid,
                 Winner = winner,
             };
-           AuctionDetail = auctionDto;
-            
+            AuctionDetail = auctionDto;
+
 
 
 
@@ -132,9 +132,9 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             {
                 if (amount > account.Balance)
                 {
-                    
+
                     ModelState.AddModelError("amount", "The balance is not enough for this bet.");
-                    
+
                     return Page();
                 }
                 if (amount > existingBid.Amount)
@@ -165,7 +165,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
 
             }
 
-            
+
 
 
 
@@ -178,6 +178,11 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
 
         public IActionResult OnGetPay(int id)
         {
+            var auction = _acutionRepository.GetById(id);
+            if (auction == null)
+            {
+                return NotFound();
+            }
             Bid highestBid = new Bid();
             var bids = _bidRepository.GetBidsForAuction(id);
             if (bids == null || bids.Count == 0)
@@ -190,39 +195,44 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
 
             var winner = _accountRepository.GetById(highestBid.AccountId);
 
-            if(winner != null)
+            if (winner != null)
             {
-                var Order = new Order
+                if (winner.Id == _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value)
                 {
-                    Created = DateTime.Now,
-                    Name = "Auction Winner",
-                    Status = true,
-                    AccountId = winner.Id
+                    var Order = new Order
+                    {
+                        Created = DateTime.Now,
+                        Name = "Auction Winner",
+                        Status = true,
+                        AccountId = winner.Id
 
-                };
+                    };
 
-                var order = _orderRepository.Add(Order);
-                var total = highestBid.Amount;
-                var orderDetail = new OrderDetail
-                {
-                    OrderId = order.Id,
-                    ProductId = highestBid.Auction.ProductId,
-                    Quantity = 1,
-                    Price = total
-                };
-                _orderDetailRepository.AddOrderDetail(orderDetail);
+                    var order = _orderRepository.Add(Order);
+                    var total = highestBid.Amount;
+                    var orderDetail = new OrderDetail
+                    {
+                        OrderId = order.Id,
+                        ProductId = highestBid.Auction.ProductId,
+                        Quantity = 1,
+                        Price = total
+                    };
+                    _orderDetailRepository.AddOrderDetail(orderDetail);
 
-                var deduction = new DeductionRequest
-                {
-                    AccountId = winner.Id,
-                    Amount = total,
-                    Date = DateTime.Now,
-                    Status = "Success"
-                };
-                _deductionRequestRepository.Create(deduction);
-                winner.Balance -= total;
-                _accountRepository.Update(winner);
+                    var deduction = new DeductionRequest
+                    {
+                        AccountId = winner.Id,
+                        Amount = total,
+                        Date = DateTime.Now,
+                        Status = "Success"
+                    };
+                    _deductionRequestRepository.Create(deduction);
 
+                    winner.Balance -= total;
+                    _accountRepository.Update(winner);
+                }
+
+                return RedirectToPage("/User/Bid", new { id = auction.Id });
             }
             return Page();
         }

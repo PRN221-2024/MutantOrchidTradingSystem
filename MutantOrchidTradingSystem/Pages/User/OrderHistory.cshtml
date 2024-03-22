@@ -199,7 +199,7 @@
                                 </td>
                                 <td class="align-middle">@item.Created.ToString("dd/MM/yyyy")</td>
                                 <td class="align-middle">
-                                    @(item.Status == true ? "Pending" : "Done")
+                                    @(item.Status == true ? "Done" : "Pending")
                                 </td>
                                 <td class="align-middle">
                                     <a href="/User/OrderDetail?id=@item.Id" class="btn btn-sm btn-primary">

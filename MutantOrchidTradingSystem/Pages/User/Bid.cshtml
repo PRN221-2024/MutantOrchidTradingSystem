@@ -510,49 +510,50 @@
         var endTime = new Date(auction.Auction.EndTime).getTime();
         var startTime = new Date(auction.Auction.StartTime).getTime();
         console.log(endTime);
+        var actionExecuted = false;
+       
+            var x = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = endTime - now;
+                var StartTime = startTime - now;
+                var timerId = 'time-' + auction.Auction.Id;
+                console.log(auction.Auction.Id);
+                var timerElement = document.getElementById(timerId);
 
-        var x = setInterval(function () {
-            var now = new Date().getTime();
-            var distance = endTime - now;
-            var StartTime = startTime - now;
-            var timerId = 'time-' + auction.Auction.Id;
-            console.log(auction.Auction.Id);
-            var timerElement = document.getElementById(timerId);
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                timerElement.innerHTML = `<span>${days}D </span>:<span>${hours}H </span>:<span>${minutes}M </span>:<span>${seconds}S</span>`;
 
-            timerElement.innerHTML = `<span>${days}D </span>:<span>${hours}H </span>:<span>${minutes}M </span>:<span>${seconds}S</span>`;
-            
-            if (distance < 0 ) {
-                clearInterval(x);
-                timerElement.innerHTML = "EXPIRED";
-               
-                if (auction.Auction.Status == true) {
-                    updateAuctionStatus(auction.Auction.Id);
-                    subtractBalance(auction.Auction.Id);
+                if (distance < 0 && !actionExecuted) {
+                    clearInterval(x);
+                    timerElement.innerHTML = "EXPIRED";
+
+                    if (auction.Auction.Status == true) {
+                        updateAuctionStatus(auction.Auction.Id);
+                        subtractBalance(auction.Auction.Id);
+                        actionExecuted = true;
+                        window.location.href = window.location.href;
+                    }
+                   
                 }
-                if (!localStorage.getItem('reloaded')) 
-                {
-                    localStorage.setItem('reloaded', 'true');
-                    location.reload();
+
+                if (StartTime > 0) {
+                    clearInterval(x);
+                    timerElement.innerHTML = "NOT STARTED";
                 }
-            }
-
-            if(StartTime > 0){
-                clearInterval(x);
-                timerElement.innerHTML = "NOT STARTED";
-            }
-
-            
 
 
-        }, 1000);
+
+
+            }, 1000);
+
+        
         function subtractBalance(auctionId) {
-            fetch('/User/Bid?userId=' + auctionId + '&handler=pay', {
-                method: 'Post'
+            fetch('/User/Bid?id=' + auctionId + '&handler=pay', {
+                method: 'Get'
             })
                 .then(response => {
                     if (response.ok) {

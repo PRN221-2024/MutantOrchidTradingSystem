@@ -229,7 +229,7 @@
                             </td>
                             <td class="align-middle">@Model.order.Created.ToString("dd/MM/yyyy")</td>
                             <td class="align-middle">
-                                @(Model.order.Status == true ? "Pending" : "Done")
+                                @(Model.order.Status == true ? "Done" : "Pending")
                             </td>
 
                         </tr>
@@ -259,18 +259,12 @@
                                 <td class="align-middle">
                                     @item.Quantity
                                 </td>
-                                <td class="align-middle">$@(item.Quantity * item.Product.Price)</td>
+                                <td class="align-middle">$@item.Price</td>
                             </tr>
-                            total += (decimal)(item.Quantity * item.Product.Price);
+                            
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td>Total Price:</td>
-                            <td>$@total</td>
-                        </tr>
-                    </tfoot>
+                    
                 </table>
             </div>
         </div>
