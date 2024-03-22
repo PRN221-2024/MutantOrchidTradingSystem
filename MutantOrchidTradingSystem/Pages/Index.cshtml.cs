@@ -20,6 +20,9 @@ namespace MutantOrchidTradingSysRazorPage.Pages
         public List<Product> listProducts { get; set; }
         public List<Category> categories { get; set; }
         public List<ProductCategoryDTO> productCategoryDTOs { get; set; }
+
+        [BindProperty]
+        public string SearchKeyword { get; set; }
         public void OnGet()
         {
             categories = _categoryRepository.GetAll();
@@ -93,6 +96,40 @@ namespace MutantOrchidTradingSysRazorPage.Pages
             }
             productCategoryDTOs = listProductCategoryDTOs;
 
+        }
+
+        public IActionResult OnPost()
+        {
+            categories = _categoryRepository.GetAll();
+            List<ProductCategoryDTO> listProductCategoryDTOs = new List<ProductCategoryDTO>();
+            //display product count in each category
+            foreach (var item in categories)
+            {
+
+                var productIdsInCategory = _productCategoryRepository.GetProductIdsByCategoryId(item.Id);
+                ProductCategoryDTO productCategoryDTO = new ProductCategoryDTO();
+
+                int productCount = 0;
+                foreach (var productIds in productIdsInCategory)
+                {
+                    Product product = _productRepository.GetById(productIds);
+                    if (product != null)
+                    {
+                        productCount++;
+
+                    }
+                }
+                //add product count to productCategoryDTO
+                productCategoryDTO.Category = item;
+                productCategoryDTO.ProductCount = productCount;
+
+                listProductCategoryDTOs.Add(productCategoryDTO);
+
+            }
+            productCategoryDTOs = listProductCategoryDTOs;
+            listProducts = _productRepository.searchProduct(SearchKeyword);
+            //return RedirectToPage("/Index", new { keyword = SearchKeyword });
+            return Page();
         }
        
     }

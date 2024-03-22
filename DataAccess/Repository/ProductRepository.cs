@@ -119,5 +119,18 @@ namespace DataAccess.Repository
         {
             return _context.Products.Select(c => c.Name).ToList();
         }
+
+        public List<Product> searchProduct(string productName)
+        {
+            try 
+            {
+                return _context.Products.Where(p => p.Name.Contains(productName)).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchProduct - ProductRepository: {ex.Message}");
+                throw;
+            }
+        }
     }
 }

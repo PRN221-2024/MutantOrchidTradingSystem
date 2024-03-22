@@ -19,5 +19,7 @@ namespace DataAccess.Repository
 
         List<string> GetProductName();
 
+        List<Product> searchProduct(string productName);
+
     }
 }
