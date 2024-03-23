@@ -114,6 +114,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             {
                 winner = _accountRepository.GetById(highestBid.AccountId);
             }
+
             AuctionDTO auctionDto = new AuctionDTO
             {
                 Auction = auction,
@@ -128,42 +129,55 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             Bid bidAuction = new Bid();
             var existingBid = _bidRepository.GetBidByAuctionAndAccount(id, _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
             var account = _accountRepository.GetById(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
-            if (existingBid != null)
+
+            if (amount <= AuctionDetail.Auction.StartingPrice)
             {
-                if (amount > account.Balance)
+                ModelState.AddModelError("amount", "The amount must be greater than the Start Price.");
+                return Page();
+            }
+            if (existingBid != null)
                 {
+                    if (amount <= highestBid.Amount)
+                    {
+                        ModelState.AddModelError("amount", "The amount must be greater than the highest bid.");
+                        return Page();
+                    }
+                    
+                    if (amount > account.Balance)
+                    {
 
-                    ModelState.AddModelError("amount", "The balance is not enough for this bet.");
+                        ModelState.AddModelError("amount", "The balance is not enough for this bet.");
 
-                    return Page();
-                }
-                if (amount > existingBid.Amount)
-                {
-                    existingBid.Amount = amount;
-                    bidAuction = _bidRepository.UpdateBid(existingBid);
+                        return Page();
+                    }
+                    if (amount > existingBid.Amount)
+                    {
+                        existingBid.Amount = amount;
+                        bidAuction = _bidRepository.UpdateBid(existingBid);
+                    }
+                    else
+                    {
+                        bidAuction = existingBid;
+                    }
                 }
                 else
                 {
-                    bidAuction = existingBid;
+                    if (amount > account.Balance)
+                    {
+
+                        ModelState.AddModelError("amount", "The balance is not enough for this bet.");
+
+                        return Page();
+                    }
+
+                    Bid.AuctionId = id;
+                    Bid.AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value;
+                    Bid.BidTime = DateTime.Now;
+                    Bid.Amount = amount;
+                    bidAuction = _bidRepository.AddBid(Bid);
+
                 }
-            }
-            else
-            {
-                if (amount > account.Balance)
-                {
-
-                    ModelState.AddModelError("amount", "The balance is not enough for this bet.");
-
-                    return Page();
-                }
-
-                Bid.AuctionId = id;
-                Bid.AccountId = _httpContextAccessor.HttpContext.Session.GetInt32("Id").Value;
-                Bid.BidTime = DateTime.Now;
-                Bid.Amount = amount;
-                bidAuction = _bidRepository.AddBid(Bid);
-
-            }
+            
 
 
 

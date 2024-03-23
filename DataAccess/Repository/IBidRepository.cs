@@ -28,7 +28,7 @@ namespace DataAccess.Repository
         }
         public List<Bid> GetBidsForAuction(int auctionId)
         {
-            return _context.Bids.Include(a => a.Auction).Include(ac => ac.Account).Where(b => b.AuctionId == auctionId).ToList();
+            return _context.Bids.Include(a => a.Auction).Include(ac => ac.Account).Where(b => b.AuctionId == auctionId).OrderByDescending(o => o.BidTime).ToList();
         }
         public Bid AddBid(Bid bid)
         {

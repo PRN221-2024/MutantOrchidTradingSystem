@@ -212,13 +212,8 @@
                                                         <p>Đã Kết Thúc</p>
 
                                                        
-                                                       <br /> <p class="p-0">Winner: @(auction.Winner != null ? auction.Winner.FullName : "N/A")</p>
+                                                        <br /> <p class="p-0">Winner: @(auction.Winner != null ? auction.Winner.FullName : "N/A")</p>
 
-                                                        if (Accessor.HttpContext.Session.GetInt32("Id") == auction.Winner.Id)
-                                                        {
-                                                            <a href="/User/WinningBid?id=@auction.Auction.Id" class="primary-btn">Click here to PayMent</a>
-                                                        }
-                                                       
                                                     }
                                                     else if(auction.Auction.StartTime > DateTime.Now)
                                                     {
