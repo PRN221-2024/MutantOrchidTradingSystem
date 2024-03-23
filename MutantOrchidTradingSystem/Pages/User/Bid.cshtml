@@ -190,7 +190,7 @@
                         <li class="breadcrumb-item"><a href="/User/Auction">Trang chủ Đấu Giá</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Bid</li>
                     </ol>
-                    <h1 class="breadcrumb-title">bid Details & more</h1>
+                    <h1 class="breadcrumb-title">Chi tiết cuộc đấu giá </h1>
                 </div>
             </div>
         </div>
@@ -211,10 +211,10 @@
                                 @Model.AuctionDetail.Product.Name
                             </h3>
                             <ul>
-                                <li><span>Country</span><span id="country">VN</span></li>
-                                <li><span>Start Bid</span><span id="startBid">@Model.AuctionDetail.Auction.StartingPrice</span></li>
-                                <li><span>Latest Bid</span><span id="latestBid">@Model.AuctionDetail.CurrentBid</span></li>
-                                <li><span>Total Bids</span><span id="totalBids">@Model.BidCount</span></li>
+                                <li><span>Quốc Gia</span><span id="country">Việt Nam</span></li>
+                                <li><span>Giá Khởi Điểm</span><span id="startBid">@Model.AuctionDetail.Auction.StartingPrice</span></li>
+                                <li><span>Giá Cuối Cùng</span><span id="latestBid">@Model.AuctionDetail.CurrentBid</span></li>
+                                <li><span>Tổng Lượt Đấu Giá</span><span id="totalBids">@Model.BidCount</span></li>
                             </ul>
                             <div class="d-flex flex-wrap justify-content-between gap-2">
 
@@ -223,11 +223,6 @@
                                     {
 
                                         <p>Đã Kết Thúc</p>
-                                        
-                                        
-                                            
-                                            <p class="p-0">Winner: @(Model.AuctionDetail.Winner != null ? @Model.AuctionDetail.Winner.FullName : "N/A")</p>
-
                                         
                                      
                                         if(Accessor.HttpContext.Session.GetInt32("Id") == Model.AuctionDetail.Winner.Id)
@@ -240,10 +235,10 @@
                                     <form method="post" asp-page-handler="Bid" asp-route-id="@Model.AuctionDetail.Auction.Id">
                                         
                                       
-                                            <input type="number" class="form-control" id="Amount" asp-for="@Model.amount">
+                                            <input type="number" class="form-control" id="Amount" style="width: 200px !important;" asp-for="@Model.amount">
                                             <span asp-validation-for="@Model.amount" class="text-danger"></span>
 
-                                            <button type="submit" class="primary-btn d-flex align-items-center">bid now</button>
+                                            <button type="submit" class="primary-btn d-flex align-items-center">Đấu Giá Ngay</button>
                                         
                                    
                                     </form>
@@ -262,14 +257,14 @@
                                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
                                             data-bs-target="#home-tab-pane" type="button" role="tab"
                                             aria-controls="home-tab-pane" aria-selected="true">
-                                        Decription
+                                        Mô Tả
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                             data-bs-target="#profile-tab-pane" type="button" role="tab"
                                             aria-controls="profile-tab-pane" aria-selected="false">
-                                        List of Bids
+                                        Danh Sách Đấu Giá
                                     </button>
                                 </li>
                                 
@@ -282,7 +277,7 @@
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                                 data-bs-target="#collapseOne" aria-expanded="true"
                                                 aria-controls="collapseOne">
-                                            Decription
+                                            Mô Tả
                                         </button>
                                     </h2>
                                     <div id="collapseOne" class="accordion-collapse collapse show  d-md-block"
@@ -302,7 +297,7 @@
                                         <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                                 aria-expanded="false" aria-controls="collapseTwo">
-                                           List of Bids
+                                           Danh Sách Người Đấu Giá
                                         </button>
                                     </h2>
                                     <div id="collapseTwo" class="accordion-collapse collapse d-md-block"
@@ -312,10 +307,10 @@
                                                 <table class="table bid-history m-0">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">Personal Info</th>
-                                                            <th scope="col">Country</th>
-                                                            <th scope="col">Place Bid</th>
-                                                            <th scope="col">Time</th>
+                                                            <th scope="col">Thông Tin Cá Nhân</th>
+                                                            <th scope="col">Quê quán</th>
+                                                            <th scope="col">Số Tiền Đấu Giá</th>
+                                                            <th scope="col">Thời Gian</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="bidTableBody">
@@ -360,87 +355,79 @@
                                      alt="logo">
                             </a>
                             <p>
-                                Unlock treasures through exhilarating auctions. Your gateway to rare finds and
-                                captivating experiences awaits.
+                                Tham gia vào cuộc đấu giá hấp khám phá và sở hữu những loại hoa phong lan đột biến đỉnh cao!
+                                Hãy sẵn sàng cho một cuộc phiêu lưu đầy cảm xúc và kỳ diệu - cánh cửa đến với những phát hiện
+                                và trải nghiệm độc đáo đang chờ bạn khám phá!
                             </p>
-                            <a href="mailto:info@bidzone.com" class="h4 fw-normal text-white">info@bidzone.com</a>
+                            <a href="mailto:info@bidzone.com" class="h4 fw-normal text-white">Eflower@bidzone.com</a>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3 col-lg-2">
                         <div class="footer-widget">
-                            <h5 class="widget-title">Sitemap</h5>
+                            <h5 class="widget-title">Website</h5>
                             <ul class="ps-3 widget-links">
                                 <li>
-                                    <a href="javascript:void(0)">Support</a>
+                                    <a href="javascript:void(0)">Hỗ Trợ</a>
                                 </li>
                                 <li>
                                     <a href="faq.html">FAQS</a>
                                 </li>
                                 <li>
-                                    <a href="about.html">About</a>
+                                    <a href="about.html">Giới thiệu</a>
                                 </li>
                                 <li>
-                                    <a href="contact.html">Contact</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3 col-lg-2">
-                        <div class="footer-widget">
-                            <h5 class="widget-title">Categories</h5>
-                            <ul class="ps-3 widget-links">
-                                <li>
-                                    <a href="browse-bid.html">Music</a>
-                                </li>
-                                <li>
-                                    <a href="browse-bid.html">jewellery</a>
-                                </li>
-                                <li>
-                                    <a href="browse-bid.html">Real Estate</a>
-                                </li>
-                                <li>
-                                    <a href="browse-bid.html">vehicle</a>
-                                </li>
-                                <li>
-                                    <a href="browse-bid.html">Clothes</a>
-                                </li>
-                                <li>
-                                    <a href="browse-bid.html">sports</a>
+                                    <a href="contact.html">Liên hệ</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3 col-lg-2">
                         <div class="footer-widget">
-                            <h5 class="widget-title">Navigation</h5>
+                            <h5 class="widget-title">Các Loại Hoa</h5>
                             <ul class="ps-3 widget-links">
                                 <li>
-                                    <a href="blog.html">Blog</a>
+                                    <a href="/User/Auction">Hoa Lan Hồng Trần</a>
                                 </li>
                                 <li>
-                                    <a href="signup.html">my account</a>
+                                    <a href="/User/Auction">Hoa Lan Hồng Yên Thủy</a>
                                 </li>
                                 <li>
-                                    <a href="bid-history.html">Bid History</a>
-                                </li>
-                                <li>
-                                    <a href="checkout.html">checkout</a>
+                                    <a href="/User/Auction">Hoa Lan 5 Cánh Trắng Bạch Tuyết</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3 col-lg-2">
                         <div class="footer-widget">
-                            <h5 class="widget-title">Legal</h5>
+                            <h5 class="widget-title">Điều Hướng</h5>
                             <ul class="ps-3 widget-links">
                                 <li>
-                                    <a href="privacy.html">Privacy Policy</a>
+                                    <a href="/User/Auction">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="cookies-policy.html">Cookies Policy</a>
+                                    <a href="/User/Profile">Tài Khoản Của Tôi</a>
                                 </li>
                                 <li>
-                                    <a href="term-condition.html">Terms Of Service</a>
+                                    <a href="/User/BidHistory">Lịch Sử Đấu Giá</a>
+                                </li>
+                                <li>
+                                    <a href="/User/WinningBid">Thanh Toán</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2">
+                        <div class="footer-widget">
+                            <h5 class="widget-title">Chính Sách</h5>
+                            <ul class="ps-3 widget-links">
+                                <li>
+                                    <a href="/User/Auction">Chính Sách Bảo Mật Thông Tin</a>
+                                </li>
+                                <li>
+                                    <a href="/User/Auction">Tổ Chức Đấu Giá Trực Tuyến</a>
+                                </li>
+                                <li>
+                                    <a href="/User/Auction">Các Điều Khoản</a>
                                 </li>
                             </ul>
                         </div>
@@ -471,9 +458,9 @@
                         </li>
                     </ul>
                     <div class="bid-number">
-                        <h2><span>1,50,000</span> Bids</h2>
-                        <h2><span>10,376</span> Members</h2>
-                        <h2><span>8942</span> Feedbacks</h2>
+                        <h2><span>1,50,000</span> Đấu Giá</h2>
+                        <h2><span>10,376</span> Thành Viên</h2>
+                        <h2><span>8942</span> Đánh Giá</h2>
                     </div>
                 </div>
             </div>
@@ -557,13 +544,13 @@
             })
                 .then(response => {
                     if (response.ok) {
-                        console.log('Balance subtracted successfully');
+                        console.log('Đã trừ số dư thành công');
                     } else {
-                        throw new Error('Failed to subtract balance');
+                        throw new Error('Trừ số dư không thành công');
                     }
                 })
                 .catch(error => {
-                    console.error('Error subtracting balance:', error);
+                    console.error('Lỗi trừ số dư:', error);
                 });
         }
         function updateAuctionStatus(auctionId) {
@@ -572,13 +559,13 @@
             })
                 .then(response => {
                     if (response.ok) {
-                        console.log('Auction status updated successfully');
+                        console.log('Trạng thái đấu giá đã được cập nhật!');
                     } else {
-                        console.error('Failed to update auction status');
+                        console.error('Trạng thái đấu giá chưa được cập nhật');
                     }
                 })
                 .catch(error => {
-                    console.error('Error updating auction status:', error);
+                    console.error('Lỗi cập nhật trạng thái đấu giá:', error);
                 });
         }
 

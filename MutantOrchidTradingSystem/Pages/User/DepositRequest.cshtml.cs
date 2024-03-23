@@ -1,4 +1,4 @@
-using DataAccess.Models;
+﻿using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -39,7 +39,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             depositRequests = _depositRequestRepository.GetListByAccountId(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
             if (depositRequest.Amount < 50000 || depositRequest.Amount > 100000000)
             {
-                ModelState.AddModelError("depositRequest.Amount", "Must be greater than 0 and less 100000000");
+                ModelState.AddModelError("depositRequest.Amount", "Số tiền phải lớn hơn 0 và nhỏ hơn 100000000.");
                 return Page();
             }
                 depositRequest.Date = DateTime.Now;

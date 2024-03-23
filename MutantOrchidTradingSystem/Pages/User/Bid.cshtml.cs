@@ -1,4 +1,4 @@
-using DataAccess.DTO;
+﻿using DataAccess.DTO;
 using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -132,21 +132,21 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
 
             if (amount <= AuctionDetail.Auction.StartingPrice)
             {
-                ModelState.AddModelError("amount", "The amount must be greater than the Start Price.");
+                ModelState.AddModelError("amount", "Giá nhập phải lớn hơn giá khởi điểm.");
                 return Page();
             }
             if (existingBid != null)
                 {
                     if (amount <= highestBid.Amount)
                     {
-                        ModelState.AddModelError("amount", "The amount must be greater than the highest bid.");
+                        ModelState.AddModelError("amount", "Giá nhập phải lớn hơn giá cuối cùng.");
                         return Page();
                     }
                     
                     if (amount > account.Balance)
                     {
 
-                        ModelState.AddModelError("amount", "The balance is not enough for this bet.");
+                        ModelState.AddModelError("amount", "Số dư không đủ để thực hiện.");
 
                         return Page();
                     }
@@ -165,7 +165,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
                     if (amount > account.Balance)
                     {
 
-                        ModelState.AddModelError("amount", "The balance is not enough for this bet.");
+                        ModelState.AddModelError("amount", "Số dư không đủ để thực hiện.");
 
                         return Page();
                     }

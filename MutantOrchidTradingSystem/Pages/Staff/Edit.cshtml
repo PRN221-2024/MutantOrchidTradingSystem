@@ -62,26 +62,26 @@ font-size: 16px;">
                                         <input type="hidden" asp-for="@Model.Auction.Id" />
                                         <input type="hidden" asp-for="@Model.Auction.Status" />
                                         <div class="form-group">
-                                            <label for="productId">Product:</label>
+                                            <label for="productId">Sản phẩm:</label>
                                             <select class="form-control" id="productId" asp-for="@Model.Auction.ProductId" asp-items="Model.ProductOptions"></select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="startTime">Start Time:</label>
+                                            <label for="startTime">Thời Gian Bắt Đầu:</label>
                                             <input type="datetime-local" class="form-control" id="startTime" asp-for="@Model.Auction.StartTime">
                                         </div>
                                         <div class="form-group">
-                                            <label for="endTime">End Time:</label>
+                                            <label for="endTime">Thời Gian Kết Thúc:</label>
                                             <input type="datetime-local" class="form-control" id="endTime" asp-for="@Model.Auction.EndTime">
                                             <span asp-validation-for="@Model.Auction.EndTime" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label for="startingPrice">Starting Price:</label>
+                                            <label for="startingPrice">Giá Khởi Điểm:</label>
                                             <input type="number" class="form-control" id="startingPrice" asp-for="@Model.Auction.StartingPrice">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Edit Auction</button>
-                                        <a href="Auction" class="btn btn-secondary">Back</a>
+                                        <button type="submit" class="btn btn-primary">Chỉnh Sửa Đấu Giá</button>
+                                        
                                     </form>
-
+                                    <a href="Auction" class="btn btn-secondary">Quay Lại</a>
                                 </div>
                             </div>
                         </div>

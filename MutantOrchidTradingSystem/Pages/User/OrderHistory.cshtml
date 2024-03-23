@@ -167,11 +167,11 @@
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Xem Lịch Sử Đơn Hàng</h1>
             <div class="d-inline-flex">
                 <p class="m-0"><a href="/Index">Home</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">View History</p>
+                <p class="m-0">Xem Lịch Sử</p>
             </div>
         </div>
     </div>
@@ -183,10 +183,10 @@
                 <table class="table table-bordered text-center mb-0">
                     <thead class="bg-secondary text-dark">
                         <tr>
-                            <th>Name</th>
-                            <th>Created</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Tên</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
@@ -199,7 +199,7 @@
                                 </td>
                                 <td class="align-middle">@item.Created.ToString("dd/MM/yyyy")</td>
                                 <td class="align-middle">
-                                    @(item.Status == true ? "Done" : "Pending")
+                                    @(item.Status == true ? "Thành Công" : "Đang Đợi Hàng")
                                 </td>
                                 <td class="align-middle">
                                     <a href="/User/OrderDetail?id=@item.Id" class="btn btn-sm btn-primary">
