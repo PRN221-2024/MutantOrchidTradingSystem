@@ -15,6 +15,7 @@ namespace DataAccess.Repository
         Account GetById(int accountId);
         void Update(Account account);
         
+        List<RoleAccount> RoleAccounts();
 
         void Delete(int accountId);
         List<Account> GetAll();
@@ -134,6 +135,11 @@ namespace DataAccess.Repository
                 Console.WriteLine($"Error in Register - AccountRepository: {ex.Message}");
                 throw;
             }
+        }
+
+        public List<RoleAccount> RoleAccounts()
+        {
+            return _context.RoleAccounts.ToList();
         }
 
         public void Update(Account account)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
                 return Redirect("/Login");
             }
             listAccounts = _accountRepository.GetAll();
+            var listRole = _accountRepository.RoleAccounts().Where(x => x.RoleId != 1).Select(x => x.AccountId);
+            listAccounts = (from user in listAccounts
+                            where listRole.Contains(user.Id)
+                            select user).ToList();
             return Page();
         }
     }
