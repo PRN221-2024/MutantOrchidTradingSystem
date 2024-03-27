@@ -1,4 +1,4 @@
-using BusinessObject;
+﻿using BusinessObject;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -66,13 +66,13 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Login
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid email or password. Please try again.");
+                    ModelState.AddModelError(string.Empty, "Email Hoặc Password không đúng. Vui lòng nhập lại.");
                     return Page();
                 }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid email or password. Please try again.");
+                ModelState.AddModelError(string.Empty, "Email không tồn tại. Bạn vui lòng đăng kí tài khoản mới!");
                 return Page();
             }
         }

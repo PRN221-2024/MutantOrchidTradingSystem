@@ -22,6 +22,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin
             {
                 return Redirect("/Login");
             }
+            if (_httpContextAccessor.HttpContext.Session.GetString("Role") != ("Admin"))
+            {
+                return Redirect("/Login");
+            }
             listProducts = _productRepository.GetAll();
             return Page();
         }

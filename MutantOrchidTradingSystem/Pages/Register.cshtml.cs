@@ -1,4 +1,4 @@
-using DataAccess.Models;
+﻿using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,12 +17,25 @@ namespace MutantOrchidTradingSysRazorPage.Pages
         }
         [BindProperty]
         public Account Account { get; set; }
+
+        [BindProperty]
+        public string ConfirmPassword { get; set; }
         public void OnGet()
         {
             Account = new Account();
         }
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            if (Account.Password != ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Mật khẩu và xác nhận mật khẩu không khớp.");
+                return Page();
+            }
+
             List<string> existingUsernames = _accountRepository.GetAllUsername();
             var validationResult = Account.UsernameNotIdentical(existingUsernames);
             if (validationResult != ValidationResult.Success)

@@ -48,7 +48,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Tài khoản*</label>
-                                        <input type="text" id="UserName" asp-for="@Model.Account.Username" placeholder="Cao Thi" class="form-control" />
+                                        <input type="text" id="UserName" asp-for="@Model.Account.Username" placeholder="Cao Thi" class="form-control" required/>
                                         <span asp-validation-for="Account.Username" style="color: red;"></span>
                                         @if (TempData["UsernameError"] != null)
                                         {
@@ -59,42 +59,42 @@
                                 <div class="col-12">
                                     <div class="form-group formPassword">
                                         <label>Mật khẩu*</label>
-                                        <input type="password" id="Password" asp-for="@Model.Account.Password" placeholder="****" class="form-control" />
+                                        <input type="password" id="Password" asp-for="@Model.Account.Password" placeholder="****" class="form-control" required />
                                         <span asp-validation-for="Account.Password" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group formPassword">
                                         <label>Xác nhận mật khẩu*</label>
-                                        <input type="password" id="Password" asp-for="@Model.Account.Password" placeholder="****" class="form-control" />
-                                        <span asp-validation-for="Account.Password" style="color: red;"></span>
+                                        <input type="password" id="ConfirmPassword" asp-for="ConfirmPassword" placeholder="****" class="form-control" required />
+                                        <span asp-validation-for="ConfirmPassword" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Họ và tên*</label>
-                                        <input type="text" id="FullName" asp-for="@Model.Account.FullName" class="form-control" />
+                                        <input type="text" id="FullName" asp-for="@Model.Account.FullName" class="form-control" required />
                                         <span asp-validation-for="Account.FullName" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Email*</label>
-                                        <input type="text" id="Email" asp-for="@Model.Account.Email" class="form-control" />
+                                        <input type="text" id="Email" asp-for="@Model.Account.Email" class="form-control" required />
                                         <span asp-validation-for="Account.Email" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Địa chỉ*</label>
-                                        <input type="text" id="Address" asp-for="@Model.Account.Address" class="form-control" />
+                                        <input type="text" id="Address" asp-for="@Model.Account.Address" class="form-control" required />
                                         <span asp-validation-for="Account.Address" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Số điện thoại*</label>
-                                        <input type="text" id="Phone" asp-for="@Model.Account.Phone" class="form-control" />
+                                        <input type="text" id="Phone" asp-for="@Model.Account.Phone" class="form-control" required />
                                         <span asp-validation-for="Account.Phone" style="color: red; text-align: none;"></span>
                                     </div>
                                 </div>

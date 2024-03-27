@@ -26,6 +26,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageDeposit
             {
                 return Redirect("/Login");
             }
+            if (_httpContextAccessor.HttpContext.Session.GetString("Role") != ("Admin"))
+            {
+                return Redirect("/Login");
+            }
             DepositRequests = _depositRepository.GetAll();
             return Page();
         }

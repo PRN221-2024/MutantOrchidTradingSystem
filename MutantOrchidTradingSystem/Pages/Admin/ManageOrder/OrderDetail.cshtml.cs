@@ -26,10 +26,6 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageOrder
         }
         public IActionResult OnGet(int orderId)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
-            {
-                return Redirect("/Login");
-            }
             Options = _orderDetailRepository.GetProducts().Select(p => new SelectListItem
             {
                 Value = p.Id.ToString(),

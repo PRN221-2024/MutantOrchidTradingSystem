@@ -29,7 +29,7 @@
     <link href="~/user/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Manage Auctions</h1>
+    <h1>Quản Lý Đấu Giá</h1>
     <p>
         <a asp-page="/Logout">Đăng Xuất</a>
     </p>
@@ -60,8 +60,8 @@
                     <td class="align-middle">@auction.StartingPrice</td>
                     <td class="align-middle">@(auction.Status == true ? "Active" : "Inactive")</td>
                     <td class="align-middle">
-                        <a asp-page="./Edit" asp-route-id="@auction.Id">Edit</a> |
-                        <a asp-page="./Delete" asp-route-id="@auction.Id">Delete</a>
+                        <a asp-page="./Edit" asp-route-id="@auction.Id">Chỉnh Sửa</a> |
+                        <a asp-page="./Delete" asp-route-id="@auction.Id">Xóa</a>
                     </td>
                 </tr>
             }

@@ -18,7 +18,11 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Admin.ManageCustomer
         public List<Account> listAccounts { get; set; }
         public IActionResult OnGet()
         {   
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Role")))
+            {
+                return Redirect("/Login");
+            }
+            if (_httpContextAccessor.HttpContext.Session.GetString("Role") != ("Admin"))
             {
                 return Redirect("/Login");
             }

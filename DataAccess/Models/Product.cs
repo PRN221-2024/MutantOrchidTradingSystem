@@ -14,8 +14,10 @@ public partial class Product
     public string? Description { get; set; }
     public bool? Status { get; set; }
     [Required(ErrorMessage = "Giá không được rỗng!")]
+    [Range(1, 10000000, ErrorMessage = "Giá phải nằm trong khoảng từ 1 đến 10,000,000")]
     public decimal? Price { get; set; }
     [Required(ErrorMessage = "Số lượng không được rỗng!")]
+    [Range(1, 50, ErrorMessage = "Số lượng phải nằm trong khoảng từ 1 đến 50")]
     public int? Quantity { get; set; }
     [Required(ErrorMessage = "Đường dẫn không được rỗng!")]
     public string? Path { get; set; }

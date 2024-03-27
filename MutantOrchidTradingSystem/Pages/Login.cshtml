@@ -24,7 +24,18 @@
     <link rel="stylesheet" href="~/user/css/auction/responsive.css" type="text/css">
 
 </head>
-
+    @if (ModelState.ErrorCount > 0)
+{
+    <div class="alert alert-danger" role="alert">
+        @foreach (var modelStateValue in ModelState.Values)
+        {
+            foreach (var error in modelStateValue.Errors)
+            {
+                @error.ErrorMessage<br />
+            }
+        }
+    </div>
+}
 <body>
     <!-- Preloader Start -->
     <div class="preloader bg-light" id="preloader">

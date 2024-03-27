@@ -21,6 +21,10 @@ namespace MutantOrchidTradingSysRazorPage.Pages.Staff
             {
                 return Redirect("/Login");
             }
+            if (_contextAccessor.HttpContext.Session.GetString("Role") != ("Staff"))
+            {
+                return Redirect("/Login");
+            }
             Auctions = _acutionRepository.GetAll();
             return Page();
         }
