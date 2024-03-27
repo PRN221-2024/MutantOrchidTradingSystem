@@ -39,7 +39,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.User
             depositRequests = _depositRequestRepository.GetListByAccountId(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
             if (depositRequest.Amount < 50000 || depositRequest.Amount > 100000000)
             {
-                ModelState.AddModelError("depositRequest.Amount", "Số tiền phải lớn hơn 0 và nhỏ hơn 100000000.");
+                ModelState.AddModelError("depositRequest.Amount", "Số tiền phải lớn hơn hoặc bằng 50000 và nhỏ hơn 100000000.");
                 return Page();
             }
                 depositRequest.Date = DateTime.Now;

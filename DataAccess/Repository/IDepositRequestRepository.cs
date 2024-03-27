@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace DataAccess.Repository
 
         public List<DepositRequest> GetAll()
         {
-            return _context.DepositRequests.ToList();
+            return _context.DepositRequests.Include(a => a.Account).ToList();
         }
 
         public DepositRequest GetById(int depositRequestId)

@@ -19,8 +19,7 @@ public class Startup
         services.AddSignalR();
         services.AddRazorPages();
         services.AddHttpContextAccessor();
-        services.AddDbContext<AuctionItemDbContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionStr")));
+        services.AddDbContext<AuctionItemDbContext>();
         services.AddScoped<ProductObject>();
         services.AddScoped<ProductRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
