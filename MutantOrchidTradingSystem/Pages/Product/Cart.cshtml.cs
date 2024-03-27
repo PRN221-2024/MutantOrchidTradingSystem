@@ -1,4 +1,4 @@
-using DataAccess.Models;
+﻿using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +19,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
         private readonly IDeductionRequestRepository _deductionRequestRepository;
         public List<Item> cartItems;
         int totalCount = 0;
+        public decimal totalPrice;
         public CartModel(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IAccountRepository accountRepository, IDeductionRequestRepository deductionRequestRepository)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -66,6 +67,13 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
         public IActionResult OnGetCheckOut()
         {
             string username = _httpContextAccessor.HttpContext.Session.GetString("username");
+            cartItems = GetCartItems();
+
+            foreach (var item in cartItems)
+            {
+                totalCount += item.Quantity;
+            }
+            _httpContextAccessor.HttpContext.Session.SetInt32("CartCount", totalCount);
             if (username == null)
             {
                 return RedirectToPage("/Login");
@@ -91,25 +99,32 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                         var product = _productRepository.GetById(item.Product.Id);
                         if (product.Quantity < item.Quantity)
                         {
-                            ModelState.AddModelError(string.Empty, $"Product {product.Name} not enough to.");
-                            return RedirectToPage("/Product/Cart");
+                            ModelState.AddModelError(string.Empty, $"{product.Name} không đủ.");
+                            return Page();
                         }
                         else 
                         {
-                            
-                            
+                            totalPrice = (decimal)(item.Quantity * item.Product.Price);
+                            var account = _accountRepository.GetById(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
+                            if (totalPrice > account.Balance)
+                            {
+                                ModelState.AddModelError(string.Empty, $"Số dư không đủ");
+                                return Page();
+                            }
+
                             product.Quantity -= item.Quantity;
                             _productRepository.UpdateProduct(product);
 
                             
-                            var account = _accountRepository.GetById(_httpContextAccessor.HttpContext.Session.GetInt32("Id").Value);
-                            account.Balance -= (item.Quantity * item.Product.Price);
+                           
+                            account.Balance -= totalPrice;
                             _accountRepository.Update(account);
-                            decimal total = (decimal)(item.Quantity * item.Product.Price);
+                            
+                           
                             var deductionRequest = new DeductionRequest
                             {
                                 AccountId = account.Id,
-                                Amount = total,
+                                Amount = totalPrice,
                                 Date = DateTime.Now,
                                 Status = "Success"
                             };
@@ -119,7 +134,7 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
                                 OrderId = order.Id,
                                 ProductId = item.Product.Id,
                                 Quantity = item.Quantity,
-                                Price = total
+                                Price = totalPrice
                             };
                             _orderDetailRepository.AddOrderDetail(orderDetail);
                         }
@@ -134,7 +149,13 @@ namespace MutantOrchidTradingSysRazorPage.Pages.ProductDetail
 
         public IActionResult OnGetBuy(int id)
         {
+            cartItems = GetCartItems();
 
+            foreach (var item in cartItems)
+            {
+                totalCount += item.Quantity;
+            }
+            _httpContextAccessor.HttpContext.Session.SetInt32("CartCount", totalCount);
             var product = _productRepository.GetById(id);
             var cart = GetCartItems();
             if (cart == null)
